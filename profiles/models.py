@@ -29,7 +29,7 @@ class StudiesDomain(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address)
-    school = models.ForeignKey(School)
-    studies_domain = models.ForeignKey(StudiesDomain)
+    address = models.ForeignKey(Address,null=True)
+    school = models.ForeignKey(School, null=True)
+    studies_domain = models.ForeignKey(StudiesDomain, null=True)
 
