@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
     {%  for userprofile in object_list %}
-        <h1>{{ userprofile.user.first_name }}</h1>
+        <div class="panel panel-default">
+            <div class="panel-title">
+                {{ userprofile.user.username }}
+            </div>
+        <div class="panel-body">
+            <p>First name : {{ userprofile.user.first_name }}</p>
+            <p>Last name: {{ userprofile.user.last_name }}</p>
+            <p>Email address : {{ userprofile.user.email }}</p>
+        </div>
+        </div>
     {% endfor %}
-{%  endblock %}
+{% endblock %}
