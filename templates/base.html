@@ -14,14 +14,15 @@
 
 <body>
 <div class="page-wrapper">
-    <div class="navbar-header">
-        {{ user }}
-        {% if user.is_anonymous %}
-            <a href="{% url 'django.contrib.auth.views.login' %}">login</a>
-        {%  else %}
-            <a href="{% url 'django.contrib.auth.views.logout' %}">logout</a>
-        {% endif %}
-
+    <div class="navbar">
+        <div class="navbar-header">
+            {{ user }}
+            {% if user.is_anonymous %}
+                <a href="{% url 'django.contrib.auth.views.login' %}">login</a>
+            {%  else %}
+                <a href="{% url 'django.contrib.auth.views.logout' %}">logout</a>
+            {% endif %}
+        </div>
     </div>
     {% block content %}
     {% endblock %}
