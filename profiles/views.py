@@ -28,7 +28,7 @@ def detailed_user_profile_form(request, id=None):
     user = request.user
     user_profile = UserProfile.objects.get(user_id=request.user.id)
     if request.method == 'POST':
-        user_profile_form = DetailedUserProfileForm(request.POST)
+        user_profile_form = DetailedUserProfileForm(request.POST, request.FILES)
 
         if user_profile_form.is_valid():
             # User info
@@ -77,6 +77,9 @@ def detailed_user_profile_form(request, id=None):
             user_profile.phone_number = user_profile_form.cleaned_data['phone_number']
             user_profile.school = user_profile_form.cleaned_data['school']
             user_profile.studies_domain = user_profile_form.cleaned_data['studies_domain']
+
+            # Profile picture
+            user_profile.profile_picture = request.FILES.get('profile_picture', None)
 
             user_profile.save()
 

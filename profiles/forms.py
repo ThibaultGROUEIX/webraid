@@ -64,6 +64,8 @@ class DetailedUserProfileForm(forms.Form):
                                             help_text="Choisis ton domaine d'etudes",
                                             initial='studies_domain')
 
+    profile_picture = forms.FileField(required=False)
+
     def clean(self):
 
         # Check that the two email fields are the same

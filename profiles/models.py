@@ -72,5 +72,10 @@ class UserProfile(models.Model):
     school = models.ForeignKey(School, null=True)
     studies_domain = models.ForeignKey(StudiesDomain, null=True)
 
+    # Profile pictures stored by year and month
+    profile_picture = models.ImageField(upload_to='profiles/profile_pics/%Y/%m',
+                                        max_length=150,
+                                        null=True)
+
     def __str__(self):
         return self.user.__str__()
