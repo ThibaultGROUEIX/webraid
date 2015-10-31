@@ -3,10 +3,11 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'users/', views.UserProfilesListView.as_view(),
+    url(r'^$', views.home_redirect),
+    url(r'^users/$', views.UserProfilesListView.as_view(),
         name='profiles-list'),
-    url(r'login/', 'django.contrib.auth.views.login'),
-    url(r'logout/', 'django.contrib.auth.views.logout',
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/logged_out/'}),
     url(r'logged_out', views.view_logged_out),
     url(r'password_change/', 'django.contrib.auth.views.password_change', name='password_change'),

@@ -1,6 +1,8 @@
 from django import forms
+from django_countries.fields import LazyTypedChoiceField
+from django_countries import countries
 
-from models import City, Address, StudiesDomain, School, UserProfile
+from models import City, Address, StudiesDomain, School, UserProfile, CallingCode
 
 
 # Default base forms
@@ -33,19 +35,24 @@ class DetailedUserProfileForm(forms.Form):
     # User fields
     user_name = forms.CharField(max_length=100)
     first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100, initial='lname')
-    email = forms.EmailField(label="Ton adresse mail", initial='email')
-    confirm_email = forms.EmailField(label="Confirme ton adresse mail", initial='email')
+    last_name = forms.CharField(max_length=100)
+    email = forms.EmailField(label="Ton adresse mail")
+    confirm_email = forms.EmailField(label="Confirme ton adresse mail")
     # Address fields
     num = forms.IntegerField(initial='address__number')
-    street = forms.CharField(max_length=255, initial='address__street')
-    city = forms.CharField(max_length=255, initial='address__city__name')
-    zipcode = forms.CharField(max_length=100, initial='address__city__zipcode')
-    country = forms.CharField(max_length=100, initial='address__city__country')
+    street = forms.CharField(max_length=255)
+    city = forms.CharField(max_length=255)
+    zipcode = forms.CharField(max_length=100)
+    country = LazyTypedChoiceField(choices=countries)
+    # Phone number
+    dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all(),
+                                      required=False)
+
+    phone_number = forms.CharField(max_length=100,
+                                   required=False)
     # School field
     school = forms.ModelChoiceField(queryset=School.objects.all(),
-                                    required=False,
-                                    initial='school')
+                                    required=False)
     # Studies domain
     studies_domain = forms.ModelChoiceField(queryset=StudiesDomain.objects.all(),
                                             required=False,

@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Django-countries app to manage countries
+    'django_countries',
     'profiles',
 )
 
@@ -113,3 +115,12 @@ STATICFILES_DIRS = (
 LOGIN_REDIRECT_URL = '/users'
 LOGOUT_REDIRECT_URL = '/login'
 LOGIN_URL = 'django.contrib.auth.views.login'
+
+# Django-countries settings
+COUNTRIES_FIRST = [
+    'FR',
+    'UK',
+    'US',
+]
+
+COUNTRIES_FIRST_REPEAT = True
