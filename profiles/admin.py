@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from profiles import models
+
 
 
 # Register the profiles models for administration

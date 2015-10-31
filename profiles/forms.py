@@ -39,11 +39,16 @@ class DetailedUserProfileForm(forms.Form):
     email = forms.EmailField(label="Ton adresse mail")
     confirm_email = forms.EmailField(label="Confirme ton adresse mail")
     # Address fields
-    num = forms.IntegerField(initial='address__number')
-    street = forms.CharField(max_length=255)
-    city = forms.CharField(max_length=255)
-    zipcode = forms.CharField(max_length=100)
-    country = LazyTypedChoiceField(choices=countries)
+    num = forms.IntegerField(initial='address__number',
+                             required=False)
+    street = forms.CharField(max_length=255,
+                             required=False)
+    city = forms.CharField(max_length=255,
+                           required=False)
+    zipcode = forms.CharField(max_length=100,
+                              required=False)
+    country = LazyTypedChoiceField(choices=countries,
+                                   required=False)
     # Phone number
     dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all(),
                                       required=False)
@@ -58,6 +63,14 @@ class DetailedUserProfileForm(forms.Form):
                                             required=False,
                                             help_text="Choisis ton domaine d'etudes",
                                             initial='studies_domain')
+
+    def clean(self):
+
+        # Check that the two email fields are the same
+        if self.cleaned_data['email'] != self.cleaned_data['confirm_email']:
+            raise forms.ValidationError("Email and email confirmation do not match")
+
+        super(DetailedUserProfileForm, self).clean()
 
 
 class UserProfileForm(forms.ModelForm):
