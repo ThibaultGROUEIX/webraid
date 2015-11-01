@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'utils',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,6 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
-    'utils'
 )
 
 MIDDLEWARE_CLASSES = (

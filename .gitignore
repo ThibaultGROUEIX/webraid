@@ -1,3 +1,4 @@
+/utils/templatetags/__init__.py
 /forum/migrations/*
 /utils/migrations/*
 /profiles/migrations/*
