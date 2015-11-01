@@ -11,6 +11,9 @@ class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     tags = models.ManyToManyField(Tag)
+    slug = models.SlugField(max_length=50,
+                            unique=True)
+
 
     def __str__(self):
         return self.name
@@ -20,6 +23,8 @@ class Thread(models.Model):
     category = models.ForeignKey(ThreadCategory)
     title = models.CharField(max_length=255)
     tags = models.ManyToManyField(Tag)
+    slug = models.SlugField(max_length=50,
+                            unique=True)
 
     def __str__(self):
         return self.title
