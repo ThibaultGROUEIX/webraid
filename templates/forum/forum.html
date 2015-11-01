@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for threadCategory in threadcategory_list %}
+        <div class="panel panel-default">
+            <div class="panel-title">
+                {{ threadCategory.name }}
+                {% for tag in threadCategory.tags.all %}
+                    <i>{{ tag }}</i>
+                {% endfor %}
+            </div>
+            <div class="panel-body">
+                {{ threadCategory.description }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

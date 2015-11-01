@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 
-# Create your views here.
+from models import ThreadCategory
+
+
+class ThreadCategoryListView(ListView):
+    model = ThreadCategory
+    template_name = "forum.html"
