@@ -1,7 +1,8 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
+from utils.snippets.slugifiers import unique_slugify
 from profiles.models import UserProfile
-
 from utils.models import Tag
 
 
@@ -9,14 +10,20 @@ from utils.models import Tag
 
 class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True)
     tags = models.ManyToManyField(Tag)
     slug = models.SlugField(max_length=50,
                             unique=True)
 
-
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('forum.views.thread_category_detail', args=[self.slug])
+
+    def save(self, **kwargs):
+        unique_slugify(self, self.name)
+        super(ThreadCategory, self).save(**kwargs)
 
 
 class Thread(models.Model):
@@ -29,6 +36,13 @@ class Thread(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('forum.views.thread_detail', args=[self.slug])
+
+    def save(self, **kwargs):
+        unique_slugify(self, self.title)
+        super(Thread, self).save(**kwargs)
+
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
@@ -39,4 +53,3 @@ class Post(models.Model):
     last_edit_date = models.DateTimeField()
     # File uploads
     file = models.FileField()
-

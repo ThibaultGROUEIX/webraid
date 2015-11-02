@@ -4,7 +4,7 @@
     {% for threadCategory in threadcategory_list %}
         <div class="panel panel-default">
             <div class="panel-title">
-                {{ threadCategory.name }}
+                <a href="{{ threadCategory.get_absolute_url }}"> {{ threadCategory.name }}</a>
                 {% for tag in threadCategory.tags.all %}
                     <i>{{ tag }}</i>
                 {% endfor %}
@@ -14,4 +14,5 @@
             </div>
         </div>
     {% endfor %}
+    <a class="btn btn-default" href="{% url 'add_thread_category' %}">Add category</a>
 {% endblock %}
