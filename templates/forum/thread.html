@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ thread.title }}</h2>
+    <p>
+        {% for post in post_list %}
+            <div class="panel">
+                <div class="panel-body">
+                    {{ post.text_content }}
+                </div>
+                <div class="panel-footer">
+                    {{ post.author }}
+                    Posted on {{ post.posted_date | date }},
+                    last edited on {{ post.last_edit_date | date }}
+                </div>
+            </div>
+        {% endfor %}
+    </p>
+    <p>
+    <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+    </p>
+{% endblock %}

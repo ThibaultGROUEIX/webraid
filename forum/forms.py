@@ -21,16 +21,16 @@ class ThreadForm(forms.ModelForm):
         model = Thread
         fields = (
             'title',
-            'tags',
-            'category'
+            'tags'
         )
 
 
-class AddPostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
+    file = forms.FileField(required=False)
+
     class Meta:
         model = Post
         fields = (
             'text_content',
-            'file',
-            'thread'
+            'file'
         )

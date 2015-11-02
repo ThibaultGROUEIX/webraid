@@ -6,7 +6,7 @@
         {% for thread in thread_list %}
             <div class="panel">
                 <div class="panel-title">
-                    {{ thread.title }}
+                    <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
                 </div>
                 <div class="panel-body">
                     {{ thread.tags }}
@@ -14,5 +14,14 @@
             </div>
         {% endfor %}
     </p>
-    <a class="btn btn-default" href="{% url 'add_thread' %}">Add thread</a>
+    <p>
+    <h3>Ajouter un thread</h3>
+        <form action="{% url 'detail_thread_category' slug %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+    </p>
 {% endblock %}

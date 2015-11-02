@@ -37,7 +37,8 @@ class Thread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('forum.views.thread_detail', args=[self.slug])
+        slug_category = self.category.slug
+        return reverse('forum.views.thread_detail', args=[slug_category,self.slug])
 
     def save(self, **kwargs):
         unique_slugify(self, self.title)
@@ -49,7 +50,7 @@ class Post(models.Model):
     # Contenu
     text_content = models.TextField()
     author = models.ForeignKey(UserProfile)
-    posted_date = models.DateTimeField()
-    last_edit_date = models.DateTimeField()
+    posted_date = models.DateTimeField(auto_now_add=True)
+    last_edit_date = models.DateTimeField(auto_now=True)
     # File uploads
     file = models.FileField()
