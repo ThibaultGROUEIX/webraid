@@ -2,26 +2,42 @@
 
 {% block content %}
     <h2>{{ thread_category.name }}</h2>
-    <p>
+    <div>
         {% for thread in thread_list %}
-            <div class="panel">
-                <div class="panel-title">
-                    <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+            {% if thread == edit_thread %}
+                <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{ edit_thread_form.as_table }}
+                    </table>
+                    <input type="submit" value="Submit" name="edit-thread">
+                </form>
+            {% else %}
+                <div class="panel">
+                    <div class="panel-title">
+                        <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+                    </div>
+                    <div class="panel-body">
+                        {{ thread.tags }}
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{% url 'detail_thread_category_edit_thread' slug thread.pk %}">edit</a>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    {{ thread.tags }}
-                </div>
-            </div>
+            {% endif %}
         {% endfor %}
-    </p>
-    <p>
-    <h3>Ajouter un thread</h3>
+    </div>
+    <div>
+        <h3>Ajouter un thread</h3>
+
         <form action="{% url 'detail_thread_category' slug %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <table>
                 {{ form.as_table }}
             </table>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" name="new_thread">
         </form>
-    </p>
+    </div>
 {% endblock %}
