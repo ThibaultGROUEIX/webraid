@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ thread_category.name }}</h2>
+    <div>
+        {% for thread in thread_list %}
+            {% if thread == edit_thread %}
+                <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{ edit_thread_form.as_table }}
+                    </table>
+                    <input type="submit" value="Submit" name="edit-thread">
+                </form>
+            {% else %}
+                <div class="panel">
+                    <div class="panel-title">
+                        <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+                    </div>
+                    <div class="panel-body">
+                        {% if thread.tags != None and thread.tags.count > 0 %}
+                            Tags :
+                            {% for tag in thread.tags.all %}
+                                {{ tag }}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{% url 'detail_thread_category_edit_thread' slug thread.pk %}">edit</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        <h3>Ajouter un thread</h3>
+
+        <form action="{% url 'detail_thread_category' slug %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" name="new-thread">
+        </form>
+    </div>
+{% endblock %}

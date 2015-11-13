@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'utils',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,7 @@ INSTALLED_APPS = (
     # Django-countries app to manage countries
     'django_countries',
     'profiles',
+    'forum',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'utils.snippets.login_required.RequireLoginMiddleware',
 )
 
 ROOT_URLCONF = 'webraid.urls'
@@ -60,7 +63,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'templates/profiles'),
-                 os.path.join(BASE_DIR, 'templates/admin')]
+                 os.path.join(BASE_DIR, 'templates/admin'),
+                 os.path.join(BASE_DIR, 'templates/forum')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -117,7 +121,12 @@ MEDIA_URL = 'media/'
 # Login and authenticaiton
 LOGIN_REDIRECT_URL = '/users'
 LOGOUT_REDIRECT_URL = '/login'
-LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_URL = '/login'
+
+LOGIN_REQUIRED_URLS = (
+    r'/forum/(.*)$',
+    r'/users/(.*)$',
+)
 
 # Django-countries settings
 COUNTRIES_FIRST = [

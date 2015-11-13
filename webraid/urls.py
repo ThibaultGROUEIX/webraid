@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+
 import profiles.urls
+import forum.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include(profiles.urls)),
+    url(r'^forum/', include(forum.urls)),
+    url(r'^', include(profiles.urls)),
 ]

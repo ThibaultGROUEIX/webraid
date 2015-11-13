@@ -1,3 +1,6 @@
+/utils/templatetags/__init__.py
+/forum/migrations/*
+/utils/migrations/*
 /profiles/migrations/*
 /db.sqlite3
 /.idea/.name
