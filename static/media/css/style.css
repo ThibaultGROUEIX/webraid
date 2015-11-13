@@ -68,7 +68,9 @@
 	}
 
 	a:hover {
-		color: #000;
+		color: rgb(1,1,0);
+		font-size: 44px;
+
 	}
 
 	a, a:hover, a:active, a:focus, button:focus {
