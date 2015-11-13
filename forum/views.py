@@ -144,29 +144,19 @@ def thread_detail(request, category_slug, slug, pk=None):
                                   'category_slug': category_slug,
                                   'edit_post': edit_post,
                               })
+    data = {
+        'thread': thread,
+        'post_list': post_list,
+        'form': PostForm(),
+        'slug': slug,
+        'category_slug': category_slug,
+    }
 
     if edit_post is not None:
         edit_post_form = PostForm(instance=edit_post)
-
-        return render(request,
-                      'thread.html',
-                      {
-                          'thread': thread,
-                          'post_list': post_list,
-                          'form': PostForm(),
-                          'slug': slug,
-                          'category_slug': category_slug,
-                          'pk': edit_post.pk,
-                          'edit_post': edit_post,
-                          'edit_post_form': edit_post_form,
-                      })
+        data['edit_post_form'] = edit_post_form
+        data['pk'] = edit_post.pk
+        data['edit_post'] = edit_post
+        return render(request, 'thread.html', data)
     else:
-        return render(request,
-                      'thread.html',
-                      {
-                          'thread': thread,
-                          'post_list': post_list,
-                          'form': PostForm(),
-                          'slug': slug,
-                          'category_slug': category_slug,
-                      })
+        return render(request, 'thread.html', data)
