@@ -3,15 +3,20 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.exceptions import ObjectDoesNotExist
 
 from forms import DetailedUserProfileForm, CityForm, AddressForm
-from .models import UserProfile, Address, City
+from .models import UserProfile, Address, City, CallingCode
 
 
 # Views
 class UserProfilesListView(ListView):
     model = UserProfile
     template_name = 'profiles-list.html'
+
+
+def home_redirect(request):
+    return redirect(reverse('profiles-list'))
 
 
 def view_logged_out(request):
@@ -22,11 +27,8 @@ def detailed_user_profile_form(request, id=None):
     init_data = {}
     user = request.user
     user_profile = UserProfile.objects.get(user_id=request.user.id)
-    user_address = Address.objects.get(pk=user_profile.address.pk)
-    user_city = City.objects.get(pk=user_address.city.pk)
-
     if request.method == 'POST':
-        user_profile_form = DetailedUserProfileForm(request.POST)
+        user_profile_form = DetailedUserProfileForm(request.POST, request.FILES)
 
         if user_profile_form.is_valid():
             # User info
@@ -43,7 +45,16 @@ def detailed_user_profile_form(request, id=None):
                 'zipcode': user_profile_form.cleaned_data['zipcode'],
                 'country': user_profile_form.cleaned_data['country']
             }
-            city = CityForm(data=city_data).save()
+
+            # Check if we can get this city
+            # If the city doesn't exist, we try to create it, but data may be incomplete
+            try:
+                city = City.objects.get(**city_data)
+            except ObjectDoesNotExist:
+                try:
+                    city = CityForm(data=city_data).save()
+                except ValueError:
+                    user_profile.address = None
 
             address_data = {
                 'num': user_profile_form.cleaned_data['num'],
@@ -51,31 +62,59 @@ def detailed_user_profile_form(request, id=None):
                 'city': city.pk,
             }
 
-            address = AddressForm(data=address_data).save()
+            address = None
+
+            try:
+                address = Address.objects.get(**address_data)
+            except ObjectDoesNotExist:
+                try:
+                    user_profile.address = AddressForm(data=address_data).save()
+                except ValueError:
+                    address = None
 
             user_profile.address = address
+
+            user_profile.phone_number = user_profile_form.cleaned_data['phone_number']
             user_profile.school = user_profile_form.cleaned_data['school']
             user_profile.studies_domain = user_profile_form.cleaned_data['studies_domain']
+
+            # Profile picture
+            user_profile.profile_picture = request.FILES.get('profile_picture', None)
 
             user_profile.save()
 
             return redirect(reverse('profiles-list'))
 
-    else:
-        init_data = {
-            'user_name': user.username,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'confirm_email': user.email,
+        else:
+            return render(request,
+                          'forms/detailed_userprofile_form.html',
+                          {'form': user_profile_form})
+
+    init_data = {
+        'user_name': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'confirm_email': user.email
+    }
+
+    if user_profile.address is not None:
+        user_address = Address.objects.get(pk=user_profile.address.pk)
+        user_city = City.objects.get(pk=user_address.city.pk)
+        init_data.update({
             'num': user_address.num,
             'street': user_address.street,
             'city': user_city.name,
             'zipcode': user_city.zipcode,
             'country': user_city.country,
+            'phone_number': user_profile.phone_number,
             'school': user_profile.school,
             'studies_domain': user_profile.studies_domain,
-        }
+        })
+    if user_profile.dialcode is not None:
+        init_data.update({
+            'dialcode': CallingCode.objects.get(pk=user_profile.dialcode.pk).calling_code
+        })
 
     return render(request, 'forms/detailed_userprofile_form.html',
                   {'form': DetailedUserProfileForm(initial=init_data)})
