@@ -20,10 +20,10 @@
                         <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
                     </div>
                     <div class="panel-body">
-                        {% if thread.tags != None and thread.tags.all.length > 0 %}
+                        {% if thread.tags != None and thread.tags.count > 0 %}
                             Tags :
                             {% for tag in thread.tags.all %}
-                            {{ tag }}
+                                {{ tag }}
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -42,7 +42,7 @@
             <table>
                 {{ form.as_table }}
             </table>
-            <input type="submit" value="Submit" name="new_thread">
+            <input type="submit" value="Submit" name="new-thread">
         </form>
     </div>
 {% endblock %}
