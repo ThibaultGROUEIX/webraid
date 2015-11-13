@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'utils.snippets.login_required',
+    'utils.snippets.login_required.RequireLoginMiddleware',
 )
 
 ROOT_URLCONF = 'webraid.urls'
@@ -121,7 +121,12 @@ MEDIA_URL = 'media/'
 # Login and authenticaiton
 LOGIN_REDIRECT_URL = '/users'
 LOGOUT_REDIRECT_URL = '/login'
-LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_URL = '/login'
+
+LOGIN_REQUIRED_URLS = (
+    r'/forum/(.*)$',
+    r'/users/(.*)$',
+)
 
 # Django-countries settings
 COUNTRIES_FIRST = [
