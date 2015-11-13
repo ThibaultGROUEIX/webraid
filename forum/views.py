@@ -71,20 +71,18 @@ def thread_category_detail(request, slug, pk=None):
                                   'edit_thread_form': edit_thread_form,
                               })
 
-    form = ThreadForm()
-
     data = {
         'thread_category': thread_category,
         'thread_list': thread_list,
-        'form': form,
+        'form': ThreadForm(),
         'slug': slug,
     }
 
     if edit_thread is not None:
         edit_thread_form = ThreadForm(instance=edit_thread)
 
-        data['pk'] = edit_thread.pk;
-        data['edit_thread_form'] = edit_thread_form;
+        data['pk'] = edit_thread.pk
+        data['edit_thread_form'] = edit_thread_form
         data['edit_thread'] = edit_thread
 
     return render(request, 'thread_category.html', data)
