@@ -92,7 +92,7 @@ def thread_category_detail(request, slug, pk=None):
 def thread_detail(request, category_slug, slug, pk=None):
     if pk is not None:
         edit_post = Post.objects.get(pk=pk)
-        if edit_post.author is not request.user:
+        if edit_post.author.user != request.user:
             raise PermissionDenied
     else:
         edit_post = None
