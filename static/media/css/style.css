@@ -109,7 +109,7 @@
 
 	#pre-status,
 	.preload-placeholder {
-		background-image: url(../images/preloader.gif);
+		background-image: url(../../images/preloader.gif);
 		background-position: center;
 		background-repeat: no-repeat;
 		height: 40px;
