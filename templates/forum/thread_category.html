@@ -20,7 +20,12 @@
                         <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
                     </div>
                     <div class="panel-body">
-                        {{ thread.tags }}
+                        {% if thread.tags != None and thread.tags.all.length > 0 %}
+                            Tags :
+                            {% for tag in thread.tags.all %}
+                            {{ tag }}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="panel-footer">
                         <a href="{% url 'detail_thread_category_edit_thread' slug thread.pk %}">edit</a>
