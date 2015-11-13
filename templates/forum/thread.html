@@ -4,16 +4,29 @@
     <h2>{{ thread.title }}</h2>
     <p>
         {% for post in post_list %}
-            <div class="panel">
-                <div class="panel-body">
-                    {{ post.text_content }}
+            {% if post == edit_post %}
+                <form method="POST" action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}">
+                    {% csrf_token %}
+                    <table>
+                        {{ edit_post_form.as_table }}
+                    </table>
+                    <input type="submit" value="Submit" name="edit-post">
+                </form>
+            {% else %}
+                <div class="panel">
+                    <div class="panel-body">
+                        {{ post.text_content }}
+                    </div>
+                    <div class="panel-footer">
+                        {{ post.author }}
+                        Posted on {{ post.posted_date | date }},
+                        last edited on {{ post.last_edit_date | date }}
+                        {% if user == post.author.user %}
+                            <a href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}">edit</a>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="panel-footer">
-                    {{ post.author }}
-                    Posted on {{ post.posted_date | date }},
-                    last edited on {{ post.last_edit_date | date }}
-                </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </p>
     <p>
@@ -22,7 +35,7 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" name="new-post">
     </form>
     </p>
 {% endblock %}

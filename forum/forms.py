@@ -32,8 +32,7 @@ class ThreadForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    file = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(),
-                                          required=False)
+    file = forms.FileField(required=False)
 
     class Meta:
         model = Post
