@@ -22,7 +22,8 @@
                         Posted on {{ post.posted_date | date }},
                         last edited on {{ post.last_edit_date | date }}
                         {% if user == post.author.user %}
-                            <a href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}">edit</a>
+                            <a class="btn btn-default"
+                                href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}">edit</a>
                         {% endif %}
                     </div>
                 </div>

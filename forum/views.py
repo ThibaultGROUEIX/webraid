@@ -1,5 +1,6 @@
 from django.views.generic import ListView, FormView
 from django.http import Http404
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render
 
 from profiles.models import UserProfile
@@ -91,6 +92,8 @@ def thread_category_detail(request, slug, pk=None):
 def thread_detail(request, category_slug, slug, pk=None):
     if pk is not None:
         edit_post = Post.objects.get(pk=pk)
+        if edit_post.author is not request.user:
+            raise PermissionDenied
     else:
         edit_post = None
 
