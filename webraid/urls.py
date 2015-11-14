@@ -18,9 +18,13 @@ from django.contrib import admin
 
 import profiles.urls
 import forum.urls
+import photologue_custom.urls
+import  photologue.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forum/', include(forum.urls)),
     url(r'^', include(profiles.urls)),
+     url(r'^photologue/', include(photologue_custom.urls)),
+     url(r'^photologue/', include('photologue.urls', namespace='photologue')),
 ]

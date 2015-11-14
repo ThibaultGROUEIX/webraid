@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+from photologue import PHOTOLOGUE_APP_DIR
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -42,8 +47,14 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
+    # dependance necessaire de photologue
+    'django.contrib.sites',
+    'photologue_custom',
+    'photologue',
+    'sortedm2m',
 )
 
+SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,13 +68,15 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'webraid.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'templates/profiles'),
                  os.path.join(BASE_DIR, 'templates/admin'),
-                 os.path.join(BASE_DIR, 'templates/forum')]
+                 os.path.join(BASE_DIR, 'templates/forum'),
+                 PHOTOLOGUE_APP_DIR]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -114,8 +127,8 @@ STATICFILES_DIRS = (
 )
 
 # Media files
-MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "media/"
-MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "static/media/"
+MEDIA_URL = 'static/media/'
 
 # Login and authenticaiton
 LOGIN_REDIRECT_URL = '/users'
