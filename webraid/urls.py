@@ -18,9 +18,12 @@ from django.contrib import admin
 
 import profiles.urls
 import forum.urls
+import gallery.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forum/', include(forum.urls)),
     url(r'^', include(profiles.urls)),
+    url(r'^gallery/', include(gallery.urls)),
+
 ]

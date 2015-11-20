@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Django-countries app to manage countries
-    'gallery'
+    'gallery',
     'django_countries',
     'profiles',
     'forum',

@@ -7,9 +7,8 @@ class Category(models.Model):
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
-    createur = models.ForeignKey('User')
-    contributeurs = models.ManyToManyField('User')
-
+    createur = models.ForeignKey(User, related_name='creator_category')
+    contributeurs = models.ManyToManyField(User, related_name='contributor_category')
 
     def __str__(self):
         """
@@ -25,8 +24,8 @@ class Album(models.Model):
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
-    createur = models.ForeignKey('User')
-    contributeurs = models.ManyToManyField('User')
+    createur = models.ForeignKey(User, related_name='creator_album')
+    contributeurs = models.ManyToManyField(User, related_name='contributor_album')
 
 
     def __str__(self):
@@ -39,12 +38,12 @@ class Album(models.Model):
 
 class Picture(models.Model):
     titre = models.CharField(max_length=100)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='photo/')
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
-    createur = models.ForeignKey('User')
-    personages = models.ManyToManyField('User')
+    createur = models.ForeignKey(User, related_name='creator_picture')
+    personnages = models.ManyToManyField(User, related_name='characters')
 
     def __str__(self):
         """
@@ -53,7 +52,3 @@ class Picture(models.Model):
         nous traiterons plus tard et dans l'administration
         """
         return self.titre
-
-
-class Commentaire(models.Model):
-   #se renseigner sur les modèles qui héritent de modèle
