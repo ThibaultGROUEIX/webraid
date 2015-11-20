@@ -54,25 +54,25 @@ def detailed_user_profile_form(request, id=None):
             except ObjectDoesNotExist:
                 try:
                     city = CityForm(data=city_data).save()
-
-                    address_data = {
-                        'num': user_profile_form.cleaned_data['num'],
-                        'street': user_profile_form.cleaned_data['street'],
-                        'city': city.pk,
-                    }
-
-                    address = None
-
-                    try:
-                        address = Address.objects.get(**address_data)
-                    except ObjectDoesNotExist:
-                        try:
-                            user_profile.address = AddressForm(data=address_data).save()
-                        except ValueError:
-                            address = None
-
                 except ValueError:
-                    address = None
+                    city = None
+
+            if city is not None:
+                address_data = {
+                    'num': user_profile_form.cleaned_data['num'],
+                    'street': user_profile_form.cleaned_data['street'],
+                    'city': city.pk,
+                }
+
+                try:
+                    address = Address.objects.get(**address_data)
+                except ObjectDoesNotExist:
+                    try:
+                        address = AddressForm(data=address_data).save()
+                    except ValueError:
+                        address = None
+            else:
+                address = None
 
             user_profile.address = address
             user_profile.dialcode = user_profile_form.cleaned_data['dialcode']

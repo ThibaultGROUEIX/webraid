@@ -1,11 +1,79 @@
 {% extends 'base.html' %}
-
-{%  block content %}
-    <form action="{% url 'self_edit_user_profile' %}" method="POST" enctype="multipart/form-data">
+{% load utils_filters %}
+{% block content %}
+    <form action="{% url 'self_edit_user_profile' %}" method="POST" enctype="multipart/form-data"
+          class="form-horizontal">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit">
+        <div class="form-group">
+            <label for="id_user_name">Nom d'utilisateur</label>
+            {{ form.user_name | form_control }}
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_first_name">Prénom</label>
+                {{ form.first_name | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_last_name">Nom</label>
+                {{ form.last_name | form_control }}
+            </div>
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_confirm_email">Confirmation</label>
+                {{ form.confirm_email | form_control }}
+            </div>
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_num">Numéro</label>
+                {{ form.num | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_street">Rue</label>
+                {{ form.street | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_city">Ville</label>
+                {{ form.city | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_zipcode">Code postal</label>
+                {{ form.zipcode | form_control }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_country">Pays</label>
+            {{ form.country | form_control }}
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_dialcode">Code</label>
+                {{ form.dialcode | form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_phone_number">Numéro de téléphone</label>
+                {{ form.phone_number | form_control }}
+            </div>
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="id_school">Ecole</label>
+                {{ form.school| form_control }}
+            </div>
+            <div class="form-group">
+                <label for="id_studies_domain">Domaine d'études</label>
+                {{ form.studies_domain | form_control }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_profile_picture">Photo de profil</label>
+            {{ form.profile_picture }}
+        </div>
+        <input class="btn" type="submit" value="Submit">
     </form>
 {% endblock %}
