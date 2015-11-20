@@ -13,9 +13,12 @@ class CategoryForm(forms.ModelForm):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ['titre',  'caption']
+        fields = ['titre',  'caption', 'category']
+
+
+
 
 class PictureForm(forms.ModelForm):
     class Meta:
         model = Picture
-        fields = ['titre',  'caption']
+        fields = ['titre',  'caption', 'album', 'image' ]

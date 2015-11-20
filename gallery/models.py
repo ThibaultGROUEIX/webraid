@@ -24,6 +24,7 @@ class Album(models.Model):
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
+    category = models.ForeignKey(Category)
     createur = models.ForeignKey(User, related_name='creator_album')
     contributeurs = models.ManyToManyField(User, related_name='contributor_album')
 
@@ -42,6 +43,7 @@ class Picture(models.Model):
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
+    album = models.ForeignKey(Album)
     createur = models.ForeignKey(User, related_name='creator_picture')
     personnages = models.ManyToManyField(User, related_name='characters')
 

@@ -33,7 +33,49 @@ def new_category(request):
 
     return render(request, 'gallery/new_category.html', locals())
 
+def new_album(request):
+    sauvegarde = False
 
+    if request.method == "POST":
+        form = AlbumForm(request.POST, request.FILES)
+        if form.is_valid():
+            album = Album()
+            album.titre = form.cleaned_data["titre"]
+            album.caption = form.cleaned_data["caption"]
+            album.category = form.cleaned_data["category"]
+            #note: you have to fill the foreign key before saving
+            album.createur = request.user
+            #note : you have to save the instance in the database before adding a maytomanyfiel
+            album.save()
+            album.contributeurs.add(request.user)
+            album.save()
+            sauvegarde = True
+    else:
+        form = AlbumForm()
+
+    return render(request, 'gallery/new_album.html', locals())
+
+
+def new_photo(request):
+    sauvegarde = False
+
+    if request.method == "POST":
+        form = PictureForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = Picture()
+            photo.titre = form.cleaned_data["titre"]
+            photo.caption = form.cleaned_data["caption"]
+            photo.album = form.cleaned_data["album"]
+            photo.image = form.cleaned_data["image"]
+            #note: you have to fill the foreign key before saving
+            photo.createur = request.user
+            #note : you have to save the instance in the database before adding a maytomanyfiel
+            photo.save()
+            sauvegarde = True
+    else:
+        form = PictureForm()
+
+    return render(request, 'gallery/new_picture.html', locals())
 
 
 
