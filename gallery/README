@@ -1,10 +1,17 @@
 Bug fix :
 
--les objects sont enregistrés en double...
--les objets ne doivent pas avoir le même titre ! (a vérifier)
--les photos ne sont pas enregistrées au bon endroit
+-many-to-many field de contributeur
+-
 
 To do :
 
--il faut enregistrer les images au bon endroit
+-editer les information d'un album, d'une photo, d'une catégorie...
 -il faut pouvoir ajouter tout un album d'un coup
+
+-drag and drop :
+https://www.calazan.com/adding-drag-and-drop-image-uploads-to-your-django-site-in-5-minutes-with-dropzonejs/
+
+- add comments (later)
+- parcourir la gallery en triant des trucs
+- Vidéo ?
+- ce sera déjà pas mal/
