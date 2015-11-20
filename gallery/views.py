@@ -8,8 +8,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from forms import CategoryForm, AlbumForm, PictureForm
 from models import Category, Album, Picture
+from webraid.settings  import MEDIA_ROOT
 
 def test(request):
+
     return HttpResponse("<p> Test </p>")
 
 def new_category(request):
@@ -54,6 +56,9 @@ def new_album(request):
         form = AlbumForm()
 
     return render(request, 'gallery/new_album.html', locals())
+
+
+
 
 
 def new_photo(request):

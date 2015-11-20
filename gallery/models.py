@@ -1,6 +1,7 @@
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 class Category(models.Model):
     titre = models.CharField(max_length=100)
@@ -37,9 +38,14 @@ class Album(models.Model):
         """
         return self.titre
 
+
+def get_image_path(instance, filename):
+    return os.path.join('gallery/', str(instance.album.titre), filename)
+
+
 class Picture(models.Model):
     titre = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='photo/')
+    image = models.ImageField(upload_to=get_image_path)
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
