@@ -80,7 +80,8 @@ def detailed_user_profile_form(request, id=None):
             user_profile.studies_domain = user_profile_form.cleaned_data['studies_domain']
 
             # Profile picture
-            user_profile.profile_picture = request.FILES.get('profile_picture', None)
+            if 'profile_picture' in user_profile_form.changed_data:
+                user_profile.profile_picture = request.FILES.get('profile_picture', None)
 
             user_profile.save()
 
