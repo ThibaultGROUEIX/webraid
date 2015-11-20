@@ -23,6 +23,7 @@ def view_logged_out(request):
     return render(request, 'registration/logout.html')
 
 
+@login_required
 def detailed_user_profile_form(request, id=None):
     init_data = {}
     user = request.user

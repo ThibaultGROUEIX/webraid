@@ -128,6 +128,10 @@ LOGIN_REQUIRED_URLS = (
     r'/users/(.*)$',
 )
 
+LOGIN_EXEMPT_URLS = (
+    r'^home/$',
+)
+
 # Django-countries settings
 COUNTRIES_FIRST = [
     'FR',
