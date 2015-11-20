@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="panel">
+        <div class="panel-heading">
+            {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
+        </div>
+        <div class="panel-body">
+            <div class="container">
+                <div class="row">
+                    {% if pic != None and pic.url != None %}
+                        <div class="col-lg-5 col-md-4 col-sm-12">
+                            <img src="/{{ pic.url }}" width="100">
+                        </div>
+                    {% endif %}
+                    <div class="col-lg-7 col-md-8 col-sm-12">
+                        <p><i class="fa fa-home"></i> {{ user_profile.address }}</p>
+
+                        <p><i class="fa fa-phone"></i> (+{{ user_profile.dialcode.calling_code }})
+                            {{ user_profile.phone_number }}</p>
+                        {% if user_profile.school != None %}
+                            <p><i class="fa fa-graduation-cap"></i> {{ user_profile.school.name }}</p>
+                        {% endif %}
+                        {% if user_profile.studies_domain != None %}
+                            <p><i class="fa fa-subscript"></i> {{ user_profile.studies_domain }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <i class="fa fa-envelope"></i> {{ user_profile.user.email }}
+        </div>
+    </div>
+{% endblock %}
