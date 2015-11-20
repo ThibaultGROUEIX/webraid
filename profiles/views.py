@@ -74,7 +74,7 @@ def detailed_user_profile_form(request, id=None):
                     address = None
 
             user_profile.address = address
-
+            user_profile.dialcode = user_profile_form.cleaned_data['dialcode']
             user_profile.phone_number = user_profile_form.cleaned_data['phone_number']
             user_profile.school = user_profile_form.cleaned_data['school']
             user_profile.studies_domain = user_profile_form.cleaned_data['studies_domain']
@@ -113,12 +113,21 @@ def detailed_user_profile_form(request, id=None):
             'studies_domain': user_profile.studies_domain,
         })
     if user_profile.dialcode is not None:
-        init_data.update({
-            'dialcode': CallingCode.objects.get(pk=user_profile.dialcode.pk).calling_code
-        })
+        init_data['dialcode'] = CallingCode.objects.get(pk=user_profile.dialcode.pk)
+
+    if user_profile.profile_picture is not None:
+        init_data['profile_picture'] = user_profile.profile_picture
 
     return render(request, 'forms/detailed_userprofile_form.html',
                   {'form': DetailedUserProfileForm(initial=init_data)})
+
+
+def view_profile(request, user_id):
+    user_profile = UserProfile.objects.get(user_id=user_id)
+    pic = user_profile.profile_picture
+    return render(request, 'profile-detail.html',
+                  {'user_profile': user_profile,
+                   'pic': pic})
 
 
 # Mixins

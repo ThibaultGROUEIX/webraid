@@ -6,6 +6,8 @@ urlpatterns = [
     url(r'^$', views.home_redirect),
     url(r'^users/$', views.UserProfilesListView.as_view(),
         name='profiles-list'),
+    url(r'^users/(?P<user_id>\d+)/$', views.view_profile,
+        name='profile-detail'),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/logged_out/'}),

@@ -3,7 +3,7 @@
     {%  for userprofile in object_list %}
         <div class="panel panel-default">
             <div class="panel-title">
-                {{ userprofile.user.username }}
+                <a href="{% url 'profile-detail' userprofile.user.id %}"> {{ userprofile.user.username }} </a>
             </div>
         <div class="panel-body">
             <p>First name : {{ userprofile.user.first_name }}</p>
