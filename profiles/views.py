@@ -81,7 +81,22 @@ def detailed_user_profile_form(request, id=None):
 
             # Profile picture
             if 'profile_picture' in user_profile_form.changed_data:
-                user_profile.profile_picture = request.FILES.get('profile_picture', None)
+                import Image as Pil
+                import StringIO, time
+                from django.core.files.uploadedfile import InMemoryUploadedFile
+
+                profile_pic = Pil.open(request.FILES.get('profile_picture'))
+                profile_pic.thumbnail((200, 200), Pil.ANTIALIAS)
+                ppic_io = StringIO.StringIO()
+                profile_pic.save(ppic_io, request.FILES['profile_picture'].content_type.split('/')[-1].upper())
+                ppic_filename = request.user.username + '_avatar_' + str(int(time.time()))
+                ppic_file = InMemoryUploadedFile(ppic_io,
+                                                 u"profile_picture",
+                                                 ppic_filename,
+                                                 request.FILES['profile_picture'].content_type,
+                                                 ppic_io.len,
+                                                 None)
+                user_profile.profile_picture = ppic_file
 
             user_profile.save()
 
