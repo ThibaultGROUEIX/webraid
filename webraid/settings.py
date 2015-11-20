@@ -116,7 +116,7 @@ STATICFILES_DIRS = (
 )
 
 # Media files
-MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "media/"
+MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/media/"
 MEDIA_URL = 'media/'
 
 # Login and authenticaiton
