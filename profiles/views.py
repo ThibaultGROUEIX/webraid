@@ -143,7 +143,9 @@ def view_profile(request, user_id):
     pic = user_profile.profile_picture
     return render(request, 'profile-detail.html',
                   {'user_profile': user_profile,
-                   'pic': pic})
+                   'pic': pic,
+                   }
+                  )
 
 
 # Mixins
