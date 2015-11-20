@@ -40,9 +40,7 @@ class Thread(models.Model):
         slug_category = self.category.slug
         return reverse('forum.views.thread_detail', args=[slug_category,self.slug])
 
-    def save(self, **kwargs):
-        unique_slugify(self, self.title)
-        super(Thread, self).save(**kwargs)
+
 
 
 class Post(models.Model):
@@ -54,3 +52,5 @@ class Post(models.Model):
     last_edit_date = models.DateTimeField(auto_now=True)
     # File uploads
     file = models.FileField()
+
+
