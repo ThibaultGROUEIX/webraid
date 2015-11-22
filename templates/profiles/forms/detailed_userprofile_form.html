@@ -5,69 +5,87 @@
           class="form-horizontal">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_user_name">Nom d'utilisateur</label>
-            {{ form.user_name | form_control }}
+            <label for="id_user_name" class="col-sm-2 control-label">Nom d'utilisateur</label>
+            {{ form.user_name | form_control | wrap_col:"col-sm-10" | safe }}
         </div>
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="id_first_name">Prénom</label>
-                {{ form.first_name | form_control }}
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_first_name" class="col-sm-2 control-label">Prénom</label>
+                    {{ form.first_name | addcss:"form-control" | wrap_col:"col-sm-10" | safe }}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_last_name">Nom</label>
-                {{ form.last_name | form_control }}
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="id_email">Email</label>
-                {{ form.email | form_control }}
-            </div>
-            <div class="form-group">
-                <label for="id_confirm_email">Confirmation</label>
-                {{ form.confirm_email | form_control }}
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="id_num">Numéro</label>
-                {{ form.num | form_control }}
-            </div>
-            <div class="form-group">
-                <label for="id_street">Rue</label>
-                {{ form.street | form_control }}
-            </div>
-            <div class="form-group">
-                <label for="id_city">Ville</label>
-                {{ form.city | form_control }}
-            </div>
-            <div class="form-group">
-                <label for="id_zipcode">Code postal</label>
-                {{ form.zipcode | form_control }}
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_last_name" class="col-sm-2 control-label">Nom</label>
+                    {{ form.last_name | addcss:"form-control" | wrap_col:"col-sm-10" | safe }}
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <label for="id_country">Pays</label>
+            <label for="id_email">Email</label>
+            {{ form.email | form_control }}
+        </div>
+        <div class="form-group">
+            <label for="id_confirm_email">Confirmation</label>
+            {{ form.confirm_email | form_control }}
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_num">Numéro</label>
+                    {{ form.num | form_control }}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_street">Rue</label>
+                    {{ form.street | form_control }}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_city">Ville</label>
+                    {{ form.city | form_control }}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_zipcode">Code postal</label>
+                    {{ form.zipcode | addcss:"col-sm-10 form-control" }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_country" class="col-sm-2">Pays</label>
             {{ form.country | form_control }}
         </div>
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="id_dialcode">Code</label>
-                {{ form.dialcode | form_control }}
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_dialcode">Code</label>
+                    {{ form.dialcode | form_control }}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_phone_number">Numéro de téléphone</label>
-                {{ form.phone_number | form_control }}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_phone_number">Numéro de téléphone</label>
+                    {{ form.phone_number | form_control }}
+                </div>
             </div>
         </div>
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="id_school">Ecole</label>
-                {{ form.school| form_control }}
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_school">Ecole</label>
+                    {{ form.school| form_control }}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_studies_domain">Domaine d'études</label>
-                {{ form.studies_domain | form_control }}
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="id_studies_domain">Domaine d'études</label>
+                    {{ form.studies_domain | form_control }}
+                </div>
             </div>
         </div>
         <div class="form-group">

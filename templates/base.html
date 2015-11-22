@@ -13,6 +13,8 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/forms.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/buttons.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"/>
@@ -84,7 +86,7 @@
     </header>
 
     <section id="content">
-        <div class="page-content">
+        <div class="page-content container">
 
             {% block content %}
             {% endblock %}
