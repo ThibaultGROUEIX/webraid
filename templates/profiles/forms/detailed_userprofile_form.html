@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load utils_filters %}
+{% load bootstrapify %}
 {% block content %}
     <form action="{% url 'self_edit_user_profile' %}" method="POST" enctype="multipart/form-data"
           class="form-horizontal">
@@ -9,84 +10,26 @@
             {{ form.user_name | form_control | wrap_col:"col-sm-10" | safe }}
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_first_name" class="col-sm-2 control-label">Prénom</label>
-                    {{ form.first_name | addcss:"form-control" | wrap_col:"col-sm-10" | safe }}
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_last_name" class="col-sm-2 control-label">Nom</label>
-                    {{ form.last_name | addcss:"form-control" | wrap_col:"col-sm-10" | safe }}
-                </div>
-            </div>
+            {{ form.first_name | bs_form_input_h:"Prenom" | bs_2col }}
+            {{ form.last_name | bs_form_input_h:"Nom" | bs_2col }}
         </div>
-        <div class="form-group">
-            <label for="id_email">Email</label>
-            {{ form.email | form_control }}
+        {{ form.email | bs_form_input_h:"Email" }}
+        {{ form.confirm_email | bs_form_input_h:"Confirmation email" }}
+        <div class="row">
+
+            {{ form.num | bs_form_input_h:"Num&eacute;ro" | bs_2col }}
+            {{ form.street | bs_form_input_h:"Rue" | bs_2col }}
+            {{ form.city | bs_form_input_h:"Ville" | bs_2col }}
+            {{ form.zipcode | bs_form_input_h:"Code postal"| bs_2col }}
         </div>
-        <div class="form-group">
-            <label for="id_confirm_email">Confirmation</label>
-            {{ form.confirm_email | form_control }}
+        {{ form.country | bs_form_input_h:"Pays"}}
+        <div class="row">
+            {{ form.dialcode | bs_form_input_h:"Code pays" | bs_2col }}
+            {{ form.phone_number | bs_form_input_h:"Num&eacute;ro de t&eacute;l&eacute;phone" | bs_2col}}
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_num">Numéro</label>
-                    {{ form.num | form_control }}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_street">Rue</label>
-                    {{ form.street | form_control }}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_city">Ville</label>
-                    {{ form.city | form_control }}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_zipcode">Code postal</label>
-                    {{ form.zipcode | addcss:"col-sm-10 form-control" }}
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="id_country" class="col-sm-2">Pays</label>
-            {{ form.country | form_control }}
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_dialcode">Code</label>
-                    {{ form.dialcode | form_control }}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_phone_number">Numéro de téléphone</label>
-                    {{ form.phone_number | form_control }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_school">Ecole</label>
-                    {{ form.school| form_control }}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="id_studies_domain">Domaine d'études</label>
-                    {{ form.studies_domain | form_control }}
-                </div>
-            </div>
+                    {{ form.school| bs_form_input_h:"Ecole" | bs_2col}}
+                    {{ form.studies_domain | bs_form_input_h:"Domaine d'etudes" | bs_2col }}
         </div>
         <div class="form-group">
             <label for="id_profile_picture">Photo de profil</label>
