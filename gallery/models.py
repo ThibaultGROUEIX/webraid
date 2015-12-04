@@ -8,6 +8,9 @@ from webraid.settings import MEDIA_ROOT
 from django.db import models
 
 
+class UploadFile(models.Model):
+    file = models.ImageField(upload_to='gallery/%Y/%m/%d')
+
 def get_category_coverImage_path(instance, filename):
     return os.path.join( 'gallery/', filename)
 
@@ -86,6 +89,3 @@ class Picture(models.Model):
         unique_slugify(self, self.titre)
         super(Picture, self).save(**kwargs)
 
-
-class UploadFile(models.Model):
-    file = models.ImageField(upload_to='gallery/%Y/%m/%d')
