@@ -6,8 +6,10 @@ Bug fix :
 To do :
 
 -editer les information d'un album, d'une photo, d'une catégorie...
--il faut pouvoir ajouter tout un album d'un coup
+-Voir la liste des albums...
+-pouvoir rentrer dans un album
 
+-éditer le drag and drop pour qu'il se fasse au bon endroit
 -drag and drop :
 https://www.calazan.com/adding-drag-and-drop-image-uploads-to-your-django-site-in-5-minutes-with-dropzonejs/
 
