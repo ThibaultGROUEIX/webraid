@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+
+<!-- IMPORTANT enctype attribute! -->
+		<form class="dropzone" action="{% url "gallery:home"%}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+		</form>
+		<button id="submit-all">
+			Submit all files
+		</button>
+
+		
+{% endblock %}
