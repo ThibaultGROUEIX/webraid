@@ -10,7 +10,7 @@
 
 <p>
 
-    <form method="post" enctype="multipart/form-data" action="{% url "gallery.views.new_album"%}">
+    <form method="post" enctype="multipart/form-data" action="{% url "gallery:new_album"%}">
        {% csrf_token %}
        {{ form.as_p }}
         <input type="submit" value="Submit" />

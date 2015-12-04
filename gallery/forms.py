@@ -17,13 +17,13 @@ class UploadFileForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['titre',  'caption']
+        fields = ['titre',  'caption', 'coverImage']
 
 
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ['titre',  'caption', 'category']
+        fields = ['titre',  'caption', 'category', 'coverImage']
 
 
 

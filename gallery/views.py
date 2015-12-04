@@ -45,6 +45,7 @@ def new_category(request):
             category = Category()
             category.titre = form.cleaned_data["titre"]
             category.caption = form.cleaned_data["caption"]
+            category.coverImage = form.cleaned_data["coverImage"]
             #note: you have to fill the foreign key before saving
             category.createur = request.user
             #note : you have to save the instance in the database before adding a maytomanyfiel
@@ -64,6 +65,7 @@ def new_album(request):
         form = AlbumForm(request.POST, request.FILES)
         if form.is_valid():
             album = Album()
+            album.coverImage = form.cleaned_data["coverImage"]
             album.titre = form.cleaned_data["titre"]
             album.caption = form.cleaned_data["caption"]
             album.category = form.cleaned_data["category"]

@@ -4,15 +4,19 @@ from django.contrib.auth.models import User
 from utils.snippets.slugifiers import unique_slugify
 
 import os
-
+from webraid.settings import MEDIA_ROOT
 from django.db import models
 
-class UploadFile(models.Model):
-	file = models.ImageField(upload_to='gallery/%Y/%m/%d')
 
+def get_category_coverImage_path(instance, filename):
+    return os.path.join( 'gallery/', filename)
+
+def get_album_coverImage_path(instance, filename):
+    return os.path.join( 'gallery/',str(instance.category.slug),  filename)
 
 class Category(models.Model):
     titre = models.CharField(max_length=100)
+    coverImage = models.ImageField(upload_to=get_category_coverImage_path, default = os.path.join(MEDIA_ROOT,'default','default.png'))
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
                                 verbose_name="Date d'ajout")
@@ -32,6 +36,7 @@ class Category(models.Model):
         return self.slug
 
 class Album(models.Model):
+    coverImage = models.ImageField(upload_to=get_album_coverImage_path, default = os.path.join(MEDIA_ROOT,'default','default.png'))
     titre = models.CharField(max_length=100)
     caption = models.TextField(null=True)
     date = models.DateTimeField(auto_now_add=True, auto_now=False,
@@ -80,3 +85,7 @@ class Picture(models.Model):
     def save(self, **kwargs):
         unique_slugify(self, self.titre)
         super(Picture, self).save(**kwargs)
+
+
+class UploadFile(models.Model):
+    file = models.ImageField(upload_to='gallery/%Y/%m/%d')
