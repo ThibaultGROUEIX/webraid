@@ -20,6 +20,11 @@ def prefix_fa_return_arrow(value):
     text = conditional_escape(value)
     return mark_safe("<i class=\"fa fa-arrow-left\"></i> " + text)
 
+@register.filter(name='fa_goto', is_safe=True)
+def prefix_fa_return_arrow(value):
+    text = conditional_escape(value)
+    return mark_safe("<i class=\"fa fa-arrow-right\"></i> " + text)
+
 
 @register.filter(name='bs_form_input', is_safe=True)
 def bootstrapify_form_input(value, label):

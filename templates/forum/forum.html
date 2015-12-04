@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
-
+{% load bootstrapify %}
+{% load utils_filters %}
 {% block content %}
     {% for threadCategory in threadcategory_list %}
         <div class="panel panel-default">
             <div class="panel-title">
-                <a href="{{ threadCategory.get_absolute_url }}"> {{ threadCategory.name }}</a>
-                {% for tag in threadCategory.tags.all %}
-                    <i>{{ tag }}</i>
-                {% endfor %}
+                <a class="lpane-title" href="{{ threadCategory.get_absolute_url }}">
+                    {{ threadCategory.name | fa_goto }}
+                </a>
             </div>
             <div class="panel-body">
                 {{ threadCategory.description }}
+            </div>
+            <div class="panel-footer">
+                {{ threadCategory.tags.all | displaytags }}
             </div>
         </div>
     {% endfor %}

@@ -3,10 +3,12 @@
     {% for userprofile in object_list %}
         <div class="panel panel-default">
             <div class="panel-title">
-                <a href="{% url 'profile-detail' userprofile.user.id %}" class="h3"> {{ userprofile.user.username }} </a>
+                <a href="{% url 'profile-detail' userprofile.user.id %}" class="lpane-title">
+                    {{ userprofile.user.username }}
+                </a>
             </div>
             <div class="panel-body">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-2 col-md-3 col-sm-12">
                             {% if userprofile.profile_picture != None and userprofile.profile_picture.url != None %}
