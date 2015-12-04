@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+
+<h1>Voir une  photo</h1>
+
+    <img src= "/{{photo.image.url}}" alt="Photo de montagne" WIDTH=150
+ HEIGHT=70/>
+
+    titre : {{photo.titre}}
+    album : {{photo.album.titre}}
+    url : /{{photo.image.url}}
+{% endblock %}
