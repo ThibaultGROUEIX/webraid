@@ -2,7 +2,6 @@ from BeautifulSoup import BeautifulSoup as Bs
 
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
-
 from django import template
 
 register = template.Library()
@@ -16,15 +15,25 @@ class BootstrapificationError(Exception):
         return repr(self.value)
 
 
+@register.filter(name='fa_return', is_safe=True)
+def prefix_fa_return_arrow(value):
+    text = conditional_escape(value)
+    return mark_safe("<i class=\"fa fa-arrow-left\"></i> " + text)
+
+
 @register.filter(name='bs_form_input', is_safe=True)
 def bootstrapify_form_input(value, label):
     html_str = str(value)
     body = Bs(html_str)
-    input_tag = body.input
-    if input_tag is None:
+
+    if body.input is not None:
+        input_tag = body.input
+    elif body.select is not None:
         input_tag = body.select
-        if input_tag is None:
-            raise BootstrapificationError("This is not a form input in bs_form_input")
+    elif body.textarea is not None:
+        input_tag = body.textarea
+    else:
+        raise BootstrapificationError("This is not a form input in bs_form_input")
 
     if input_tag.has_key('value'):
         input_tag['value'] = conditional_escape(input_tag['value'])
@@ -54,6 +63,8 @@ def bootstrapify_h_form_input(value, label):
         input_tag = body.div.input.extract()
     elif body.div.select is not None:
         input_tag = body.div.select.extract()
+    elif body.div.textarea is not None:
+        input_tag = body.div.textarea.extract()
     else:
         raise BootstrapificationError("Not a correct form group in bs_form_input_h")
 

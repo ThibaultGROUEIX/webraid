@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
-
+{% load bootstrapify %}
 {% block content %}
-    <h2>{{ thread.title }}</h2>
+    <h2><a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.title | fa_return }}</a></h2>
     <p>
         {% for post in post_list %}
-            {% if post == edit_post %}
-                <form method="POST" action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}">
-                    {% csrf_token %}
-                    <table>
-                        {{ edit_post_form.as_table }}
-                    </table>
-                    <input type="submit" value="Submit" name="edit-post">
-                </form>
-            {% else %}
-                <div class="panel">
+            <div class="panel">
+                {% if post == edit_post %}
+                    <form method="POST" action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}">
+                        {% csrf_token %}
+                        <div class="body">
+                            {{ edit_post_form.text_content | bs_form_input:"" }}
+                            {{ edit_post_form.file }}
+                        </div>
+                        <div class="panel-footer">
+                            <input type="submit" class="btn btn-default" value="Submit" name="edit-post">
+                        </div>
+                    </form>
+                {% else %}
+
                     <div class="panel-body">
                         {{ post.text_content }}
                     </div>
@@ -22,25 +26,25 @@
                         Posted on {{ post.posted_date | date }},
                         last edited on {{ post.last_edit_date | date }}
                         {% if user == post.author.user %}
-                            <a class="btn btn-default"
-                                href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}">edit</a>
+                            <a href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}">edit</a>
                         {% endif %}
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         {% endfor %}
     </p>
     <p>
     <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit" name="new-post">
+        {{ form.text_content | bs_form_input:"" }}
+        {{ form.file }}
+        <input type="submit" class="btn btn-default" value="Submit" name="new-post">
     </form>
     </p>
-    	<!-- Scroll-up -->
-	<div class="scroll-up">
-		<ul><li><a href="#header"><i class="fa fa-angle-up"></i></a></li></ul>
-	</div>
+    <!-- Scroll-up -->
+    <div class="scroll-up">
+        <ul>
+            <li><a href="#header"><i class="fa fa-angle-up"></i></a></li>
+        </ul>
+    </div>
 {% endblock %}
