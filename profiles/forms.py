@@ -67,7 +67,6 @@ class DetailedUserProfileForm(forms.Form):
     profile_picture = forms.FileField(required=False)
 
     def clean(self):
-
         # Check that the two email fields are the same
         if self.cleaned_data['email'] != self.cleaned_data['confirm_email']:
             raise forms.ValidationError("Email and email confirmation do not match")
