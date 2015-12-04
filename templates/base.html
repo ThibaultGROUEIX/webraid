@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
 	<link rel="stylesheet" href="{% static 'font-awesome/font-awesome.css' %}" />
+    
+    <link href="{% static 'dropzone/css/dropzone.css' %}" type="text/css" rel="stylesheet"/>
 
 
     {% block extrastyle %}
@@ -98,6 +100,31 @@
     </section>
 </div>
 <!-- JS -->
+    <script src="{% static 'dropzone/js/dropzone.js' %}"></script>
+    <script type="text/javascript">
+            Dropzone.options.myDropzone = {
+
+                // Prevents Dropzone from uploading dropped files immediately
+                autoProcessQueue : false,
+
+                init : function() {
+                    var submitButton = document.querySelector("#submit-all")
+                    myDropzone = this;
+
+                    submitButton.addEventListener("click", function() {
+                        myDropzone.processQueue();
+                        // Tell Dropzone to process all queued files.
+                    });
+
+                    // You might want to show the submit button only when
+                    // files are dropped here:
+                    this.on("addedfile", function() {
+                        // Show submit button here and/or inform user to click it.
+                    });
+
+                }
+            };
+    </script>
 	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script><!-- jQuery -->
 	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script><!-- Bootstrap -->
 	<script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script><!-- Parallax -->

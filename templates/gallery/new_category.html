@@ -17,4 +17,12 @@
     </form>
 </p>
 
+
+    <!-- templates/gallery/photo_list.html -->
+
+<!-- Upload Photos -->
+    <form id="add-photos" action="{% url 'ajax_photo_upload_view' album.id %}" class="dropzone">
+        {% csrf_token %}
+    </form>
+
 {% endblock %}

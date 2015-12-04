@@ -1,14 +1,36 @@
 
 from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
-
 from datetime import datetime
-
 from django.http import HttpResponse
 from django.shortcuts import render
 from forms import CategoryForm, AlbumForm, PictureForm
 from models import Category, Album, Picture
 from webraid.settings  import MEDIA_ROOT
+
+
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+
+from forms import UploadFileForm
+from models import UploadFile
+
+
+def home(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_file = UploadFile(file = request.FILES['file'])
+            new_file.save()
+
+            return HttpResponseRedirect(reverse('gallery:home'))
+    else:
+        form = UploadFileForm()
+
+    data = {'form': form}
+    return render_to_response('gallery/index.html', data, context_instance=RequestContext(request))
+
 
 def test(request):
 
@@ -59,6 +81,10 @@ def new_album(request):
 
 
 
+
+def view_photo(request, id_category, id_album, id_photo):
+    photo = Picture.objects.get(id = id_photo)
+    return render(request, 'gallery/view_photo.html', locals())
 
 
 def new_photo(request):

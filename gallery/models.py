@@ -5,6 +5,12 @@ from utils.snippets.slugifiers import unique_slugify
 
 import os
 
+from django.db import models
+
+class UploadFile(models.Model):
+	file = models.ImageField(upload_to='gallery/%Y/%m/%d')
+
+
 class Category(models.Model):
     titre = models.CharField(max_length=100)
     caption = models.TextField(null=True)
