@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^forum/', include(forum.urls)),
     url(r'^', include(profiles.urls)),
     url(r'^gallery/', include(gallery.urls, namespace = "gallery", app_name="gallery")),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)

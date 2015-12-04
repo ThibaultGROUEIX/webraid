@@ -55,32 +55,49 @@ def detailed_user_profile_form(request, id=None):
                 try:
                     city = CityForm(data=city_data).save()
                 except ValueError:
-                    user_profile.address = None
+                    city = None
 
-            address_data = {
-                'num': user_profile_form.cleaned_data['num'],
-                'street': user_profile_form.cleaned_data['street'],
-                'city': city.pk,
-            }
+            if city is not None:
+                address_data = {
+                    'num': user_profile_form.cleaned_data['num'],
+                    'street': user_profile_form.cleaned_data['street'],
+                    'city': city.pk,
+                }
 
-            address = None
-
-            try:
-                address = Address.objects.get(**address_data)
-            except ObjectDoesNotExist:
                 try:
-                    user_profile.address = AddressForm(data=address_data).save()
-                except ValueError:
-                    address = None
+                    address = Address.objects.get(**address_data)
+                except ObjectDoesNotExist:
+                    try:
+                        address = AddressForm(data=address_data).save()
+                    except ValueError:
+                        address = None
+            else:
+                address = None
 
             user_profile.address = address
-
+            user_profile.dialcode = user_profile_form.cleaned_data['dialcode']
             user_profile.phone_number = user_profile_form.cleaned_data['phone_number']
             user_profile.school = user_profile_form.cleaned_data['school']
             user_profile.studies_domain = user_profile_form.cleaned_data['studies_domain']
 
             # Profile picture
-            user_profile.profile_picture = request.FILES.get('profile_picture', None)
+            if 'profile_picture' in user_profile_form.changed_data:
+                import Image as Pil
+                import StringIO, time
+                from django.core.files.uploadedfile import InMemoryUploadedFile
+
+                profile_pic = Pil.open(request.FILES.get('profile_picture'))
+                profile_pic.thumbnail((200, 200), Pil.ANTIALIAS)
+                ppic_io = StringIO.StringIO()
+                profile_pic.save(ppic_io, request.FILES['profile_picture'].content_type.split('/')[-1].upper())
+                ppic_filename = request.user.username + '_avatar_' + str(int(time.time()))
+                ppic_file = InMemoryUploadedFile(ppic_io,
+                                                 u"profile_picture",
+                                                 ppic_filename,
+                                                 request.FILES['profile_picture'].content_type,
+                                                 ppic_io.len,
+                                                 None)
+                user_profile.profile_picture = ppic_file
 
             user_profile.save()
 
@@ -113,12 +130,23 @@ def detailed_user_profile_form(request, id=None):
             'studies_domain': user_profile.studies_domain,
         })
     if user_profile.dialcode is not None:
-        init_data.update({
-            'dialcode': CallingCode.objects.get(pk=user_profile.dialcode.pk).calling_code
-        })
+        init_data['dialcode'] = CallingCode.objects.get(pk=user_profile.dialcode.pk)
+
+    if user_profile.profile_picture is not None:
+        init_data['profile_picture'] = user_profile.profile_picture
 
     return render(request, 'forms/detailed_userprofile_form.html',
                   {'form': DetailedUserProfileForm(initial=init_data)})
+
+
+def view_profile(request, user_id):
+    user_profile = UserProfile.objects.get(user_id=user_id)
+    pic = user_profile.profile_picture
+    return render(request, 'profile-detail.html',
+                  {'user_profile': user_profile,
+                   'pic': pic,
+                   }
+                  )
 
 
 # Mixins
