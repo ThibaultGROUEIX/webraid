@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
-
+{%  load utils_filters %}
 {% block content %}
     <h2>
         <a href="{% url 'forum' %}">
@@ -18,7 +18,7 @@
                             {% csrf_token %}
                             {{ edit_thread_form.title | bs_form_input_h:"Titre" }}
                             {{ edit_thread_form.tags | bs_form_input_h:"Tags" }}
-                            <input type="submit" value="Submit" name="edit-thread">
+                            <input type="submit" class="btn btn-default" value="Valider" name="edit-thread">
                         </form>
                     </div>
                 {% else %}
@@ -27,10 +27,7 @@
                     </div>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags :
-                            {% for tag in thread.tags.all %}
-                                {{ tag }}
-                            {% endfor %}
+                            Tags : {{ thread.tags.all | displaytags }}
                         {% endif %}
                     </div>
                     <div class="panel-footer">
@@ -47,7 +44,7 @@
             {% csrf_token %}
             {{ form.title | bs_form_input_h:"Titre" }}
             {{ form.tags | bs_form_input_h:"Tags" }}
-            <input type="submit" class="btn btn-default" value="Submit" name="new-thread">
+            <input type="submit" class="btn btn-default" value="Ajouter" name="new-thread">
         </form>
     </div>
 {% endblock %}
