@@ -20,6 +20,7 @@ def prefix_fa_return_arrow(value):
     text = conditional_escape(value)
     return mark_safe("<i class=\"fa fa-arrow-left\"></i> " + text)
 
+
 @register.filter(name='fa_goto', is_safe=True)
 def prefix_fa_return_arrow(value):
     text = conditional_escape(value)
@@ -68,6 +69,8 @@ def bootstrapify_h_form_input(value, label):
         input_tag = body.div.input.extract()
     elif body.div.select is not None:
         input_tag = body.div.select.extract()
+        input_tag['class'] = "selectpicker"
+        input_tag['data-live-search'] = "true"
     elif body.div.textarea is not None:
         input_tag = body.div.textarea.extract()
     else:
