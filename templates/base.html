@@ -4,7 +4,7 @@
 <!-- create some helpers to check on urls -->
 {% load helper_tags %}
 {% load utils_filters %}
-{%  load bootstrapify %}
+{% load bootstrapify %}
 {% url 'profiles-list' as home_url %}
 {% url 'forum' as forum_url %}
 
@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/features/forms.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/features/buttons.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/features/panels.css' %}">
-    <link rel="stylesheet" type="text/css" href="{%  static 'css/features/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"/>
@@ -69,15 +69,22 @@
                         {% if user.is_anonymous %}
                             <li><a href="{% url 'django.contrib.auth.views.login' %}">login</a></li>
                         {% else %}
-                            <li> {{ user }} </li>
-                            <li><a href="{% url 'django.contrib.auth.views.logout' %}">logout</a></li>
-                            <li><a href="{% url 'self_edit_user_profile' %}">edit profile</a></li>
                             {% if request_path != forum_url %}
-                                <li><a href="{% url 'forum' %}">| forum</a></li>
+                                <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a href="{% url 'profiles-list' %}">| accueil</a></li>
+                                <li><a href="{% url 'profiles-list' %}">accueil</a></li>
                             {% endif %}
+                            <li>
+                                <a href="{% url 'self_edit_user_profile' %}">
+                                    {{ user }}<i class="fa fa-fw fa-cog"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'django.contrib.auth.views.logout' %}">
+                                    <i class="fa fa-fw fa-sign-out"></i>
+                                </a>
+                            </li>
                         {% endif %}
 
                     </ul>
