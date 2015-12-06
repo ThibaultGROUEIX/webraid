@@ -1,35 +1,52 @@
 {% extends 'base.html' %}
+{% load helper_tags %}
+
 {% block content %}
-    {% for userprofile in object_list %}
-        <div class="panel panel-default">
-            <div class="panel-title">
-                <a href="{% url 'profile-detail' userprofile.user.id %}" class="lpane-title">
-                    {{ userprofile.user.username }}
-                </a>
-            </div>
-            <div class="panel-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-2 col-md-3 col-sm-12">
-                            {% if userprofile.profile_picture != None and userprofile.profile_picture.url != None %}
+    <div id="profiles-list">
+        {% input_fuzzy_search %}
+        <ul class="list">
+            {% for userprofile in object_list %}
+                <li class="panel panel-default">
+                    <!-- Fuzzy search fields -->
+                    <span hidden class="username">{{ userprofile.user.username }}</span>
+                    <span hidden class="first_name">{{ userprofile.user.first_name }}</span>
+                    <span hidden class="last_name">{{ userprofile.user.last_name }}</span>
 
-                                <img src="/{{ userprofile.profile_picture.url }}" width="100">
+                    <div class="panel-title">
+                        <a href="{% url 'profile-detail' userprofile.user.id %}" class="lpane-title">
+                            {{ userprofile.user.username }}
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-12">
+                                    {% if userprofile.profile_picture != None and userprofile.profile_picture.url != None %}
 
-                            {% endif %}
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12">
-                            <p>{{ userprofile.user.first_name }} {{ userprofile.user.last_name }}</p>
+                                        <img src="/{{ userprofile.profile_picture.url }}" width="100">
 
-                            <p><i class="fa fa-envelope"></i> {{ userprofile.user.email }}</p>
-                        </div>
-                        <div class="col-lg-5 col-md-4 col-sm-12">
-                            <p><i class="fa fa-home"></i> {{ userprofile.address }}</p>
-                            <p><i class="fa fa-graduation-cap"></i> {{ userprofile.school }} </p>
-                            <p><i class="fa fa-subscript"></i> {{ userprofile.studies_domain}}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12">
+                                    <p>{{ userprofile.user.first_name }} {{ userprofile.user.last_name }}</p>
+
+                                    <p><i class="fa fa-envelope"></i> {{ userprofile.user.email }}</p>
+                                </div>
+                                <div class="col-lg-5 col-md-4 col-sm-12">
+                                    <p><i class="fa fa-home"></i> {{ userprofile.address }}</p>
+
+                                    <p><i class="fa fa-graduation-cap"></i> {{ userprofile.school }} </p>
+
+                                    <p><i class="fa fa-subscript"></i> {{ userprofile.studies_domain }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+{% block extrajs %}
+    {% init_fuzzy_search "profiles-list" "'username','first_name','last_name'" %}
 {% endblock %}
