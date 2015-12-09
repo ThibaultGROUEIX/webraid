@@ -38,7 +38,7 @@ class Thread(models.Model):
 
     def get_absolute_url(self):
         slug_category = self.category.slug
-        return reverse('forum.views.thread_detail', args=[slug_category,self.slug])
+        return reverse('forum.views.thread_detail', args=[slug_category, self.slug])
 
     def save(self, **kwargs):
         unique_slugify(self, self.title)
@@ -54,3 +54,13 @@ class Post(models.Model):
     last_edit_date = models.DateTimeField(auto_now=True)
     # File uploads
     file = models.FileField()
+
+    @staticmethod
+    def get_last_posts_with_answers(user, last_posts_no=1, lasts_answers_no=0):
+        post_and_answers = []
+        for post in Post.objects.filter(author=user.user_profile).order_by('-posted_date')[:last_posts_no]:
+            answers = Post.objects \
+                          .filter(thread=post.thread).exclude(author=user.user_profile) \
+                          .filter(posted_date__gte=post.posted_date).order_by('posted_date')[:lasts_answers_no]
+            post_and_answers.append({'post': post, 'answers': answers})
+        return post_and_answers

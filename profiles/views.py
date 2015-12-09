@@ -26,13 +26,7 @@ def view_logged_out(request):
 
 def dashboard(request):
     user = request.user
-    post_and_answers = []
-    for post in Post.objects.filter(author=user.user_profile).order_by('-posted_date')[:5]:
-        answers = Post.objects \
-            .filter(thread=post.thread).exclude(author=user.user_profile) \
-            .filter(posted_date__gte=post.posted_date).order_by('posted_date')[:2]
-        post_and_answers.append({'post':post, 'answers':answers})
-
+    post_and_answers = Post.get_last_posts_with_answers(user, last_posts_no=5, lasts_answers_no=3)
     return render(request, 'dashboard.html',
                   {'user': user,
                    'posts': post_and_answers})
