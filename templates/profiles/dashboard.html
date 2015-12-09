@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ user.username }}
+    <div class="panel">
+        <div class="panel-title">
+            Derniers posts
+        </div>
+        <div class="panel-body">
+            {% for post_w_a in posts %}
+                <p>
+                    <a
+                            href="{% url 'detail_thread' post_w_a.post.thread.category.slug post_w_a.post.thread.slug %}">
+                        <i class="fa fa-fw fa-eye"></i>
+                    </a>
+                    {{ post_w_a.post.text_content }}
+                {% if post_w_a.answers != Null %}
+                    {% for answer in post_w_a.answers %}
+                        <p>{{ answer.author }} a répondu : {{ answer.text_content }}</p>
+                    {% endfor %}
+                {% endif %}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
