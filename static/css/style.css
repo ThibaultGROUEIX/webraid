@@ -245,30 +245,35 @@ option {
 }
 /* Bootstrap buttons modifications */
 .btn {
-  border-radius: 1px;
   border: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.25);
-  background-color: #1565C0;
-  color: #fff;
+  border-radius: 0;
+  border-bottom: 2px solid #1565C0;
+  box-shadow: none;
+  background-color: #f5f5f5;
+  color: #2e2e2e;
   font-weight: 700;
 }
 .btn:hover {
-  background-color: #0091EA;
-  color: #fff;
+  background-color: #c2c2c2;
 }
 .btn-danger {
+  border: none;
+  color: #fff;
   background-color: #D32F2F;
 }
 .btn-danger:hover {
+  border: none;
   background-color: #B71C1C;
 }
 .btn-success {
+  border: none;
   background-color: #32ad27;
 }
 .btn-success:hover {
   background-color: #388E3C;
 }
 .btn-discrete {
+  border: none;
   background-color: rgba(0, 0, 0, 0.25);
 }
 .btn-discrete:hover {
@@ -317,9 +322,15 @@ ul.list {
   padding: 0;
   list-style-type: none;
 }
-.lpane-title {
-  padding-left: 5px;
+.panel-heading.active {
+  background-color: #f5f5f5;
+  color: #2e2e2e;
 }
+.panel-heading.active:hover {
+  background-color: #dcdcdc;
+  color: black;
+}
+/* Actions in a panel */
 .panel > .panel-actions {
   position: relative;
   height: 0;
@@ -329,8 +340,8 @@ ul.list {
   background-color: #f5f5f5;
   float: right;
   padding: 5px;
-  border-radius: 5px;
-  margin: 2px;
+  border-radius: 0 0 5px 5px;
+  margin: 0 2px 2px 2px;
   color: #3399FF;
 }
 .panel > .panel-actions > a:hover {
