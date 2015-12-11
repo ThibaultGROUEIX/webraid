@@ -20,6 +20,11 @@ def prefix_fa_return_arrow(value):
     text = conditional_escape(value)
     return mark_safe("<i class=\"fa fa-arrow-left\"></i> " + text)
 
+@register.filter(name='fa_goto', is_safe=True)
+def prefix_fa_return_arrow(value):
+    text = conditional_escape(value)
+    return mark_safe("<i class=\"fa fa-arrow-right\"></i> " + text)
+
 
 @register.filter(name='bs_form_input', is_safe=True)
 def bootstrapify_form_input(value, label):
@@ -59,8 +64,8 @@ def bootstrapify_form_input(value, label):
 def bootstrapify_h_form_input(value, label):
     html_str = bootstrapify_form_input(value, label)
     body = Bs(html_str)
-    body.div.label['class'] = " ".join([body.div.label['class'], 'col-sm-2'])
-    div_wrapping = Bs("<div class=\"col-sm-10\"></div>")
+    body.div.label['class'] = " ".join([body.div.label['class'], 'col-sm-4'])
+    div_wrapping = Bs("<div class=\"col-sm-8\"></div>")
     if body.div.input is not None:
         input_tag = body.div.input.extract()
     elif body.div.select is not None:
