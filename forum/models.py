@@ -99,12 +99,9 @@ class Post(models.Model):
                               .filter(posted_date__gte=post.posted_date).order_by('posted_date')[:answers_limit]
                 post_and_answers.append({'date': post.posted_date, 'post': post, 'answers': answers})
                 posts_retrieved += 1
-                if posts_limit == posts_retrieved:
-                    post_and_answers.sort(key=lambda x: x['date'], reverse=True)
-                    return post_and_answers
 
         post_and_answers.sort(key=lambda x: x['date'], reverse=True)
-        return post_and_answers
+        return post_and_answers[:posts_limit]
 
     @staticmethod
     def get_last_posts(last_posts_no=1):
