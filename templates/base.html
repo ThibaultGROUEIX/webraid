@@ -74,11 +74,11 @@
                                 <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a href="{% url 'dashboard' %}">| accueil</a></li>
+                                <li><a href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i> accueil</a></li>
                             {% endif %}
                             <li>
                                 <a href="{% url 'self_edit_user_profile' %}">
-                                    {{ user }}<i class="fa fa-fw fa-cog"></i>
+                                    <i class="fa fa-fw fa-cog"></i> {{ user }}
                                 </a>
                             </li>
                             <li>
