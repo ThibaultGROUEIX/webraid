@@ -1,25 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {{ user.username }}
     <div class="panel">
-        <div class="panel-title">
-            Derniers posts
+        <div class="panel-body">
+            Bienvenue {{ user.first_name }} {{ user.last_name }} !
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            Tes derniers posts
         </div>
         <div class="panel-body">
             {% for post_w_a in posts %}
-                <p>
-                    <a
-                            href="{% url 'detail_thread' post_w_a.post.thread.category.slug post_w_a.post.thread.slug %}">
-                        <i class="fa fa-fw fa-eye"></i>
+                <div class="well">
+                    <a href="{{ post_w_a.post.thread.category.get_absolute_url }}">
+                        {{ post_w_a.post.thread.category.name }}
                     </a>
+                    /
+                    <a href="{{ post_w_a.post.thread.get_absolute_url }}"> {{ post_w_a.post.thread.title }} </a> :
                     {{ post_w_a.post.text_content }}
-                {% if post_w_a.answers != Null %}
-                    {% for answer in post_w_a.answers %}
-                        <p>{{ answer.author }} a répondu : {{ answer.text_content }}</p>
+                    {% if post_w_a.answers != Null %}
+                        {% for answer in post_w_a.answers %}
+                            <p>{{ answer.author }} a répondu : {{ answer.text_content }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            Dernière activité sur le forum
+        </div>
+        <div class="panel-body">
+            {% for twp in threads_last %}
+                <div class="well">
+                    <a href="{% url 'detail_thread_category' twp.thread.category.slug %}">
+                        {{ twp.thread.category.name }}
+                    </a>
+                    /
+                    <a href="{% url 'detail_thread' twp.thread.category.slug twp.thread.slug %}">
+                        {{ twp.thread.title }}
+                    </a> :
+                    {% for post in twp.first_posts %}
+                        <p>{{ post.author }} : {{ post.text_content }}</p>
                     {% endfor %}
-                {% endif %}
-                </p>
+                </div>
             {% endfor %}
         </div>
     </div>
