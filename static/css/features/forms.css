@@ -6,54 +6,54 @@
 /*Search form*/
 
 .form-container {
-  position: relative;
-  margin: auto;
-  padding: 10px;
-  background-color: #cbddff;
-  color :#2e2e2e ;
-  margin-bottom: 50px;
+    position: relative;
+    margin: auto;
+    padding: 10px;
+    background-color: #cbddff;
+    color: #2e2e2e;
+    margin-bottom: 50px;
 }
 
-.form-container>h1 {
-  margin-top:10px;
-  padding-bottom:10px;
-  border-bottom:1px solid rgba(0,0,0,0.15);
+.form-container > h1 {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-@media (min-width:768px){
-  .form-container {
-    /* 768 - (side menu width : 225 px ) = 543 */
-    width:543px;
-    margin-top: 20px;
-    box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.2);
-  }
+@media (min-width: 768px) {
+    .form-container {
+        /* 768 - (side menu width : 225 px ) = 543 */
+        width: 543px;
+        margin-top: 20px;
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .amount-input {
-  display: block;
-  width:100%;
-  height: 30px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #444;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #444;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .form-control {
-  border-radius:0px;
-  background-color:rgba(0,0,0,0);
-  border:none;
-  border-bottom: 2px solid #3399FF;
-  box-shadow:none;
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 2px solid #3399FF;
+    box-shadow: none;
 }
 
 /*select {
@@ -61,85 +61,101 @@
   background-color:#cbddff;
 }*/
 
-
-.form-group>textarea {
-  border-top:1px solid rgba(150,150,150,0.3);
-  border-left:1px solid rgba(150,150,150,0.5);
-  border-right:1px solid rgba(150,150,150,0.5);
+.form-group > textarea {
+    border-top: 1px solid rgba(150, 150, 150, 0.3);
+    border-left: 1px solid rgba(150, 150, 150, 0.5);
+    border-right: 1px solid rgba(150, 150, 150, 0.5);
 }
 
 option {
-  background-color:#cbddff;
+    background-color: #cbddff;
 }
 
-.buttons> a {
-  margin-left:10px;
+.buttons > a {
+    margin-left: 10px;
 }
 
 .hidden-element {
-  display:none;
-  visiblity:hidden;
-  height:0px;
+    display: none;
+    visiblity: hidden;
+    height: 0px;
 }
 
 /* Select-search inputs custom classes */
-.form-group>div>.btn{
-  background-color:rgba(0,0,0,0);
-  box-shadow:none;
-  color:rgba(0,0,0,0.7);
-  border-bottom: 2px solid #3399FF;
+.form-group > div > .btn {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 2px solid #3399FF;
 }
 
-.form-control>.dropdown-menu {
-  background-color:#cbddff;
-  border-radius:0px;
+.form-control > .dropdown-menu {
+    background-color: #cbddff;
+    border-radius: 0px;
 }
 
-.form-control>.dropdown-menu>.dropdown-menu {
-  background-color:#cbddff;
-  border-radius:0px;
+.form-control > .dropdown-menu > .dropdown-menu {
+    background-color: #cbddff;
+    border-radius: 0px;
 }
 
-.form-control>.dropdown-menu>.dropdown-menu>.active>a,
-.form-control>.dropdown-menu>.dropdown-menu>.active>a:hover,
-.form-control>.dropdown-menu>.dropdown-menu>.active>a:focus {
-  color: #fff;
-  text-decoration: none;
-  background-color: #3399FF;
-  outline: 0;
+.form-control > .dropdown-menu > .dropdown-menu > .active > a,
+.form-control > .dropdown-menu > .dropdown-menu > .active > a:hover,
+.form-control > .dropdown-menu > .dropdown-menu > .active > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #3399FF;
+    outline: 0;
 }
 
-.form-control>.dropdown-menu>.dropdown-menu>li>a:hover,
-.form-control>.dropdown-menu>.dropdown-menu>li>a:focus {
-  color: #2e2e2e;
-  text-decoration: none;
-  background-color: #dceeff;
-  outline: 0;
+.form-control > .dropdown-menu > .dropdown-menu > li > a:hover,
+.form-control > .dropdown-menu > .dropdown-menu > li > a:focus {
+    color: #2e2e2e;
+    text-decoration: none;
+    background-color: #dceeff;
+    outline: 0;
 }
 
-.form-group>.open>.dropdown-toggle.btn-default {
-  color: #2e2e2e;
-  background-color: #abccee;
-  border-color: #adadad;
+.form-group > .open > .dropdown-toggle.btn-default {
+    color: #2e2e2e;
+    background-color: #abccee;
+    border-color: #adadad;
 }
 
 .content {
-  position:relative;
-  margin-bottom:15px;
+    position: relative;
+    margin-bottom: 15px;
 }
 
 .form-well {
-  display:table;
-  width:100%;
-  margin:3px;
-  padding-left:10px;
-  border:1px solid rgba(0,0,0,0.25);
-  background-color:rgba(255,255,255,0.25);
+    display: table;
+    width: 100%;
+    margin: 3px;
+    padding-left: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
-.form-well>span {
-  display:table-cell;
+.form-well > span {
+    display: table-cell;
 }
-.form-well>span.smallfont {
-  font-size:80%;
+
+.form-well > span.smallfont {
+    font-size: 80%;
+}
+
+.form-error-list {
+    color: white;
+    font-weight: 600;
+}
+
+.form-error-list > ul {
+    padding: 2px;
+    padding-top: 10px;
+}
+
+.form-error-list > ul > li > .element {
+    background-color: #D32F2F;
+    padding: 3px;
+    border-radius: 2px;
 }
