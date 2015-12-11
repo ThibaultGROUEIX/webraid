@@ -13,7 +13,7 @@
                             {{ edit_post_form.file }}
                         </div>
                         <div class="panel-footer">
-                            <input type="submit" class="btn btn-default" value="Submit" name="edit-post">
+                            <input type="submit" class="btn btn-default" value="Valider" name="edit-post">
                         </div>
                     </form>
                 {% else %}
@@ -38,7 +38,7 @@
         {% csrf_token %}
         {{ form.text_content | bs_form_input:"" }}
         {{ form.file }}
-        <input type="submit" class="btn btn-default" value="Submit" name="new-post">
+        <input type="submit" class="btn btn-default" value="Poster" name="new-post">
     </form>
     </p>
     <!-- Scroll-up -->

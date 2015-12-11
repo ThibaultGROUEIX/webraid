@@ -6,7 +6,6 @@
 
 #content {
     margin: 80px;
-    background-color: #A7DDEF;
     padding-top: 30px;
 }
 
@@ -57,9 +56,12 @@ body {
     letter-spacing: 0.075em;
     color: #333333;
     opacity: 0.9;
-    background-color: #fff;
-    background-image: url("images/fond-ecran.jpg");
-    background-position: center center;
+    background: -webkit-radial-gradient(#fff, #ddd); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#fff, #ddd); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#fff, #ddd); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#fff, #ddd); /* Standard syntax */
+    background-size: cover;
+    background-attachment: fixed;
 
 }
 
@@ -103,9 +105,7 @@ label {
 
 #pre-status,
 .preload-placeholder {
-    background-image: url(../images/preloader.gif);
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #000 url("../images/preloader.gif") no-repeat center;
     height: 40px;
     left: 50%;
     margin: -20px 0 0 -20px;
@@ -184,6 +184,15 @@ label {
 #header {
 }
 
+#navbar-logo {
+    padding: 10px;
+    padding-top: -10px;
+    margin-top: -20px;
+    width: 53px;
+    height: 53px;
+    background: rgba(0, 0, 0, 0) url("../images/logo.jpg") no-repeat center;
+}
+
 #header .navbar {
     min-height: 30px;
     margin-bottom: 0;
@@ -195,20 +204,21 @@ label {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.st-navbar ul {
-    margin-top: 15px;
-}
-
 .st-navbar ul li a {
     text-transform: uppercase;
     font-weight: 600;
-    padding: 0;
-    margin: 14px;
+    padding: 20px 14px 14px 14px;
+    margin: 0;
 }
 
 .st-navbar ul li a:hover,
 .st-navbar ul li a:focus {
-    background-color: transparent;
+    background-color: rgba(2, 2, 2, 0.1);
+    border-bottom: solid #1565C0 3px;
+    -webkit-transition: 100ms;
+    -moz-transition: 100ms;
+    -o-transition: 100ms;
+    -ms-transition: 100ms;
     color: #000;
 }
 

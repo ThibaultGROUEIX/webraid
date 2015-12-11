@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup as Bs
-
+from BeautifulSoup import NavigableString as Navs
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django import template
@@ -19,6 +19,12 @@ class BootstrapificationError(Exception):
 def prefix_fa_return_arrow(value):
     text = conditional_escape(value)
     return mark_safe("<i class=\"fa fa-arrow-left\"></i> " + text)
+
+
+@register.filter(name='fa_goto', is_safe=True)
+def prefix_fa_return_arrow(value):
+    text = conditional_escape(value)
+    return mark_safe("<i class=\"fa fa-arrow-right\"></i> " + text)
 
 
 @register.filter(name='bs_form_input', is_safe=True)
@@ -50,19 +56,23 @@ def bootstrapify_form_input(value, label):
     wrapper.div.append(lab)
     wrapper.div.append(input_tag)
 
-    return mark_safe(wrapper.__str__())
+    with_errors = bootstrapify_inline_errors_in_fg(mark_safe(wrapper.__str__()), value.errors)
+
+    return mark_safe(with_errors)
 
 
 @register.filter(name='bs_form_input_h', is_safe=True)
 def bootstrapify_h_form_input(value, label):
     html_str = bootstrapify_form_input(value, label)
     body = Bs(html_str)
-    body.div.label['class'] = " ".join([body.div.label['class'], 'col-sm-2'])
-    div_wrapping = Bs("<div class=\"col-sm-10\"></div>")
+    body.div.label['class'] = " ".join([body.div.label['class'], 'col-sm-4'])
+    div_wrapping = Bs("<div class=\"col-sm-8\"></div>")
     if body.div.input is not None:
         input_tag = body.div.input.extract()
     elif body.div.select is not None:
         input_tag = body.div.select.extract()
+        input_tag['class'] = "selectpicker"
+        input_tag['data-live-search'] = "true"
     elif body.div.textarea is not None:
         input_tag = body.div.textarea.extract()
     else:
@@ -75,10 +85,36 @@ def bootstrapify_h_form_input(value, label):
 
 
 @register.filter(name='bs_2col', is_safe=True)
-def boostrapify_wrap_in_half_column(value):
+def bootstrapify_wrap_in_half_column(value):
     html_str = str(value)
     body = Bs(html_str)
     div_wrapping = Bs("<div class=\"col-lg-6 col-md-6 col-sm-12\"></div>")
     div_wrapping.div.append(body)
 
     return mark_safe(div_wrapping.__str__())
+
+
+@register.filter(name='bs_form_errors', is_safe=True)
+def bootstrapify_inline_errors_in_fg(value, errors):
+    if errors is None:
+        return value
+    errors = str(errors)
+    html_str = str(value)
+    form_group = Bs(html_str)
+    error_list = Bs(errors)
+    if error_list.ul is None:
+        return value
+
+    # Autoescape each error text
+    for li_error in error_list.ul.findAll('li'):
+        span_wrap = Bs("<span class=\"element\"></span>")
+        span_wrap.span.append(conditional_escape(li_error.text))
+        li_error.clear()
+        li_error.append(span_wrap)
+
+    wrapper = Bs("<div class=\"form-error-list\"></div>")
+    wrapper.div.append(error_list)
+    form_group.div.append(wrapper)
+    form_group.div['class']=" ".join([form_group.div['class'],'group-with-errors'])
+
+    return mark_safe(form_group.__str__())
