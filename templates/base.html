@@ -69,7 +69,7 @@
                                 <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a href="{% url 'profiles-list' %}">accueil</a></li>
+                                <li><a id="homelink" href="{% url 'profiles-list' %}">accueil</a></li>
                             {% endif %}
                             <li>
                                 <a href="{% url 'self_edit_user_profile' %}">

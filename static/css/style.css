@@ -496,6 +496,10 @@ label {
   -ms-transition: 100ms;
   color: #000;
 }
+.st-navbar ul li a#homelink:hover {
+  color: #FF3D00;
+  border-bottom-color: #FF3D00;
+}
 .st-navbar .navbar-header {
   margin-top: 25px;
 }
