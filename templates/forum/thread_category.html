@@ -3,12 +3,18 @@
 {% load utils_filters %}
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
-    {{ thread_category.name}}
+    {{ thread_category.name }}
 {% endblock %}
 {% block content %}
     <div>
         {% for thread in thread_list %}
             <div class="panel">
+                {% if request.user.is_superuser %}
+                    <div class="panel-actions">
+                        <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
+                        <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
+                    </div>
+                {% endif %}
                 {% if thread == edit_thread %}
                     <div class="panel-body">
                         <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"

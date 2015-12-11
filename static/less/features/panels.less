@@ -1,3 +1,23 @@
 .lpane-title {
-    padding-left: 5px;
+  padding-left: 5px;
+}
+
+.panel>.panel-actions {
+  position: relative;
+  height:0;
+}
+
+.panel>.panel-actions>a {
+  display: inline-block;
+  background-color: @lightest-grey;
+  float: right;
+  padding: 5px;
+  border-radius:5px;
+  margin: 2px;
+  color: @light-blue;
+}
+
+.panel>.panel-actions>a:hover {
+  background-color: darken(@lightest-grey, 20%);
+  color:@middle-blue;
 }
