@@ -1,9 +1,9 @@
+/* Sizes */
 /*
     Author : Victor Nicolet
 */
 /*-------------------------------------------------------------------*/
 /*Search form*/
-@import url("http://fonts.googleapis.com/css?family=Raleway:200,300,600,700&subset=latin,latin-ext");
 .form-container {
   position: relative;
   margin: auto;
@@ -245,15 +245,15 @@ option {
 }
 /* Bootstrap buttons modifications */
 .btn {
-  border-radius: 0px;
+  border-radius: 1px;
   border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.25);
-  background-color: #3399FF;
+  background-color: #1565C0;
   color: #fff;
   font-weight: 700;
 }
 .btn:hover {
-  background-color: #1565C0;
+  background-color: #0091EA;
   color: #fff;
 }
 .btn-danger {
@@ -328,15 +328,13 @@ ul.list {
   margin: 80px;
   padding-top: 30px;
 }
-/* 1. IMPORT SECTION */
-/* 2. BASIC STYLES */
 html,
 body {
   height: 100%;
 }
 body {
   margin-top: 40px;
-  font-family: "Raleway", Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 200;
   line-height: 1.7857;
@@ -499,6 +497,14 @@ label {
 .st-navbar ul li a#homelink:hover {
   color: #FF3D00;
   border-bottom-color: #FF3D00;
+}
+.st-navbar ul li a#signout:hover {
+  color: #D50000;
+  border-bottom-color: #D50000;
+}
+.st-navbar ul li a#signin:hover {
+  color: #388E3C;
+  border-bottom-color: #388E3C;
 }
 .st-navbar .navbar-header {
   margin-top: 25px;
