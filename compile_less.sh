@@ -1,0 +1,1 @@
+lessc static/less/style.less static/css/style.css
