@@ -5,7 +5,7 @@
 {% load helper_tags %}
 {% load utils_filters %}
 {% load bootstrapify %}
-{% url 'profiles-list' as home_url %}
+{% url 'dashboard' as home_url %}
 {% url 'forum' as forum_url %}
 
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
@@ -74,11 +74,11 @@
                                 <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a href="{% url 'profiles-list' %}">accueil</a></li>
+                                <li><a href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i> accueil</a></li>
                             {% endif %}
                             <li>
                                 <a href="{% url 'self_edit_user_profile' %}">
-                                    {{ user }}<i class="fa fa-fw fa-cog"></i>
+                                    <i class="fa fa-fw fa-cog"></i> {{ user }}
                                 </a>
                             </li>
                             <li>

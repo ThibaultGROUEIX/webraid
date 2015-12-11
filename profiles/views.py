@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
-from forum.models import Post
+from forum.models import Post, Thread
 from forms import DetailedUserProfileForm, CityForm, AddressForm
 from .models import UserProfile, Address, City, CallingCode
 
@@ -26,16 +26,12 @@ def view_logged_out(request):
 
 def dashboard(request):
     user = request.user
-    post_and_answers = []
-    for post in Post.objects.filter(author=user.user_profile).order_by('-posted_date')[:5]:
-        answers = Post.objects \
-            .filter(thread=post.thread).exclude(author=user.user_profile) \
-            .filter(posted_date__gte=post.posted_date).order_by('posted_date')[:2]
-        post_and_answers.append({'post':post, 'answers':answers})
-
+    post_and_answers = Post.get_last_posts_by_author_with_answers(user, posts_limit=5, answers_limit=3)
+    last_threads_posted_in = Thread.get_last_threads_posted_in_with_posts(threads_limit=5, posts_limit=2)
     return render(request, 'dashboard.html',
                   {'user': user,
-                   'posts': post_and_answers})
+                   'posts': post_and_answers,
+                   'threads_last': last_threads_posted_in})
 
 
 @login_required
