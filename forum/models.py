@@ -65,12 +65,13 @@ class Thread(models.Model):
         for thread in Thread.objects.all():
             last_posts = Post.objects.filter(thread=thread).order_by('-posted_date')
             lp_len = last_posts.__len__()
+            lp_orig = abs(lp_len - posts_limit)
             if (last_posts is not None) and (lp_len > 0):
                 thread_with_last_posted_date.append(
                     {
                         'thread': thread,
-                        'last_posted_date': last_posts[1].posted_date,
-                        'first_posts': last_posts[(lp_len - posts_limit):lp_len]
+                        'last_posted_date': last_posts[0].posted_date,
+                        'first_posts': last_posts[lp_orig:lp_len]
                     }
                 )
         thread_with_last_posted_date.sort(key=lambda x: x['last_posted_date'], reverse=True)
