@@ -9,3 +9,5 @@ profiles/*.pyc
 *~
 .idea
 media/*
+static/less/*.css
+static/less/features/*.css
