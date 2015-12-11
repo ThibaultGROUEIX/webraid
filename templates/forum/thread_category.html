@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
-{%  load utils_filters %}
+{% load utils_filters %}
+{% block path %}
+    <a href="{% url 'forum' %}">forum</a> /
+    {{ thread_category.name}}
+{% endblock %}
 {% block content %}
-    <h2>
-        <a href="{% url 'forum' %}">
-            {{ thread_category.name | fa_return }}
-        </a>
-    </h2>
     <div>
         {% for thread in thread_list %}
             <div class="panel">

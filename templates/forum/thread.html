@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
+{% block path %}
+    <a href="{% url 'forum' %}">forum</a> /
+    <a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.category.name}}</a> /
+    {{ thread.title }}
+{% endblock %}
 {% block content %}
-    <h2><a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.title | fa_return }}</a></h2>
     <p>
         {% for post in post_list %}
             <div class="panel">

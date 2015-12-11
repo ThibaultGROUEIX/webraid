@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
 {% load utils_filters %}
+{% block path %}
+    forum /
+{% endblock %}
 {% block content %}
     {% for threadCategory in threadcategory_list %}
         <div class="panel panel-default">

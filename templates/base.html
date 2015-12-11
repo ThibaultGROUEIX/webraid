@@ -62,6 +62,10 @@
 
                 <div class="collapse navbar-collapse" id="st-navbar-collapse">
 
+                    <div id="path-indicator" class="navbar-nav nav navbar-left">
+                        {% block path %}{% endblock %}
+                    </div>
+
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_anonymous %}
                             <li>
