@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
+from forum.models import Post
 from forms import DetailedUserProfileForm, CityForm, AddressForm
 from .models import UserProfile, Address, City, CallingCode
 
@@ -16,11 +17,25 @@ class UserProfilesListView(ListView):
 
 
 def home_redirect(request):
-    return redirect(reverse('profiles-list'))
+    return redirect(reverse('dashboard'))
 
 
 def view_logged_out(request):
     return render(request, 'registration/logout.html')
+
+
+def dashboard(request):
+    user = request.user
+    post_and_answers = []
+    for post in Post.objects.filter(author=user.user_profile).order_by('-posted_date')[:5]:
+        answers = Post.objects \
+            .filter(thread=post.thread).exclude(author=user.user_profile) \
+            .filter(posted_date__gte=post.posted_date).order_by('posted_date')[:2]
+        post_and_answers.append({'post':post, 'answers':answers})
+
+    return render(request, 'dashboard.html',
+                  {'user': user,
+                   'posts': post_and_answers})
 
 
 @login_required

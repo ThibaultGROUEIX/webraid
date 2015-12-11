@@ -4,6 +4,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home_redirect),
+    url(r'^home/$', views.dashboard,
+        name='dashboard'),
     url(r'^users/$', views.UserProfilesListView.as_view(),
         name='profiles-list'),
     url(r'^users/(?P<user_id>\d+)/$', views.view_profile,
