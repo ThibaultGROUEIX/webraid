@@ -1,6 +1,14 @@
-.lpane-title {
-  padding-left: 5px;
+.panel-heading.active {
+  background-color: @lightest-grey;
+  color:@dark-grey;
 }
+.panel-heading.active:hover {
+  background-color: darken(@lightest-grey, 10%);
+  color:black;
+}
+
+
+/* Actions in a panel */
 
 .panel>.panel-actions {
   position: relative;
@@ -12,8 +20,8 @@
   background-color: @lightest-grey;
   float: right;
   padding: 5px;
-  border-radius:5px;
-  margin: 2px;
+  border-radius: 0 0 5px 5px;
+  margin: 0 2px 2px 2px;
   color: @light-blue;
 }
 

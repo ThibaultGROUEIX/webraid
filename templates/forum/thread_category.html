@@ -8,7 +8,7 @@
 {% block content %}
     <div>
         {% for thread in thread_list %}
-            <div class="panel">
+            <div class="panel panel-default">
                 {% if request.user.is_superuser %}
                     <div class="panel-actions">
                         <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
@@ -27,9 +27,11 @@
                         </form>
                     </div>
                 {% else %}
-                    <div class="panel-title">
-                        <a class="lpane-title" href="{{ thread.get_absolute_url }}">{{ thread.title | fa_goto }}</a>
-                    </div>
+                    <a href="{{ thread.get_absolute_url }}">
+                        <div class="panel-heading active">
+                            {{ thread.title }}
+                        </div>
+                    </a>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
                             Tags : {{ thread.tags.all | displaytags }}
