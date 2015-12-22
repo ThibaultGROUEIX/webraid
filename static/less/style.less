@@ -183,6 +183,11 @@ label {
   margin: 0;
 }
 
+ul.dropdown-menu li a {
+  padding: 7px 5px 5px 10px;
+  text-transform: none;
+}
+
 div#path-indicator {
   text-transform: uppercase;
   font-weight: 600;
@@ -194,6 +199,17 @@ div#path-indicator {
 .st-navbar ul li a:focus {
   background-color: rgba(2, 2, 2, 0.1);
   border-bottom: solid @middle-blue 3px;
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
+  -o-transition: 100ms;
+  -ms-transition: 100ms;
+  color: #000;
+}
+
+ul.dropdown-menu li a:hover,
+ul.dropdown-menu li a:focus {
+  border: none;
+  background-color: rgba(2, 2, 2, 0.1);
   -webkit-transition: 100ms;
   -moz-transition: 100ms;
   -o-transition: 100ms;

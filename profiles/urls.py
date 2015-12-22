@@ -14,7 +14,13 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/logged_out/'}),
     url(r'^logged_out/$', views.view_logged_out),
-    url(r'^password_change/$', 'django.contrib.auth.views.password_change', name='password_change'),
-    url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', name='password_change_done'),
+    url(r'^password/$',
+        'django.contrib.auth.views.password_change',
+        {'template_name': 'forms/password_change.html'},
+        name='password_change'),
+    url(r'^password_change/done/$',
+        'django.contrib.auth.views.password_change_done',
+        {'template_name': 'forms/password_change_done.html'},
+        name='password_change_done'),
     url(r'^edit_user_profile/$', views.detailed_user_profile_form, name='self_edit_user_profile')
 ]
