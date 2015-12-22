@@ -43,6 +43,7 @@ def thread_category_detail(request, slug, pk=None):
                 thread = form.save(commit=False)
                 thread.category = thread_category
                 thread.save()
+                form.save_m2m()
 
                 return redirect(thread_category.get_absolute_url())
             else:
