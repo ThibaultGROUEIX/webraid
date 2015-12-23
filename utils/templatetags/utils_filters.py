@@ -28,3 +28,8 @@ def form_control(value):
 @register.filter(name='wrap_col')
 def wrap_col(value, css_size):
     return "<div class=\"" + css_size + "\">" + value + "</div>"
+
+
+@register.filter(name='info_text_sm', is_safe=True)
+def info_text_sm(value):
+    return mark_safe("<span class=\"info-text-sm\">" + conditional_escape(value) + "</span>")

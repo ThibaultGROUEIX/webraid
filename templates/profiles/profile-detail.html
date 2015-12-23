@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load utils_filters %}
 {% block content %}
     <div class="panel">
         <div class="panel-heading">
             <h2>
-                <a href="{% url 'profiles-list' %}"><i class="fa fa-fw fa-arrow-left"></i></a>
+                <a href="{% url 'profiles-list' %}"><i class="fa fa-fw fa-arrow-circle-left"></i></a>
                 {{ user_profile.user.username }}
             </h2>
             {{ user_profile.user.first_name }}
@@ -34,15 +35,16 @@
                 </div>
                 <div class="row">
                     {% for pwa in pwas %}
-                        <div class="well-sm">
-                            <a href="{{ pwa.post.thread.get_aboslute_url }}"><i class="fa fa-fw fa-eye"></i> </a>
-                            {{ pwa.post.text_content }} posted on {{ pwa.date | date}} <br/>
-                            {% for answer in pwa.answers %}
-                                <i class="fa fa-fw fa-reply"></i> {{ answer.author }} a répondu :
-                                {{ answer.text_content }}
-                                <br/>
-                            {% endfor %}
-                        </div>
+                        <a class="area-link" href="{{ pwa.post.thread.get_absolute_url }}">
+                            <div class="well-sm">
+                                {{ pwa.post.text_content }} {{ pwa.date | date | info_text_sm }} <br/>
+                                {% for answer in pwa.answers %}
+                                    <i class="fa fa-fw fa-reply"></i> {{ answer.author }} a répondu :
+                                    {{ answer.text_content }}
+                                    <br/>
+                                {% endfor %}
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>
