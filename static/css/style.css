@@ -121,6 +121,12 @@ option {
 .form-well > span.smallfont {
   font-size: 80%;
 }
+.form-container > form > .buttons {
+  height: 35px;
+}
+.form-container > form > .buttons > input.btn {
+  float: right;
+}
 /*
     Author : Victor Nicolet
 */

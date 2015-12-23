@@ -21,7 +21,7 @@ def home_redirect(request):
 
 
 def view_logged_out(request):
-    return render(request, 'registration/logout.html')
+    return render(request, 'logout.html')
 
 
 def dashboard(request):
