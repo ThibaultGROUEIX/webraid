@@ -153,8 +153,11 @@ def detailed_user_profile_form(request, id=None):
 def view_profile(request, user_id):
     user_profile = UserProfile.objects.get(user_id=user_id)
     pic = user_profile.profile_picture
-    return render(request, 'profile-detail.html',
+    pwas = Post.get_last_posts_by_author_with_answers(user_profile.user, posts_limit=5, answers_limit=2)
+    return render(request,
+                  'profile-detail.html',
                   {'user_profile': user_profile,
+                   'pwas': pwas,
                    'pic': pic,
                    }
                   )

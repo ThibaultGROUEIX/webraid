@@ -10,8 +10,7 @@
             {{ user_profile.user.last_name }}
         </div>
         <div class="panel-body">
-            <div class="container">
-
+            <div class="container-fluid">
                 <div class="row">
                     {% if pic != None and pic.url != None %}
                         <div class="col-lg-5 col-md-4 col-sm-12">
@@ -32,6 +31,19 @@
                             <p><i class="fa fa-subscript"></i> {{ user_profile.studies_domain }}</p>
                         {% endif %}
                     </div>
+                </div>
+                <div class="row">
+                    {% for pwa in pwas %}
+                        <div class="well-sm">
+                            <a href="{{ pwa.post.thread.get_aboslute_url }}"><i class="fa fa-fw fa-eye"></i> </a>
+                            {{ pwa.post.text_content }} posted on {{ pwa.date | date}} <br/>
+                            {% for answer in pwa.answers %}
+                                <i class="fa fa-fw fa-reply"></i> {{ answer.author }} a répondu :
+                                {{ answer.text_content }}
+                                <br/>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
