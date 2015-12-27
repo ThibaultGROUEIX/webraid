@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
+    'emailengine'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,7 +65,8 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'templates/profiles'),
                  os.path.join(BASE_DIR, 'templates/admin'),
-                 os.path.join(BASE_DIR, 'templates/forum')]
+                 os.path.join(BASE_DIR, 'templates/forum'),
+                 os.path.join(BASE_DIR, "templates/email")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
