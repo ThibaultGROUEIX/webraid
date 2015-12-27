@@ -1,31 +1,33 @@
 .panel-heading.active {
   background-color: @lightest-grey;
-  color:@dark-grey;
-}
-.panel-heading.active:hover {
-  background-color: darken(@lightest-grey, 10%);
-  color:black;
+  color: @dark-grey;
 }
 
+.panel-heading.active:hover {
+  background-color: darken(@lightest-grey, 10%);
+  color: black;
+}
 
 /* Actions in a panel */
 
-.panel>.panel-actions {
+.panel > .panel-actions {
   position: relative;
-  height:0;
+  height: 0;
 }
 
-.panel>.panel-actions>a {
+.panel > .panel-actions > a,
+.panel > .panel-actions > span {
   display: inline-block;
-  background-color: @lightest-grey;
   float: right;
-  padding: 5px;
-  border-radius: 0 0 5px 5px;
-  margin: 0 2px 2px 2px;
-  color: @light-blue;
 }
 
-.panel>.panel-actions>a:hover {
+.panel > .panel-actions > a {
+  background-color: @lightest-grey;
+  color: @light-blue;
+  padding: 5px;
+}
+
+.panel > .panel-actions > a:hover {
   background-color: darken(@lightest-grey, 20%);
-  color:@middle-blue;
+  color: @middle-blue;
 }

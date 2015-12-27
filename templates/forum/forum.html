@@ -7,6 +7,19 @@
 {% block content %}
     {% for threadCategory in threadcategory_list %}
         <div class="panel panel-default">
+            <div class="panel-actions">
+                {% if request.user.is_superuser %}
+                    <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
+                    <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
+                {% endif %}
+                <span>
+                    <!-- Add test : unfollow or follow ? -->
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-default" value="Suivre">
+                    </form>
+                </span>
+            </div>
             <a class="lpane-title" href="{{ threadCategory.get_absolute_url }}">
                 <div class="panel-heading active">
 

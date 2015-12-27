@@ -384,14 +384,15 @@ a.area-link > div:focus {
   position: relative;
   height: 0;
 }
-.panel > .panel-actions > a {
+.panel > .panel-actions > a,
+.panel > .panel-actions > span {
   display: inline-block;
-  background-color: #f5f5f5;
   float: right;
-  padding: 5px;
-  border-radius: 0 0 5px 5px;
-  margin: 0 2px 2px 2px;
+}
+.panel > .panel-actions > a {
+  background-color: #f5f5f5;
   color: #3399FF;
+  padding: 5px;
 }
 .panel > .panel-actions > a:hover {
   background-color: #c2c2c2;
