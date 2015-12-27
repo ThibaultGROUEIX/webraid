@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
-    'emailengine'
+    'notifications'
 )
 
 MIDDLEWARE_CLASSES = (

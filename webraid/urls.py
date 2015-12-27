@@ -20,11 +20,11 @@ from django.conf.urls.static import static
 import settings
 import profiles.urls
 import forum.urls
-import emailengine.urls
+import notifications.urls
 
 urlpatterns = [
                   url(r'^admin/', include(admin.site.urls)),
                   url(r'^forum/', include(forum.urls)),
-                  url(r'^emailexamples/', include(emailengine.urls)),
+                  url(r'^emailexamples/', include(notifications.urls)),
                   url(r'^', include(profiles.urls)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
