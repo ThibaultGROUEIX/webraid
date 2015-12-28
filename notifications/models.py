@@ -9,13 +9,14 @@ from django.contrib.auth.models import User
 
 from profiles.models import UserProfile
 from forum.models import Thread, ThreadCategory
+import encoding
 from encoding import NotificationSettings
 
 
 class ThreadNoticePreference(models.Model):
     models.ForeignKey(User)
     thread = models.ForeignKey(Thread)
-    preferences = models.CharField(max_length=10)
+    preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
 
     def update_preferences(self, preferences):
         self.preferences = preferences
@@ -25,7 +26,7 @@ class ThreadNoticePreference(models.Model):
 class CategoryNoticePreference(models.Model):
     user = models.ForeignKey(User)
     category = models.ForeignKey(ThreadCategory)
-    preferences = models.CharField(max_length=10)
+    preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
 
     def update_preferences(self, preferences):
         self.preferences = preferences
@@ -36,6 +37,7 @@ class NoticeUserPreferences(models.Model):
     user = models.OneToOneField(User,
                                 to_field='notice_user_preferences')
 
+    default_preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
     threads = models.ManyToManyField(ThreadNoticePreference)
     categories = models.ManyToManyField(ThreadNoticePreference)
 
