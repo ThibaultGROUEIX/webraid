@@ -39,7 +39,7 @@ class NoticeUserPreferences(models.Model):
 
     default_preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
     threads = models.ManyToManyField(ThreadNoticePreference)
-    categories = models.ManyToManyField(ThreadNoticePreference)
+    categories = models.ManyToManyField(CategoryNoticePreference)
 
     class Meta:
         verbose_name = "notification preference per user"
