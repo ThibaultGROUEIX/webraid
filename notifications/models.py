@@ -5,27 +5,80 @@ from django.db import models
 
 from django.db.models.query import QuerySet
 
+from django.contrib.auth.models import User
+
 from profiles.models import UserProfile
 from forum.models import Thread, ThreadCategory
+from encoding import NotificationSettings
+
+
+class ThreadNoticePreference(models.Model):
+    models.ForeignKey(User)
+    thread = models.ForeignKey(Thread)
+    preferences = models.CharField(max_length=10)
+
+    def update_preferences(self, preferences):
+        self.preferences = preferences
+        self.save()
+
+
+class CategoryNoticePreference(models.Model):
+    user = models.ForeignKey(User)
+    category = models.ForeignKey(ThreadCategory)
+    preferences = models.CharField(max_length=10)
+
+    def update_preferences(self, preferences):
+        self.preferences = preferences
+        self.save()
 
 
 class NoticeUserPreferences(models.Model):
-    user_profile = models.OneToOneField(UserProfile,
-                                        related_name='notice_user_preferences')
-    threads = models.ManyToManyField(Thread)
-    categories = models.ManyToManyField(ThreadCategory)
+    user = models.OneToOneField(User,
+                                to_field='notice_user_preferences')
+
+    threads = models.ManyToManyField(ThreadNoticePreference)
+    categories = models.ManyToManyField(ThreadNoticePreference)
 
     class Meta:
         verbose_name = "notification preference per user"
         verbose_name_plural = "notification preferences per user"
 
-    def add_thread(self, thread):
-        self.threads.add(thread)
-        self.save()
+    def add_thread(self, thread, preferences):
+        prefs = NotificationSettings(preferences)
+        thread_notice_preferences = ThreadNoticePreference.objects.get(
+            user=self.user,
+            thread=thread)
+        if thread_notice_preferences is None:
+            ThreadNoticePreference(user=self.user, thread=thread, preferences=prefs.get_encoding())
+        else:
+            thread_notice_preferences.upddate_preferences(prefs.get_encoding())
 
-    def add_category(self, thread_category):
-        self.categories.add(thread_category)
-        self.save()
+    def add_category(self, thread_category, preferences):
+        prefs = NotificationSettings(preferences)
+        category_notice_preferences = CategoryNoticePreference.objects.get(
+            user=self.user,
+            category_notice_preferences=thread_category)
+        if category_notice_preferences is None:
+            CategoryNoticePreference(user=self.user,
+                                     cateogry=thread_category,
+                                     preferences=prefs.get_encoding())
+        else:
+            category_notice_preferences.update_preferences(prefs.get_encoding())
+
+
+def follow(user, to_follow):
+    user_profile = UserProfile.objects.get(user=user)
+
+    if user_profile.user_notice_preferences is not None:
+        prefs = user_profile.user_notice_preferences
+    else:
+        prefs = NoticeUserPreferences(user=user_profile).save()
+
+    if prefs is not None:
+        if isinstance(to_follow, ThreadCategory):
+            prefs.add_thread(to_follow)
+        elif isinstance(to_follow, Thread):
+            prefs.add_category(to_follow)
 
 
 class NoticeType(models.Model):
@@ -41,7 +94,7 @@ class NoticeType(models.Model):
     def create(cls, label, display, description, default=2, verbosity=1):
         """
         Creates a new NoticeType.
-        This is intended to be used by other apps as a post_syncdb manangement step.
+        This is intended to be used by other apps as a post_syncdb management step.
         """
         try:
             notice_type = cls._default_manager.get(label=label)
