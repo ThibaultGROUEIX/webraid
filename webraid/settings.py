@@ -120,7 +120,7 @@ MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/med
 MEDIA_URL = 'media/'
 
 # Login and authenticaiton
-LOGIN_REDIRECT_URL = '/users'
+LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
 LOGIN_URL = '/login'
 
@@ -129,9 +129,7 @@ LOGIN_REQUIRED_URLS = (
     r'/users/(.*)$',
 )
 
-LOGIN_EXEMPT_URLS = (
-    r'^home/$',
-)
+LOGIN_EXEMPT_URLS = ()
 
 # Django-countries settings
 COUNTRIES_FIRST = [
