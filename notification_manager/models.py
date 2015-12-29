@@ -42,3 +42,8 @@ class EnqueuedEmailNotice(models.Model):
                                             extra_context=extras)
             if nb_sent > 0:
                 email_notice.delete()
+
+
+class EnqueuedAppNotice(models.Model):
+    seen = models.BooleanField()
+    content = models.TextField()
