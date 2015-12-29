@@ -37,7 +37,8 @@ class NoticeUserPreferences(models.Model):
     user = models.OneToOneField(User,
                                 to_field='notice_user_preferences')
 
-    default_preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
+    default_preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH,
+                                           null=False)
     threads = models.ManyToManyField(ThreadNoticePreference)
     categories = models.ManyToManyField(CategoryNoticePreference)
 
@@ -74,13 +75,14 @@ def follow(user, to_follow):
     if user_profile.user_notice_preferences is not None:
         prefs = user_profile.user_notice_preferences
     else:
-        prefs = NoticeUserPreferences(user=user_profile).save()
+        default_preferences = NotificationSettings().get_encoding()
+        prefs = NoticeUserPreferences(user=user_profile, default_preferences=default_preferences).save()
 
     if prefs is not None:
         if isinstance(to_follow, ThreadCategory):
-            prefs.add_thread(to_follow)
+            prefs.add_thread(to_follow, prefs.default_preferences)
         elif isinstance(to_follow, Thread):
-            prefs.add_category(to_follow)
+            prefs.add_category(to_follow, prefs.default_preferences)
 
 
 class NoticeType(models.Model):
@@ -122,13 +124,6 @@ class NoticeType(models.Model):
 
 class NoticeQueue(models.Model):
     data = models.TextField()
-
-
-def send_now(users, label, extra_context=None, sender=None, scoping=None):
-    notice_type = NoticeType.objects.get(label=label)
-
-    for user in users:
-        return user
 
 
 def enqueue(users, label, extra_context=None, sender=None):

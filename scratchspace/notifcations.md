@@ -27,5 +27,4 @@ Each user has its "notification registry" storing all the information on what ev
 - real-time notifications
 - per-period notification resumé
 - notification vectors : in-app, e-mail, facebook message ? whatsapp message ?
-
-WIP : how to implement this ? 
+See notifcations.encoding.NotificationsSettings
