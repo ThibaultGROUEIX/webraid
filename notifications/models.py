@@ -1,10 +1,4 @@
-import base64
-import cPickle
-
 from django.db import models
-
-from django.db.models.query import QuerySet
-
 from django.contrib.auth.models import User
 
 from profiles.models import UserProfile
@@ -35,7 +29,7 @@ class CategoryNoticePreference(models.Model):
 
 class NoticeUserPreferences(models.Model):
     user = models.OneToOneField(User,
-                                to_field='notice_user_preferences')
+                                related_name='notice_user_preferences')
 
     default_preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH,
                                            null=False)
@@ -120,22 +114,3 @@ class NoticeType(models.Model):
             cls(label=label, display=display, description=description, default=default).save()
             if verbosity > 1:
                 print("Created %s NoticeType" % label)
-
-
-class NoticeQueue(models.Model):
-    data = models.TextField()
-
-
-def enqueue(users, label, extra_context=None, sender=None):
-    if extra_context is None:
-        extra_context = {}
-
-    if isinstance(users, QuerySet):
-        users = [row["pk"] for row in users.values("pk")]
-    else:
-        users = [user.pk for user in users]
-    notices = []
-
-    for user in users:
-        notices.append((user, label, extra_context, sender))
-    NoticeQueue(data=base64.b64encode(cPickle.dumps(notices))).save()

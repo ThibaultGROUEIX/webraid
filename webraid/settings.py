@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'utils',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +41,9 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
-    'notifications'
+    'notifications',
+    'notification_manager',
+    'utils'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,10 +90,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+
+    'notifications': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'notifications')
     }
 }
-
-
+NOTIFICATION_DB = 'notifications'
+DATABASES_ROUTERS = ['notifications.routers.NotificationRouter']
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 

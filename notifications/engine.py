@@ -1,21 +1,25 @@
-from models import NoticeType, NoticeUserPreferences
 from encoding import NotificationSettings
-import contents
 
 
 def emit_notice(notice_content):
     # Get all the followers for this notice
-    user_preferences_list = notice_content.get_preference_query()
-    for user_preferences in user_preferences_list:
+    users_preferences = notice_content.get_preference_query()
+    send_now = []
+    send_today = []
+    send_week = []
+    for user_preferences in users_preferences:
+        # For each follower, get his preferences and handle notification accordingly
         object_notice_preference = notice_content.get_object_preference(user_preferences)
         prefs = NotificationSettings(encoded_preferences=object_notice_preference.preferences)
+        user = object_notice_preference.user
+        notice = {'user': user, 'prefs': prefs, 'content': notice_content}
 
-def send(content, label):
-    if not contents.is_regular_type(type):
-        raise Exception
-    notice_type = NoticeType.objects.get(label=label)
-    notice_model = contents.get_related_model(notice_type)
-    notice_model_instance = notice_model.objects.get(slug=content['origin_id'])
+        if prefs.get_dict()['real_time']:
+            send_now.append(notice)
+        elif prefs.get_dict()['daily']:
+            send_today.append(notice)
+        elif prefs.get_dict()['weekly']:
+            send_week.append(notice)
 
-    for user_prefs in NoticeUserPreferences.objects.iterator():
-        user_prefs.get_prefs(notice_model_instance)
+
+

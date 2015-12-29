@@ -1,3 +1,5 @@
+/notifications/migrations/*
+/notification_manager/migrations/*
 /utils/templatetags/__init__.py
 /forum/migrations/*
 /utils/migrations/*
