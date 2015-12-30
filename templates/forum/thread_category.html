@@ -7,14 +7,20 @@
 {% endblock %}
 {% block content %}
     <div>
-        {% for thread in thread_list %}
+        {% for thread, following in thread_list.items %}
             <div class="panel panel-default">
                 <div class="panel-actions">
                     {% if request.user.is_superuser %}
                         <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
                         <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
                     {% endif %}
-                    <a href="{% url 'follow_thread' thread.slug %}">Suivre</a>
+                    {% if not following %}
+                        <a href="{% url 'follow_thread' thread.slug %}">Suivre</a>
+                    {% else %}
+                        <a href="{% url 'unfollow_thread' thread.slug %}">
+                            <i class="fa fa-fw fa-check"></i> Suivi
+                        </a>
+                    {% endif %}
                 </div>
                 {% if thread == edit_thread %}
                     <div class="panel-body">

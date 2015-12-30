@@ -3,7 +3,6 @@ import time
 from django.views.generic import ListView, FormView
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
-
 from django.shortcuts import redirect, render
 
 from profiles.models import UserProfile
@@ -11,11 +10,13 @@ from models import ThreadCategory, Thread, Post
 from forms import ThreadCategoryForm, ThreadForm, PostForm
 import notifications.engine as notice_engine
 from notifications.contents import OperationPostContent
+from notifications.models import ThreadNoticePreference
 
 
 class ThreadCategoryListView(ListView):
     model = ThreadCategory
     template_name = "forum.html"
+    # additional parameters
 
 
 class AddThreadCategoryView(FormView):
@@ -36,7 +37,15 @@ def thread_category_detail(request, slug, pk=None):
 
     try:
         thread_category = ThreadCategory.objects.get(slug=slug)
-        thread_list = Thread.objects.filter(category=thread_category.pk)
+        threads = Thread.objects.filter(category=thread_category.pk)
+        thread_list = {}
+        for thread in threads.iterator():
+            try:
+                ThreadNoticePreference.objects.get(user=request.user, thread=thread)
+                thread_list.update({thread: True})
+            except ThreadNoticePreference.DoesNotExist:
+                thread_list.update({thread: False})
+
     except ThreadCategory.DoesNotExist:
         raise Http404("Thread category does not exist!")
 

@@ -47,6 +47,17 @@ class NoticeUserPreferences(models.Model):
         verbose_name = "Notifications preferences (user)"
         verbose_name_plural = "notification preferences (users)"
 
+    @staticmethod
+    def create_user_preferences(user):
+        settings = NotificationSettings(preferences=NotificationSettings.DEFAULT_NOTIFICATION_SETTINGS)
+        notice_user_preference = NoticeUserPreferences(
+            user=user,
+            default_preferences=settings.get_encoding()
+        )
+        notice_user_preference.save()
+
+        return notice_user_preference
+
     def prefs_or_defaults(self, preferences=None):
         try:
             if preferences is None:
@@ -98,6 +109,14 @@ class NoticeUserPreferences(models.Model):
             self.categories.add(category_notice_preferences)
         else:
             category_notice_preferences.update_preferences(prefs.get_encoding())
+
+    def remove_element(self, element):
+        element_notice_prefs = None
+        if isinstance(element, Thread):
+            element_notice_prefs = self.threads.all().get(thread=element)
+        elif isinstance(element, ThreadCategory):
+            element_notice_prefs = self.categories.all().get(category=element)
+        element_notice_prefs.delete()
 
 
 class NoticeType(models.Model):

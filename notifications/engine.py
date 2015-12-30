@@ -22,4 +22,3 @@ def emit_notice(notice_content):
             send_week.append(notice)
 
 
-

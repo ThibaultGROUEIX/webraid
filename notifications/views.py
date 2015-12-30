@@ -5,7 +5,6 @@ from django.shortcuts import redirect
 from profiles.models import UserProfile
 from forum.models import Thread, ThreadCategory
 from models import NoticeUserPreferences
-from encoding import NotificationSettings
 
 
 @login_required()
@@ -13,12 +12,7 @@ def follow(request, slug, obj_to_follow_type):
     try:
         notice_user_preference = NoticeUserPreferences.objects.get(user=request.user)
     except NoticeUserPreferences.DoesNotExist:
-        settings = NotificationSettings(preferences=NotificationSettings.DEFAULT_NOTIFICATION_SETTINGS)
-        notice_user_preference = NoticeUserPreferences(
-            user=request.user,
-            default_preferences=settings.get_encoding()
-        )
-        notice_user_preference.save()
+        notice_user_preference = NoticeUserPreferences.create_user_preferences(request.user)
 
     if obj_to_follow_type is 'thread':
         element = Thread.objects.get(slug=slug)
@@ -39,6 +33,34 @@ def follow_thread(request, thread_slug):
 @login_required()
 def follow_category(request, category_slug):
     return follow(request, category_slug, 'category')
+
+
+def unfollow(request, slug, obj_to_unfollow_type):
+    try:
+        notice_user_preferences = NoticeUserPreferences.objects.get(user=request.user)
+    except NoticeUserPreferences.DoesNotExist:
+        NoticeUserPreferences.create_user_preferences(request.user)
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    if obj_to_unfollow_type is 'thread':
+        elt = Thread.objects.get(slug=slug)
+    elif obj_to_unfollow_type is 'category':
+        elt = ThreadCategory.objects.get(slug=slug)
+    else:
+        elt = None
+    notice_user_preferences.remove_element(elt)
+
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required()
+def unfollow_thread(request, slug):
+    return unfollow(request, slug, 'thread')
+
+
+@login_required()
+def unfollow_category(request, slug):
+    return unfollow(request, slug, 'category')
 
 
 @login_required()
