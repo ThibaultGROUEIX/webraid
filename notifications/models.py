@@ -8,9 +8,13 @@ from encoding import NotificationSettings
 
 
 class ThreadNoticePreference(models.Model):
-    models.ForeignKey(User)
+    user = models.ForeignKey(User)
+    nothing = models.TextField()
     thread = models.ForeignKey(Thread)
     preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
+
+    class Meta:
+        verbose_name = "Thread Notice Preference (user)"
 
     def update_preferences(self, preferences):
         self.preferences = preferences
@@ -21,6 +25,9 @@ class CategoryNoticePreference(models.Model):
     user = models.ForeignKey(User)
     category = models.ForeignKey(ThreadCategory)
     preferences = models.CharField(max_length=encoding.MAX_SETTINGS_LENGTH)
+
+    class Meta:
+        verbose_name = "Category Notice Preference (user)"
 
     def update_preferences(self, preferences):
         self.preferences = preferences
@@ -37,46 +44,60 @@ class NoticeUserPreferences(models.Model):
     categories = models.ManyToManyField(CategoryNoticePreference)
 
     class Meta:
-        verbose_name = "notification preference per user"
-        verbose_name_plural = "notification preferences per user"
+        verbose_name = "Notifications preferences (user)"
+        verbose_name_plural = "notification preferences (users)"
 
-    def add_thread(self, thread, preferences):
-        prefs = NotificationSettings(preferences)
-        thread_notice_preferences = ThreadNoticePreference.objects.get(
-            user=self.user,
-            thread=thread)
-        if thread_notice_preferences is None:
-            ThreadNoticePreference(user=self.user, thread=thread, preferences=prefs.get_encoding())
-        else:
-            thread_notice_preferences.upddate_preferences(prefs.get_encoding())
+    def prefs_or_defaults(self, preferences=None):
+        try:
+            if preferences is None:
+                if self.default_preferences is None:
+                    print "Default preferences not provided"
+                    prefs = NotificationSettings(
+                        preferences=NotificationSettings.DEFAULT_NOTIFICATION_SETTINGS)
+                else:
+                    prefs = NotificationSettings(encoded_preferences=self.default_preferences)
+            else:
+                prefs = NotificationSettings(preferences=preferences)
+        except AttributeError:
+            print "Prefs or default : bad preferences"
+            print AttributeError
+            return None
 
-    def add_category(self, thread_category, preferences):
-        prefs = NotificationSettings(preferences)
-        category_notice_preferences = CategoryNoticePreference.objects.get(
-            user=self.user,
-            category_notice_preferences=thread_category)
-        if category_notice_preferences is None:
-            CategoryNoticePreference(user=self.user,
-                                     cateogry=thread_category,
-                                     preferences=prefs.get_encoding())
+        return prefs
+
+    def add_thread(self, thread, preferences=None):
+        prefs = self.prefs_or_defaults(preferences)
+        try:
+            thread_notice_preferences = ThreadNoticePreference.objects.get(
+                user=self.user,
+                thread=thread)
+        except ThreadNoticePreference.DoesNotExist:
+            thread_notice_preferences = ThreadNoticePreference(
+                user=self.user,
+                thread=thread,
+                preferences=prefs.get_encoding()
+            )
+            thread_notice_preferences.save()
+            self.threads.add(thread_notice_preferences)
+
+        thread_notice_preferences.update_preferences(prefs.get_encoding())
+
+    def add_category(self, thread_category, preferences=None):
+        prefs = self.prefs_or_defaults(preferences)
+        try:
+            category_notice_preferences = CategoryNoticePreference.objects.get(
+                user=self.user,
+                category_notice_preferences=thread_category)
+        except CategoryNoticePreference.DoesNotExist:
+            category_notice_preferences = CategoryNoticePreference(
+                user=self.user,
+                category=thread_category,
+                preferences=prefs.get_encoding()
+            )
+            category_notice_preferences.save()
+            self.categories.add(category_notice_preferences)
         else:
             category_notice_preferences.update_preferences(prefs.get_encoding())
-
-
-def follow(user, to_follow):
-    user_profile = UserProfile.objects.get(user=user)
-
-    if user_profile.user_notice_preferences is not None:
-        prefs = user_profile.user_notice_preferences
-    else:
-        default_preferences = NotificationSettings().get_encoding()
-        prefs = NoticeUserPreferences(user=user_profile, default_preferences=default_preferences).save()
-
-    if prefs is not None:
-        if isinstance(to_follow, ThreadCategory):
-            prefs.add_thread(to_follow, prefs.default_preferences)
-        elif isinstance(to_follow, Thread):
-            prefs.add_category(to_follow, prefs.default_preferences)
 
 
 class NoticeType(models.Model):

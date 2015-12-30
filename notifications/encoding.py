@@ -32,14 +32,16 @@ class NotificationSettings(object):
     }
 
     def length_ok(self):
-        return self._encoded_settings.__len__() <= MAX_SETTINGS_LENGTH
+        return len(self._encoded_settings) <= MAX_SETTINGS_LENGTH
 
     def __init__(self, preferences=None, encoded_preferences=None):
+        self._settings = {}
+        self._encoded_settings = ""
         if preferences is None:
             if encoded_preferences is not None:
                 self.update_from_string(encoded_preferences)
             else:
-                self.update_from_dict(self._settings)
+                self.update_from_dict(self.DEFAULT_NOTIFICATION_SETTINGS)
         else:
             self._settings = preferences
             self._encoded_settings = encode_settings(self._settings)
@@ -59,11 +61,11 @@ class NotificationSettings(object):
         self._encoded_settings = encoded_settings
         if not self.length_ok():
             raise AttributeError
-        for c in INVERSE_ENCODING:
-            if c in encoded_settings:
-                self._settings[INVERSE_ENCODING[c]] = True
+        for c, v in INVERSE_ENCODING.iteritems():
+            if c in self._encoded_settings:
+                self._settings[v] = True
             else:
-                self._settings[INVERSE_ENCODING[c]] = False
+                self._settings[v] = False
 
     def get_encoding(self):
         return self._encoded_settings

@@ -46,4 +46,5 @@ class EnqueuedEmailNotice(models.Model):
 
 class EnqueuedAppNotice(models.Model):
     seen = models.BooleanField()
+    context = models.TextField()
     content = models.TextField()

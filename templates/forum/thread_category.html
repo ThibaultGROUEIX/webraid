@@ -14,13 +14,7 @@
                         <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
                         <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
                     {% endif %}
-                    <span>
-                        <!-- Add test : unfollow or follow ? -->
-                        <form action="#" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="btn btn-default" value="Suivre">
-                        </form>
-                    </span>
+                    <a href="{% url 'follow_thread' thread.slug %}">Suivre</a>
                 </div>
                 {% if thread == edit_thread %}
                     <div class="panel-body">

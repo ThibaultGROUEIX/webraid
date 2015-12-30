@@ -1,11 +1,16 @@
+import time
+
 from django.views.generic import ListView, FormView
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
+
 from django.shortcuts import redirect, render
 
 from profiles.models import UserProfile
 from models import ThreadCategory, Thread, Post
 from forms import ThreadCategoryForm, ThreadForm, PostForm
+import notifications.engine as notice_engine
+from notifications.contents import OperationPostContent
 
 
 class ThreadCategoryListView(ListView):
@@ -110,7 +115,14 @@ def thread_detail(request, category_slug, slug, pk=None):
             edit_post_form = PostForm(request.POST, instance=edit_post)
 
             if edit_post_form.is_valid():
-                edit_post_form.save()
+                post = edit_post_form.save()
+                notice_content = OperationPostContent(OperationPostContent.EDIT_POST,
+                                                      time.localtime(),
+                                                      request.user,
+                                                      post,
+                                                      post.thread
+                                                      )
+                notice_engine.emit_notice(notice_content)
                 return redirect(thread.get_absolute_url())
             else:
                 return render(request,
@@ -133,6 +145,14 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.author = UserProfile.objects.get(user=request.user)
                 post.thread = thread
                 post.save()
+
+                notice_content = OperationPostContent(OperationPostContent.NEW_POST,
+                                                      time.localtime(),
+                                                      request.user,
+                                                      post,
+                                                      thread
+                                                      )
+                notice_engine.emit_notice(notice_content)
 
                 return redirect(thread.get_absolute_url())
             else:
