@@ -196,14 +196,12 @@ def thread_detail(request, category_slug, slug, pk=None):
 def thread_delete(request, slug):
     if request.user.is_superuser:
         thread = Thread.objects.get(slug=slug)
-        thread.delete()
+        thread.delete_with_posts()
     return redirect(request.META.get('HTTP_REFERER'))
 
 
 def category_delete(request, slug):
     if request.user.is_superuser:
         category = ThreadCategory.objects.get(slug=slug)
-        for thread in Thread.objects.filter(category=category):
-            thread.delete()
-        category.delete()
+        category.delete_recursive()
     return redirect(request.META.get('HTTP_REFERER'))

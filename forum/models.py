@@ -15,6 +15,11 @@ class ThreadCategory(models.Model):
     slug = models.SlugField(max_length=50,
                             unique=True)
 
+    def delete_recursive(self):
+        for thread in Thread.objects.filter(category=self):
+            thread.delete_with_posts()
+        self.delete()
+
     def __str__(self):
         return self.name
 
@@ -43,6 +48,11 @@ class Thread(models.Model):
     def save(self, **kwargs):
         unique_slugify(self, self.title)
         super(Thread, self).save(**kwargs)
+
+    def delete_with_posts(self):
+        for post in Post.objects.filter(thread=self):
+            post.delete()
+        self.delete()
 
     @staticmethod
     def get_last_threads_posted_in(limit=1):
