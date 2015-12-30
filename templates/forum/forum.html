@@ -9,8 +9,7 @@
         <div class="panel panel-default">
             <div class="panel-actions">
                 {% if request.user.is_superuser %}
-                    <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
-                    <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
+                    <a href="{% url 'delete_category' threadCategory.slug %}"><i class="fa fa-fw fa-trash"></i></a>
                 {% endif %}
                 <a href="{% url 'follow_category' threadCategory.slug %}">Suivre</a>
             </div>

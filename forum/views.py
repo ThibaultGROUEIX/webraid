@@ -191,3 +191,19 @@ def thread_detail(request, category_slug, slug, pk=None):
         return render(request, 'thread.html', data)
     else:
         return render(request, 'thread.html', data)
+
+
+def thread_delete(request, slug):
+    if request.user.is_superuser:
+        thread = Thread.objects.get(slug=slug)
+        thread.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def category_delete(request, slug):
+    if request.user.is_superuser:
+        category = ThreadCategory.objects.get(slug=slug)
+        for thread in Thread.objects.filter(category=category):
+            thread.delete()
+        category.delete()
+    return redirect(request.META.get('HTTP_REFERER'))

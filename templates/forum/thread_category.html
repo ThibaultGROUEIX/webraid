@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-actions">
                     {% if request.user.is_superuser %}
-                        <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
+                        <a href="{% url 'delete_thread' thread.slug %}"><i class="fa fa-fw fa-trash"></i></a>
                     {% endif %}
                     {% if not following %}
                         <a href="{% url 'follow_thread' thread.slug %}">
