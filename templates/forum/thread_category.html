@@ -12,13 +12,14 @@
                 <div class="panel-actions">
                     {% if request.user.is_superuser %}
                         <a href="#"><i class="fa fa-fw fa-trash"></i> </a>
-                        <a href="#"><i class="fa fa-fw fa-eye"></i> </a>
                     {% endif %}
                     {% if not following %}
-                        <a href="{% url 'follow_thread' thread.slug %}">Suivre</a>
+                        <a href="{% url 'follow_thread' thread.slug %}">
+                            <i class="fa fa-fw fa-eye"></i> Suivre
+                        </a>
                     {% else %}
                         <a href="{% url 'unfollow_thread' thread.slug %}">
-                            <i class="fa fa-fw fa-check"></i> Suivi
+                            <i class="fa fa-fw fa-eye-slash"></i> Ne plus suivre
                         </a>
                     {% endif %}
                 </div>
@@ -37,6 +38,9 @@
                     <a href="{{ thread.get_absolute_url }}">
                         <div class="panel-heading active">
                             {{ thread.title }}
+                            {% if following %}
+                                <span class="tag tag-green"><i class="fa fa-fw fa-eye"></i> abonné </span>
+                            {% endif %}
                         </div>
                     </a>
                     <div class="panel-body">

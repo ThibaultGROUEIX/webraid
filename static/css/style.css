@@ -326,6 +326,10 @@ span.tag {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+.tag.tag-green {
+  background-color: #64DD17;
+  color: #2e2e2e;
+}
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
 .fuzzy-search {
