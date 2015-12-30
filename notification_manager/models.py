@@ -18,15 +18,18 @@ class EnqueuedEmailNotice(models.Model):
         context = {
             'recipient_email': send_to_user.email,
             'recipient_username': send_to_user.username,
-            'recipient_fullname': " ".join([send_to_user.firstname, send_to_user.lastname]),
-            'sender_fullname': " ".join([sender_user.firstname, sender_user.lastname]),
+            'recipient_fullname': " ".join([send_to_user.first_name, send_to_user.last_name]),
+            'sender_fullname': " ".join([sender_user.first_name, sender_user.last_name]),
             'notice_label': notice_label
         }
-        EnqueuedEmailNotice(sent=False,
-                            context=base64.b64encode(cPickle.dumps(context)),
-                            content=content,
-                            extra_context=base64.b64decode(cPickle.dumps(extra_context))
-                            ).save()
+        nq_notice = EnqueuedEmailNotice(sent=False,
+                                        context=cPickle.dumps(context),
+                                        content=content,
+                                        extra_context=cPickle.dumps(extra_context)
+                                        )
+        nq_notice.save()
+
+        return nq_notice
 
     @staticmethod
     def send_all_and_forget():

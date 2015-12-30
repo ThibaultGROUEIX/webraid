@@ -39,8 +39,7 @@ class NoticeContent(object):
         if isinstance(self.new_object, Post):
             category = self.parent.category
             return NoticeUserPreferences.objects.filter(
-                threads__thread=self.parent,
-                categories__category=category).prefetch_related(['thread', 'category'])
+                threads__thread=self.parent)
         if isinstance(self.new_object, Thread):
             return NoticeUserPreferences.objects.filter(categories=self.parent)
 
