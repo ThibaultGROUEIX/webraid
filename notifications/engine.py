@@ -13,20 +13,18 @@ def emit_notice(notice_content):
         object_notice_preference = notice_content.get_object_preference(user_preferences)
         prefs = NotificationSettings(encoded_preferences=object_notice_preference.preferences)
         user = object_notice_preference.user
-        notice = {'user': user, 'prefs': prefs, 'content': notice_content}
-        if prefs.get_dict()['real_time']:
-            send_now.append(notice)
-        elif prefs.get_dict()['daily']:
-            send_today.append(notice)
-        elif prefs.get_dict()['weekly']:
-            send_week.append(notice)
+        # Don't send the notification if the user is the emitter !
+        if user is not notice_content.emitter:
+            notice = {'user': user, 'prefs': prefs, 'content': notice_content}
+            if prefs.get_dict()['real_time']:
+                send_now.append(notice)
+            elif prefs.get_dict()['daily']:
+                send_today.append(notice)
+            elif prefs.get_dict()['weekly']:
+                send_week.append(notice)
 
     for notice in send_now:
         if notice['prefs'].get_dict()['email']:
-            nm_models.EnqueuedEmailNotice.queue(
-                send_to_user=notice['user'],
-                sender_user=notice['content'].emitter,
-                notice_label=notice['content'].notice_type,
-                content=notice['content'],
-                extra_context={'me0': 'jj'}
-            )
+            nm_models.EnqueuedEmailNotice.queue(notice['user'],
+                                                notice['content'].new_object,
+                                                notice['content'])

@@ -45,7 +45,7 @@ class NoticeUserPreferences(models.Model):
 
     class Meta:
         verbose_name = "Notifications preferences (user)"
-        verbose_name_plural = "notification preferences (users)"
+        verbose_name_plural = "Notification preferences (users)"
 
     @staticmethod
     def create_user_preferences(user):

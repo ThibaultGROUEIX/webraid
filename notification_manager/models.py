@@ -1,33 +1,33 @@
 import cPickle
-import base64
 
 from django.db import models
-
-from .backends.email import EmailBackend
-
+from backends.email import EmailBackend
 
 class EnqueuedEmailNotice(models.Model):
     # This is not in the same database as users : we identify users by emails
     sent = models.BooleanField()
     context = models.TextField()
     content = models.TextField()
-    extra_context = models.TextField()
 
     @staticmethod
-    def queue(send_to_user, sender_user, notice_label, content, extra_context):
-        context = {
-            'recipient_email': send_to_user.email,
-            'recipient_username': send_to_user.username,
-            'recipient_fullname': " ".join([send_to_user.first_name, send_to_user.last_name]),
-            'sender_fullname': " ".join([sender_user.first_name, sender_user.last_name]),
-            'notice_label': notice_label
+    def queue(receiver, notification_content_provider, notification_context_provider):
+        receiver_info = {
+            'receiver': {
+                'email': receiver.email,
+                'first_name': receiver.first_name,
+                'last_name': receiver.last_name,
+                'username': receiver.username
+            }
         }
+        notification_context = notification_context_provider.get_context()
+        notification_context.update(receiver_info)
         nq_notice = EnqueuedEmailNotice(sent=False,
-                                        context=cPickle.dumps(context),
-                                        content=content,
-                                        extra_context=cPickle.dumps(extra_context)
+                                        context=cPickle.dumps(notification_context),
+                                        content=notification_content_provider.get_content()
                                         )
         nq_notice.save()
+
+        print cPickle.loads(nq_notice.context)
 
         return nq_notice
 
@@ -35,14 +35,12 @@ class EnqueuedEmailNotice(models.Model):
     def send_all_and_forget():
         email_backend = EmailBackend(1)
         for email_notice in EnqueuedEmailNotice.objects.all():
-            context = cPickle.loads(base64.b64decode(email_notice.context))
-            extra_context = cPickle.loads(base64.b64decode(email_notice.extra_context))
-            context_copy = context.copy()
-            extras = extra_context.update(context_copy)
-            nb_sent = email_backend.deliver(recipient=context['recipient_email'],
-                                            sender=context['sender_email'],
-                                            notice_label=context['notice_label'],
-                                            extra_context=extras)
+            context = cPickle.loads(email_notice.context.__str__())
+            context['content'] = email_notice.content
+            nb_sent = email_backend.deliver(recipient=context['receiver']['email'],
+                                            sender=context['emitter']['email'],
+                                            notice_label=context['notice_type'],
+                                            extra_context=context)
             if nb_sent > 0:
                 email_notice.delete()
 

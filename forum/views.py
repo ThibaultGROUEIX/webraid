@@ -156,7 +156,7 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.save()
 
                 notice_content = OperationPostContent(OperationPostContent.NEW_POST,
-                                                      time.localtime(),
+                                                      post.posted_date,
                                                       request.user,
                                                       post,
                                                       thread

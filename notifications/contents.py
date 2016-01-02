@@ -1,6 +1,6 @@
 from forum.models import Thread, Post, ThreadCategory
 from .models import NoticeUserPreferences
-
+from utils import NotificationContentProviderMixin, NotificationContextProviderMixin
 # Define notice types, notice content types and structures
 _NOTICE_TYPES_MODELS = {
     'post_new': 'forum.models.Thread',
@@ -18,7 +18,7 @@ def get_related_model(notice_type):
         return _NOTICE_TYPES_MODELS[notice_type]
 
 
-class NoticeContent(object):
+class NoticeContent(NotificationContextProviderMixin):
     notice_types = _NOTICE_TYPES_MODELS
     NEW_POST = 'post_new'
     NEW_THREAD = 'thread_new'
@@ -35,6 +35,11 @@ class NoticeContent(object):
         self.new_object = new_object
         self.parent = parent
 
+        # Check that the new object is a notification content provider
+        if not isinstance(self.new_object, NotificationContentProviderMixin):
+            print "The object passed to NoticeContent is not a notification source"
+            self.new_object = None
+
     def get_preference_query(self):
         if isinstance(self.new_object, Post):
             category = self.parent.category
@@ -48,6 +53,22 @@ class NoticeContent(object):
             return notice_user_preferences.threads.get(thread=self.parent)
         if isinstance(self.new_object, Thread):
             return notice_user_preferences.categories.get(category=self.parent)
+
+    def get_context(self):
+
+        if self.notice_type is self.NEW_POST:
+            return {
+                'emitter': {
+                    'email': self.emitter.email,
+                    'first_name': self.emitter.first_name,
+                    'last_name': self.emitter.last_name,
+                    'username': self.emitter.username
+                },
+                'notice_type': self.notice_type,
+                'content': self.new_object.get_content(),
+                'date': self.emission_date,
+                'parent': self.parent.get_parent_context()
+            }
 
 
 class OperationPostContent(NoticeContent):

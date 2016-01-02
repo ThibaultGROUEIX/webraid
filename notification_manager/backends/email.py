@@ -1,3 +1,5 @@
+# coding=UTF-8
+
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -16,15 +18,26 @@ class EmailBackend(BaseBackend):
         })
         context.update(extra_context)
 
-        messages = self.get_formatted_messages((
-            "short.txt",
-            "full.txt"
-        ), notice_label, context)
-
-        subject = "".join(render_to_string('email/notification_subject.txt', context).splitlines())
-
-        body = render_to_string("email/notification.html", {
-            "message": messages["full.txt"],
-        }, context)
+        subject = ""
+        body = ""
+        if notice_label is 'new_post':
+            subject, body = render_new_post_body(context)
 
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [recipient])
+
+
+def render_new_post_body(context):
+    body = render_to_string(
+        'email/notifications/new_post.html',
+        {
+            'recipient_first_name': context.recipient.first_name,
+            'recipient_last_name': context.recipient.last_name,
+            'emitter_first_name': context.emitter.first_name,
+            'emitter_last_name': context.emitter.last_name,
+            'content': context.content,
+            'date': context.date
+        }
+    )
+    subject = context.sender_fullname + u" a posté dans " + context.thread_name
+
+    return subject, body
