@@ -1,0 +1,9 @@
+{% extends 'basic.html' %}
+
+{% block emailMainContent %}
+    <h1>Bonjour {{ recipient_first_name }} {{ recipient_last_name }} !</h1>
+    <h2>{{ emitter_first_name }} {{ emitter_last_name }} a posté à {{ date | date }}:</h2>
+    <p>
+        {{ content }}
+    </p>
+{% endblock %}
