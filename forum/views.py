@@ -135,7 +135,7 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.thread = thread
                 post.save()
                 post_anchor_format = "{}#post-" + str(post.id)
-                
+
                 return redirect(post_anchor_format.format(thread.get_absolute_url()))
             else:
                 return render(request,
@@ -164,3 +164,14 @@ def thread_detail(request, category_slug, slug, pk=None):
         return render(request, 'thread.html', data)
     else:
         return render(request, 'thread.html', data)
+
+
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    parent = post.thread
+    if request.user is post.author.user:
+        post.delete()
+    else:
+        raise PermissionDenied
+
+    return redirect(parent.get_absolute_url())

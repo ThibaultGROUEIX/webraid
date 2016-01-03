@@ -20,4 +20,8 @@ urlpatterns = [
 
     url(r'^category/(?P<category_slug>[\w-]+)/thread/(?P<slug>[\w-]+)/edit/(?P<pk>\d+)/$',
         views.thread_detail, name='detail_thread_edit_post'),
+
+    url(r'delete_post/(?P<post_id>\d+)$',
+        views.post_delete,
+        name='detail_thread_delete_post')
 ]
