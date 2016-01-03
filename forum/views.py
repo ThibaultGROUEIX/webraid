@@ -124,6 +124,7 @@ def thread_detail(request, category_slug, slug, pk=None):
             edit_post_form = PostForm(request.POST, instance=edit_post)
 
             if edit_post_form.is_valid():
+
                 post = edit_post_form.save()
                 notice_content = OperationPostContent(OperationPostContent.EDIT_POST,
                                                       time.localtime(),
@@ -132,7 +133,10 @@ def thread_detail(request, category_slug, slug, pk=None):
                                                       post.thread
                                                       )
                 notice_engine.emit_notice(notice_content)
-                return redirect(thread.get_absolute_url())
+
+                url_format = '{}#post-' + str(post.id)
+                return redirect(url_format.format(thread.get_absolute_url()))
+
             else:
                 return render(request,
                               'thread.html',
@@ -154,6 +158,7 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.author = UserProfile.objects.get(user=request.user)
                 post.thread = thread
                 post.save()
+                post_anchor_format = "{}#post-" + str(post.id)
 
                 notice_content = OperationPostContent(OperationPostContent.NEW_POST,
                                                       post.posted_date,
@@ -163,7 +168,8 @@ def thread_detail(request, category_slug, slug, pk=None):
                                                       )
                 notice_engine.emit_notice(notice_content)
 
-                return redirect(thread.get_absolute_url())
+                return redirect(post_anchor_format.format(thread.get_absolute_url()))
+
             else:
                 return render(request,
                               'thread.html',
@@ -205,3 +211,14 @@ def category_delete(request, slug):
         category = ThreadCategory.objects.get(slug=slug)
         category.delete_recursive()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    parent = post.thread
+    if request.user is post.author.user:
+        post.delete()
+    else:
+        raise PermissionDenied
+
+    return redirect(parent.get_absolute_url())
