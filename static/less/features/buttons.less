@@ -175,9 +175,28 @@
 
 .btn-discrete {
   border: none;
+  color: rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.25);
 }
 
 .btn-discrete:hover {
+  color: rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Small buttons */
+.btn-sm {
+  margin-left: 5px;
+  border: none;
+  border-radius: 2px;
+  padding: 2px 4px 2px 4px;
+  box-shadow: none;
+  font-weight: 600;
+  background-color: @lightest-grey;
+  color: @middle-blue;
+}
+
+.btn-sm:hover {
+  color: darken(@middle-blue, 20%);
+  background-color: darken(@lightest-grey, 20 %);
 }

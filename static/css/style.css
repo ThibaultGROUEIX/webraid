@@ -280,10 +280,27 @@ option {
 }
 .btn-discrete {
   border: none;
+  color: rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.25);
 }
 .btn-discrete:hover {
+  color: rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.5);
+}
+/* Small buttons */
+.btn-sm {
+  margin-left: 5px;
+  border: none;
+  border-radius: 2px;
+  padding: 2px 4px 2px 4px;
+  box-shadow: none;
+  font-weight: 600;
+  background-color: #f5f5f5;
+  color: #1565C0;
+}
+.btn-sm:hover {
+  color: #0b3564;
+  background-color: #NaNNaNNaN;
 }
 /*
  - Small modifciations to bootstrap menus
@@ -396,6 +413,57 @@ a.area-link > div:focus {
 .panel > .panel-actions > a:hover {
   background-color: #c2c2c2;
   color: #1565C0;
+}
+/* Posts in a thread - specical class of panel */
+.panel--post {
+  margin-bottom: 10px;
+  position: relative;
+}
+.panel--post.self {
+  color: white;
+  background-color: #1565C0;
+  border-radius: 4px 0 4px 4px;
+  margin-right: -10px;
+}
+.panel--post.other {
+  background-color: white;
+  color: #2e2e2e;
+  border-radius: 0 4px 4px 4px;
+  margin-left: -10px;
+}
+.panel--post.other:before {
+  content: "";
+  width: 0;
+  height: 0;
+  right: 100%;
+  top: 0;
+  position: absolute;
+  border-right: 26px solid white;
+  border-bottom: 13px solid transparent;
+}
+.panel--post.self:before {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 0;
+  position: absolute;
+  border-bottom: 13px solid transparent;
+  border-left: 13px solid #1565C0;
+}
+.panel-body--post {
+  margin: 10px;
+}
+.panel-footer--post {
+  margin: 0 10px 10px 10px;
+  color: #757575;
+}
+.panel--post.self .panel-footer--post {
+  color: #f5f5f5;
+}
+.panel--post.self .form-control {
+  background-color: white;
+  color: #2e2e2e;
 }
 .page-content {
   width: 90%;
