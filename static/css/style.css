@@ -414,7 +414,7 @@ a.area-link > div:focus {
   background-color: #c2c2c2;
   color: #1565C0;
 }
-/* Posts in a thread - specical class of panel */
+/* Posts in a thread - special class of panel */
 .panel--post {
   margin-bottom: 10px;
   position: relative;
@@ -452,11 +452,12 @@ a.area-link > div:focus {
   border-left: 13px solid #1565C0;
 }
 .panel-body--post {
-  margin: 10px;
+  padding: 5px 10px 5px 10px;
 }
 .panel-footer--post {
-  margin: 0 10px 10px 10px;
+  padding: 0 10px 5px 10px;
   color: #757575;
+  font-size: 0.8em;
 }
 .panel--post.self .panel-footer--post {
   color: #f5f5f5;
@@ -464,6 +465,20 @@ a.area-link > div:focus {
 .panel--post.self .form-control {
   background-color: white;
   color: #2e2e2e;
+}
+.panel-title--post {
+  padding: 5px 10px 0 10px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+/* Form at the bottom of the thread */
+.panel--post.new {
+  background-color: white;
+  color: #2e2e2e;
+  border-radius: 4px;
+}
+.panel--post.new > form {
+  padding: 10px;
 }
 .page-content {
   width: 90%;

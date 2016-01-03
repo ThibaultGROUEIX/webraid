@@ -30,7 +30,7 @@
   color: @middle-blue;
 }
 
-/* Posts in a thread - specical class of panel */
+/* Posts in a thread - special class of panel */
 
 .panel--post {
   margin-bottom: 10px;
@@ -74,12 +74,13 @@
 }
 
 .panel-body--post {
-  margin: 10px;
+  padding : 5px 10px 5px 10px;
 }
 
 .panel-footer--post {
-  margin: 0 10px 10px 10px;
+  padding: 0 10px 5px 10px;
   color: @middle-grey;
+  font-size: 0.8em;
 }
 
 .panel--post.self .panel-footer--post {
@@ -89,4 +90,22 @@
 .panel--post.self .form-control {
   background-color: white;
   color: @dark-grey;
+}
+
+.panel-title--post {
+  padding: 5px 10px 0 10px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+/* Form at the bottom of the thread */
+
+.panel--post.new {
+  background-color: white;
+  color: @dark-grey;
+  border-radius: 4px;
+}
+
+.panel--post.new>form {
+  padding:10px;
 }
