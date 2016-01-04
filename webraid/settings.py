@@ -27,8 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# ----------------------------
+# 1 - Application definition
+# 2 - Database
+# 3 - Internationalization
+# 4 - Static and media storage
+# 5 - Login and authentication
+# 6 - Django-countries settings
+# 7 - Email settings
+# ----------------------------
 
-# Application definition
+# 1 - Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -83,7 +92,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'webraid.wsgi.application'
 
-# Database
+# 2 - Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
@@ -99,7 +108,8 @@ DATABASES = {
 }
 NOTIFICATION_DB = 'notifications'
 DATABASES_ROUTERS = ['notifications.routers.NotificationRouter']
-# Internationalization
+
+# 3 - Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -113,6 +123,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+# 4 - Static and media storage
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -125,7 +137,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/media/"
 MEDIA_URL = 'media/'
 
-# Login and authenticaiton
+# 5 - Login and authentication
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
 LOGIN_URL = '/login'
@@ -137,7 +149,7 @@ LOGIN_REQUIRED_URLS = (
 
 LOGIN_EXEMPT_URLS = ()
 
-# Django-countries settings
+# 6 - Django-countries settings
 COUNTRIES_FIRST = [
     'FR',
     'UK',
@@ -145,3 +157,15 @@ COUNTRIES_FIRST = [
 ]
 
 COUNTRIES_FIRST_REPEAT = True
+
+# 7 - Email settings
+import json
+
+smtp_settings_file = open(os.path.join(BASE_DIR, 'smtp_settings.json'))
+smtp_settings = json.load(smtp_settings_file)
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = smtp_settings['host']
+EMAIL_PORT = smtp_settings['port']
+EMAIL_HOST_USER = smtp_settings['host_user']
+EMAIL_HOST_PASSWORD = smtp_settings['password']

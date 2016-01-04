@@ -13,3 +13,4 @@ profiles/*.pyc
 media/*
 static/less/*.css
 static/less/features/*.css
+smtp_settings.json
