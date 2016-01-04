@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 from forum.models import Post, Thread
-from forms import DetailedUserProfileForm, CityForm, AddressForm
+from forms import DetailedUserProfileForm, CityForm, AddressForm, CoordinatesForm
 from .models import UserProfile, Address, City, CallingCode
 
 
@@ -32,6 +32,10 @@ def dashboard(request):
                   {'user': user,
                    'posts': post_and_answers,
                    'threads_last': last_threads_posted_in})
+
+
+def edit(request):
+    return redirect(reverse('self_edit_user_profile_all'))
 
 
 @login_required
@@ -148,6 +152,76 @@ def detailed_user_profile_form(request, id=None):
 
     return render(request, 'forms/detailed_userprofile_form.html',
                   {'form': DetailedUserProfileForm(initial=init_data)})
+
+
+def edit_coordinates(request):
+    user_profile = request.user.user_profile
+
+    if request.method is 'POST':
+        # num = forms.IntegerField(initial='address__number')
+        # street = forms.CharField(max_length=255)
+        # city = forms.CharField(max_length=255)
+        # zipcode = forms.CharField(max_length=100)
+        # country = LazyTypedChoiceField(choices=countries)
+        form = CoordinatesForm(request.POST)
+
+        # Address : address and city
+        city_data = {
+            'name': form.cleaned_data['city'],
+            'zipcode': form.cleaned_data['zipcode'],
+            'country': form.cleaned_data['country']
+        }
+
+        # Check if we can get this city
+        # If the city doesn't exist, we try to create it, but data may be incomplete
+        try:
+            city = City.objects.get(**city_data)
+        except ObjectDoesNotExist:
+            try:
+                city = CityForm(data=city_data).save()
+            except ValueError:
+                city = None
+
+        if city is not None:
+            address_data = {
+                'num': form.cleaned_data['num'],
+                'street': form.cleaned_data['street'],
+                'city': city.pk,
+            }
+
+            try:
+                address = Address.objects.get(**address_data)
+            except ObjectDoesNotExist:
+                try:
+                    address = AddressForm(data=address_data).save()
+                except ValueError:
+                    address = None
+        else:
+            address = None
+
+        user_profile.address = address
+        user_profile.save()
+
+        return redirect(reverse('profile_detail', user_profile.user.id))
+
+    init_data = {}
+
+    if user_profile.address is not None:
+        user_address = Address.objects.get(pk=user_profile.address.pk)
+        user_city = City.objects.get(pk=user_address.city.pk)
+        init_data.update({
+            'num': user_address.num,
+            'street': user_address.street,
+            'city': user_city.name,
+            'zipcode': user_city.zipcode,
+            'country': user_city.country,
+            'phone_number': user_profile.phone_number,
+            'school': user_profile.school,
+            'studies_domain': user_profile.studies_domain,
+        })
+
+        return render(request, 'forms/detailed_userprofile_form.html',
+                      {'form': CoordinatesForm(initial=init_data)})
 
 
 def view_profile(request, user_id):

@@ -2,7 +2,7 @@ from django import forms
 from django_countries.fields import LazyTypedChoiceField
 from django_countries import countries
 
-from models import City, Address, StudiesDomain, School, UserProfile, CallingCode
+from models import City, Address, StudiesDomain, School, UserProfile
 
 
 # Default base forms
@@ -50,7 +50,7 @@ class DetailedUserProfileForm(forms.Form):
     country = LazyTypedChoiceField(choices=countries,
                                    required=False)
     # Phone number
-    dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all(),
+    dialcode = forms.ModelChoiceField(queryset=CalnlingCode.objects.all(),
                                       required=False)
 
     phone_number = forms.CharField(max_length=100,
@@ -72,6 +72,14 @@ class DetailedUserProfileForm(forms.Form):
             raise forms.ValidationError("Email and email confirmation do not match")
 
         super(DetailedUserProfileForm, self).clean()
+
+
+class CoordinatesForm(forms.ModelForm):
+    num = forms.IntegerField(initial='address__number')
+    street = forms.CharField(max_length=255)
+    city = forms.CharField(max_length=255)
+    zipcode = forms.CharField(max_length=100)
+    country = LazyTypedChoiceField(choices=countries)
 
 
 class UserProfileForm(forms.ModelForm):

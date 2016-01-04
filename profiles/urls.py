@@ -30,5 +30,15 @@ urlpatterns = [
         'django.contrib.auth.views.password_change_done',
         {'template_name': 'forms/password_change_done.html'},
         name='password_change_done'),
-    url(r'^edit_user_profile/$', views.detailed_user_profile_form, name='self_edit_user_profile')
+
+    # Profile edition urls
+    url(r'^edit_profile/$',
+        views.edit,
+        name='self_edit_user_profile'),
+    url(r'^edit_profile/all$',
+        views.detailed_user_profile_form,
+        name='self_edit_user_profile_all'),
+    url(r'^edit_profile/coordinates$',
+        views.edit_coordinates,
+        name='self_edit_coordinates')
 ]
