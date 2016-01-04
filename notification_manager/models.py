@@ -1,7 +1,10 @@
 import cPickle
+import base64
 
 from django.db import models
-from backends.email import EmailBackend
+
+from backends.email_backend import EmailBackend
+
 
 class EnqueuedEmailNotice(models.Model):
     # This is not in the same database as users : we identify users by emails
@@ -22,12 +25,12 @@ class EnqueuedEmailNotice(models.Model):
         notification_context = notification_context_provider.get_context()
         notification_context.update(receiver_info)
         nq_notice = EnqueuedEmailNotice(sent=False,
-                                        context=cPickle.dumps(notification_context),
+                                        context=base64.b64encode(cPickle.dumps(notification_context)),
                                         content=notification_content_provider.get_content()
                                         )
-        nq_notice.save()
+        print nq_notice.context
 
-        print cPickle.loads(nq_notice.context)
+        nq_notice.save()
 
         return nq_notice
 
@@ -35,12 +38,14 @@ class EnqueuedEmailNotice(models.Model):
     def send_all_and_forget():
         email_backend = EmailBackend(1)
         for email_notice in EnqueuedEmailNotice.objects.all():
-            context = cPickle.loads(email_notice.context.__str__())
+            context = cPickle.loads(base64.b64decode(email_notice.context.__str__()))
             context['content'] = email_notice.content
             nb_sent = email_backend.deliver(recipient=context['receiver']['email'],
                                             sender=context['emitter']['email'],
                                             notice_label=context['notice_type'],
                                             extra_context=context)
+
+            print "Messages snt :" + str(nb_sent)
             if nb_sent > 0:
                 email_notice.delete()
 
