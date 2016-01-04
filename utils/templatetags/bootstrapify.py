@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup as Bs
-from BeautifulSoup import NavigableString as Navs
+
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django import template
@@ -84,6 +84,17 @@ def bootstrapify_h_form_input(value, label):
     return mark_safe(body.__str__())
 
 
+@register.filter(name='bs_file_input', is_safe=True)
+def bootstrapify_file_input(value):
+    html_str = str(value)
+    body = Bs(html_str)
+    div_wrapping = Bs("<div></div>")  # TODO put some interesting class in there
+    body.input['class'] = "btn btn-default"
+    div_wrapping.div.append(body)
+
+    return mark_safe(div_wrapping.__str__())
+
+
 @register.filter(name='bs_2col', is_safe=True)
 def bootstrapify_wrap_in_half_column(value):
     html_str = str(value)
@@ -115,6 +126,6 @@ def bootstrapify_inline_errors_in_fg(value, errors):
     wrapper = Bs("<div class=\"form-error-list\"></div>")
     wrapper.div.append(error_list)
     form_group.div.append(wrapper)
-    form_group.div['class']=" ".join([form_group.div['class'],'group-with-errors'])
+    form_group.div['class'] = " ".join([form_group.div['class'], 'group-with-errors'])
 
     return mark_safe(form_group.__str__())

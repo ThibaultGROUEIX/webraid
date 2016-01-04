@@ -111,7 +111,8 @@ def thread_detail(request, category_slug, slug, pk=None):
 
             if edit_post_form.is_valid():
                 edit_post_form.save()
-                return redirect(thread.get_absolute_url())
+                url_format = '{}#post-' + str(edit_post.id)
+                return redirect(url_format.format(thread.get_absolute_url()))
             else:
                 return render(request,
                               'thread.html',
@@ -133,8 +134,9 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.author = UserProfile.objects.get(user=request.user)
                 post.thread = thread
                 post.save()
+                post_anchor_format = "{}#post-" + str(post.id)
 
-                return redirect(thread.get_absolute_url())
+                return redirect(post_anchor_format.format(thread.get_absolute_url()))
             else:
                 return render(request,
                               'thread.html',
@@ -162,3 +164,14 @@ def thread_detail(request, category_slug, slug, pk=None):
         return render(request, 'thread.html', data)
     else:
         return render(request, 'thread.html', data)
+
+
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    parent = post.thread
+    if request.user is post.author.user:
+        post.delete()
+    else:
+        raise PermissionDenied
+
+    return redirect(parent.get_absolute_url())
