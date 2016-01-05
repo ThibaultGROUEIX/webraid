@@ -38,6 +38,12 @@ urlpatterns = [
     url(r'^edit_profile/all$',
         views.detailed_user_profile_form,
         name='self_edit_user_profile_all'),
+    url(r'^edit_profile/names',
+        views.edit_name,
+        name='self_edit_name'),
+    url(r'^edit_profile/address',
+        views.edit_fulladdress,
+        name='self_edit_address'),
     url(r'^edit_profile/coordinates$',
         views.edit_coordinates,
         name='self_edit_coordinates')

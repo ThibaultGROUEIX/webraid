@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 from forum.models import Post, Thread
-from forms import DetailedUserProfileForm, CityForm, AddressForm, CoordinatesForm
+from forms import DetailedUserProfileForm, CityForm, AddressForm, FullAddressForm, CoordinatesForm, NameForm
 from .models import UserProfile, Address, City, CallingCode
 
 
@@ -39,8 +39,7 @@ def edit(request):
 
 
 @login_required
-def detailed_user_profile_form(request, id=None):
-    init_data = {}
+def detailed_user_profile_form(request):
     user = request.user
     user_profile = UserProfile.objects.get(user_id=request.user.id)
     if request.method == 'POST':
@@ -98,7 +97,8 @@ def detailed_user_profile_form(request, id=None):
             # Profile picture
             if 'profile_picture' in user_profile_form.changed_data:
                 import Image as Pil
-                import StringIO, time
+                import StringIO
+                import time
                 from django.core.files.uploadedfile import InMemoryUploadedFile
 
                 profile_pic = Pil.open(request.FILES.get('profile_picture'))
@@ -154,7 +154,8 @@ def detailed_user_profile_form(request, id=None):
                   {'form': DetailedUserProfileForm(initial=init_data)})
 
 
-def edit_coordinates(request):
+@login_required()
+def edit_fulladdress(request):
     user_profile = request.user.user_profile
 
     if request.method is 'POST':
@@ -163,7 +164,7 @@ def edit_coordinates(request):
         # city = forms.CharField(max_length=255)
         # zipcode = forms.CharField(max_length=100)
         # country = LazyTypedChoiceField(choices=countries)
-        form = CoordinatesForm(request.POST)
+        form = FullAddressForm(request.POST)
 
         # Address : address and city
         city_data = {
@@ -215,13 +216,82 @@ def edit_coordinates(request):
             'city': user_city.name,
             'zipcode': user_city.zipcode,
             'country': user_city.country,
-            'phone_number': user_profile.phone_number,
-            'school': user_profile.school,
-            'studies_domain': user_profile.studies_domain,
         })
 
-        return render(request, 'forms/detailed_userprofile_form.html',
-                      {'form': CoordinatesForm(initial=init_data)})
+        return render(request, 'forms/self_edit_address.html',
+                      {'form': FullAddressForm(initial=init_data)})
+
+
+@login_required()
+def edit_coordinates(request):
+    user_profile = request.user.user_profile
+
+    if request.method == 'POST':
+        form = CoordinatesForm(request.POST)
+
+        if form.is_valid():
+            user_profile.user.email = form.cleaned_data['email']
+            user_profile.phone_number = form.cleaned_data['phone_number']
+            user_profile.dialcode = form.cleaned_data['dialcode']
+            user_profile.save()
+
+            return redirect(reverse('profiles-list'))
+        else:
+            return render(
+                request,
+                'forms/self_edit_coordinates.html',
+                {'form': form}
+            )
+
+    init_data = {
+        'email': user_profile.email,
+        'dialcode': user_profile.dialcode,
+        'phone_number': user_profile.phone_number
+    }
+    return render(
+        request,
+        'forms/self_edit_coordinates.html',
+        {
+            'form': CoordinatesForm(initial=init_data)
+        }
+    )
+
+
+@login_required()
+def edit_name(request):
+    user_profile = request.user.user_profile
+
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+
+        if form.is_valid():
+            user_profile.user.username = form.cleaned_data['user_name']
+            user_profile.user.first_name = form.cleaned_data['first_name']
+            user_profile.user.last_name = form.cleaned_data['last_name']
+            user_profile.save()
+            return redirect(reverse('profiles-list'))
+        else:
+            return render(
+                request,
+                'forms/self_edit_name.html',
+                {
+                    'form': form
+                }
+            )
+
+    init_data = {
+        'user_name': user_profile.user.username,
+        'first_name': user_profile.user.first_name,
+        'last_name': user_profile.user.last_name
+    }
+
+    return render(
+        request,
+        'forms/self_edit_name.html',
+        {
+            'form': NameForm(initial=init_data)
+        }
+    )
 
 
 def view_profile(request, user_id):

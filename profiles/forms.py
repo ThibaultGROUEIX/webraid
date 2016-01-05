@@ -2,7 +2,7 @@ from django import forms
 from django_countries.fields import LazyTypedChoiceField
 from django_countries import countries
 
-from models import City, Address, StudiesDomain, School, UserProfile
+from models import City, Address, StudiesDomain, School, UserProfile, CallingCode
 
 
 # Default base forms
@@ -50,7 +50,7 @@ class DetailedUserProfileForm(forms.Form):
     country = LazyTypedChoiceField(choices=countries,
                                    required=False)
     # Phone number
-    dialcode = forms.ModelChoiceField(queryset=CalnlingCode.objects.all(),
+    dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all(),
                                       required=False)
 
     phone_number = forms.CharField(max_length=100,
@@ -74,12 +74,31 @@ class DetailedUserProfileForm(forms.Form):
         super(DetailedUserProfileForm, self).clean()
 
 
-class CoordinatesForm(forms.ModelForm):
+class FullAddressForm(forms.Form):
     num = forms.IntegerField(initial='address__number')
     street = forms.CharField(max_length=255)
     city = forms.CharField(max_length=255)
     zipcode = forms.CharField(max_length=100)
     country = LazyTypedChoiceField(choices=countries)
+
+
+class CoordinatesForm(forms.Form):
+    dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all())
+    phone_number = forms.CharField(max_length=100)
+
+    email = forms.EmailField()
+    email_confirmation = forms.EmailField
+
+    def clean(self):
+        if self.cleaned_data['email'] != self.cleaned_data['confirm_email']:
+            raise forms.ValidationError("Les deux champs email sont differents !")
+        super(CoordinatesForm, self).clean()
+
+
+class NameForm(forms.Form):
+    user_name = forms.CharField(max_length=100)
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
 
 
 class UserProfileForm(forms.ModelForm):
