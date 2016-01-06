@@ -218,7 +218,7 @@ def edit_fulladdress(request):
             'country': user_city.country,
         })
 
-        return render(request, 'forms/self_edit_address.html',
+        return render(request, 'forms/self_edit/address.html',
                       {'form': FullAddressForm(initial=init_data)})
 
 
@@ -239,18 +239,18 @@ def edit_coordinates(request):
         else:
             return render(
                 request,
-                'forms/self_edit_coordinates.html',
+                'forms/self_edit/coordinates.html',
                 {'form': form}
             )
 
     init_data = {
-        'email': user_profile.email,
+        'email': user_profile.user.email,
         'dialcode': user_profile.dialcode,
         'phone_number': user_profile.phone_number
     }
     return render(
         request,
-        'forms/self_edit_coordinates.html',
+        'forms/self_edit/coordinates.html',
         {
             'form': CoordinatesForm(initial=init_data)
         }
@@ -273,7 +273,7 @@ def edit_name(request):
         else:
             return render(
                 request,
-                'forms/self_edit_name.html',
+                'forms/self_edit/name.html',
                 {
                     'form': form
                 }
@@ -287,7 +287,7 @@ def edit_name(request):
 
     return render(
         request,
-        'forms/self_edit_name.html',
+        'forms/self_edit/name.html',
         {
             'form': NameForm(initial=init_data)
         }

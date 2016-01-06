@@ -1,0 +1,14 @@
+{% extends 'self_edit_base.html' %}
+{% load bootstrapify %}
+{% block pform %}
+    <form class="form-horizontal" action="{% url 'self_edit_name' %}"
+          method="POST">
+        {% csrf_token %}
+        {{ form.user_name | bs_form_input_h:"Nom d'utilisateur (login)" }}
+        {{ form.first_name | bs_form_input_h:"Prénom" }}
+        {{ form.last_name | bs_form_input_h:"Nom" }}
+        <div class="buttons">
+            <input class="btn" value="Enregistrer" type="submit">
+        </div>
+    </form>
+{% endblock %}

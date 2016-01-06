@@ -127,6 +127,15 @@ option {
 .form-container > form > .buttons > input.btn {
   float: right;
 }
+.form-container > form > input.btn {
+  display: inline-block;
+  float: right;
+}
+.form-container > form > input.btn:before {
+  height: 35px;
+  width: 100%;
+  background-color: #0091EA;
+}
 /*
     Author : Victor Nicolet
 */

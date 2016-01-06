@@ -1,0 +1,16 @@
+{% extends 'self_edit_base.html' %}
+
+{% load bootstrapify %}
+
+{% block pform %}
+    <form action="{% url 'self_edit_coordinates' %}" method="POST" class="form-horizontal">
+        {% csrf_token %}
+        {{ form.dialcode | bs_form_input_h:"Code pays" }}
+        {{ form.phone_number | bs_form_input_h:"Num&eacute;ro de telephone" }}
+        {{ form.email | bs_form_input_h:"Email" }}
+        {{ form.email_confirmation | bs_form_input_h:"Confirmation email" }}
+        <div class="buttons">
+            <input class="btn" value="Enregistrer" type="submit">
+        </div>
+    </form>
+{% endblock %}

@@ -87,7 +87,7 @@ class CoordinatesForm(forms.Form):
     phone_number = forms.CharField(max_length=100)
 
     email = forms.EmailField()
-    email_confirmation = forms.EmailField
+    email_confirmation = forms.EmailField()
 
     def clean(self):
         if self.cleaned_data['email'] != self.cleaned_data['confirm_email']:

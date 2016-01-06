@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load helper_tags %}
+
+{% block content %}
+    <div class="subnavbar">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12 center">
+                <a href="{% url 'self_edit_name' %}"
+                   class="{% css_active_url request.path 'self_edit_name' %}">
+                    Identité
+                </a>
+                <a href="{% url 'self_edit_address' %}"
+                   class="{% css_active_url request.path 'self_edit_address' %}">
+                    Addresse
+                </a>
+                <a href="{% url 'self_edit_coordinates' %}"
+                   class="{% css_active_url request.path 'self_edit_coordinates' %}">
+                    Email / Téléphone
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="form-container">
+        {% block pform %}
+        {% endblock %}
+    </div>
+{% endblock %}
