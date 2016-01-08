@@ -31,13 +31,13 @@ def prefix_fa_return_arrow(value):
 def bootstrapify_form_input(value, label):
     html_str = str(value)
     body = Bs(html_str)
-
     if body.input is not None:
         input_tag = body.input
     elif body.select is not None:
         input_tag = body.select
     elif body.textarea is not None:
         input_tag = body.textarea
+        input_tag['rows'] = 2
     else:
         raise BootstrapificationError("This is not a form input in bs_form_input")
 
@@ -53,9 +53,9 @@ def bootstrapify_form_input(value, label):
     lab = Bs("<label>" + label + "</label>")
     lab.label['class'] = 'control-label'
     lab.label['for'] = conditional_escape(input_tag['id'])
+
     wrapper.div.append(lab)
     wrapper.div.append(input_tag)
-
     with_errors = bootstrapify_inline_errors_in_fg(mark_safe(wrapper.__str__()), value.errors)
 
     return mark_safe(with_errors)
@@ -139,14 +139,15 @@ def bootstrapify_inline_errors_in_fg(value, errors):
 def bootstrapify_file_input(value):
     html_str = str(value)
     html = Bs(html_str)
-    image_link = html.a['href']
-    pic_input = html.find("input", {"type": "file"})
-    picture = Bs("<img class=\"snapshot\" alt=\"picture\" width=200>")
-    if image_link != None:
-        picture.img['src'] = "/" + image_link
     wrapper = Bs("<div></div>")
+    pic_input = html.find("input", {"type": "file"})
+    if html.a is not None:
+        image_link = html.a['href']
+        picture = Bs("<img class=\"snapshot\" alt=\"picture\" width=200>")
+        if image_link is not None:
+            picture.img['src'] = "/" + image_link
+            wrapper.div.append(picture)
 
-    wrapper.div.append(picture)
     wrapper.div.append(pic_input)
 
     return mark_safe(wrapper.__str__())
