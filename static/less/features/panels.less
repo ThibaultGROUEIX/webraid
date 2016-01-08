@@ -1,7 +1,6 @@
 /* 1 - general panels */
 /* 2 - post panels */
 
-
 .panel-heading.active {
   background-color: @lightest-grey;
   color: @dark-grey;
@@ -38,7 +37,6 @@
 }
 
 /* 2- Posts in a thread - special class of panel */
-
 .panel--post {
   margin-bottom: 10px;
   position: relative;
@@ -47,8 +45,6 @@
 .panel--post.self {
   color: white;
   background-color: @middle-blue;
-  float: right;
-  width: 200px;
   border-radius: 4px 0 4px 4px;
   margin-right: -10px;
 }
@@ -58,6 +54,21 @@
   color: @dark-grey;
   border-radius: 0 4px 4px 4px;
   margin-left: -10px;
+}
+
+.post-container {
+  overflow: hidden;
+  padding: 0 25px 0 25px;
+  height: 100%;
+}
+
+.post-container > .panel--post {
+  max-width: 400px;
+}
+
+.post-container > .panel--post.self {
+  float: right;
+  clear: both;
 }
 
 .panel--post.other:before {
