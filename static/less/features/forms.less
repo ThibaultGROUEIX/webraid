@@ -24,7 +24,6 @@
 
 @media (min-width: 768px) {
   .form-container {
-    width: 768px;
     margin-top: 20px;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
   }
@@ -151,3 +150,24 @@ option {
 .form-container > form > .buttons > input.btn {
   float: right;
 }
+
+.form-error-list > ul.errorlist {
+  list-style-type: none;
+  margin: 5px 0 0 0 !important;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+}
+
+.form-error-list li > span {
+  border-radius: 3px;
+  padding: 3px;
+  background-color: @vibrant-red;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Re-styling checkboxes */
+/* Remove default checkbox */

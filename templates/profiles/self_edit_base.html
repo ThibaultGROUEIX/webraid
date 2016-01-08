@@ -4,23 +4,32 @@
 
 {% block content %}
     <div class="subnavbar">
-        <div class="row">
-            <div class="col-lg-6 col-md-8 col-sm-12 center">
+        <div class="row nopadding">
+            <div class="col-lg-4 col-md-4 nopadding">
                 <a href="{% url 'self_edit_name' %}"
                    class="{% css_active_url request.path 'self_edit_name' %}">
-                    Identité
+                    <i class="fa fa-fw fa-user"></i> Identité
                 </a>
+            </div>
+            <div class="col-lg-4 col-md-4 nopadding">
                 <a href="{% url 'self_edit_address' %}"
                    class="{% css_active_url request.path 'self_edit_address' %}">
-                    Addresse
+                    <i class="fa fa-fw fa-home"></i> Addresse
                 </a>
+            </div>
+            <div class="col-lg-4 col-md-4 nopadding">
                 <a href="{% url 'self_edit_coordinates' %}"
                    class="{% css_active_url request.path 'self_edit_coordinates' %}">
-                    Email / Téléphone
+                    <i class="fa fa-fw fa-mobile-phone"></i> Email / Téléphone
                 </a>
             </div>
         </div>
     </div>
+    {% if notice_saved %}
+        <div class="form-container">
+            <i class="fa fa-fw fa-check"></i> Les modifications ont bien été enregistrées !
+        </div>
+    {% endif %}
     <div class="form-container">
         {% block pform %}
         {% endblock %}

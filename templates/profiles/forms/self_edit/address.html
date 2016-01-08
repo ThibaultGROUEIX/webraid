@@ -1,13 +1,19 @@
 {% extends 'self_edit_base.html' %}
 {% load bootstrapify %}
 {% block pform %}
+    {% if new_address_parts.city %}
+        <div class="form-well">
+            <i class="fa fa-fw fa-building"></i> Une nouvelle ville a été créée :
+            {{ new_address_parts.city_name }}
+        </div>
+    {% endif %}
     <form class="form-horizontal"
           method="POST"
           action="{% url 'self_edit_address' %}"
             >
         {% csrf_token %}
         <div class="row">
-            {{ form.num | bs_form_input_h:"Numéro"| bs_2col }}
+            {{ form.num | bs_form_input_h:"Num&eacute;ro"| bs_2col }}
             {{ form.street | bs_form_input_h:"Rue" | bs_2col }}
         </div>
         {{ form.city | bs_form_input_h:"Ville" }}

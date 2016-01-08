@@ -77,8 +77,12 @@ def bootstrapify_h_form_input(value, label):
         input_tag = body.div.textarea.extract()
     else:
         raise BootstrapificationError("Not a correct form group in bs_form_input_h")
-
     div_wrapping.div.append(input_tag)
+
+    if body.div.div is not None:
+        if body.div.div['class'] == 'form-error-list':
+            div_wrapping.div.append(body.div.div.extract())
+
     body.div.insert(1, div_wrapping)
 
     return mark_safe(body.__str__())
@@ -129,3 +133,20 @@ def bootstrapify_inline_errors_in_fg(value, errors):
     form_group.div['class'] = " ".join([form_group.div['class'], 'group-with-errors'])
 
     return mark_safe(form_group.__str__())
+
+
+@register.filter(name='bs_file_input', is_safe=True)
+def bootstrapify_file_input(value):
+    html_str = str(value)
+    html = Bs(html_str)
+    image_link = html.a['href']
+    pic_input = html.find("input", {"type": "file"})
+    picture = Bs("<img class=\"snapshot\" alt=\"picture\" width=200>")
+    if image_link != None:
+        picture.img['src'] = "/" + image_link
+    wrapper = Bs("<div></div>")
+
+    wrapper.div.append(picture)
+    wrapper.div.append(pic_input)
+
+    return mark_safe(wrapper.__str__())
