@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
 {% load staticfiles %}
-
+{% load helper_tags %}
 {% block extrahead %}
     <script src="{% static 'js/customformats.js' %}" type="text/javascript"></script>
 {% endblock %}
@@ -13,12 +13,16 @@
 {% endblock %}
 
 {% block content %}
-    <p>
+    {% if post_list.count > 4 %}
+        <a href="#new-post-form" class="btn"><i class="fa fa-fw fa-arrow-down"></i> Derniers posts</a>
+    {% endif %}
+    <ul class="list">
         {% for post in post_list %}
-            <div class="post-container">
+            <li class="post-container">
                 <div class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
                      id="post-{{ post.id }}"
                         >
+                    <span hidden class="username">{{ post.author.user.username }}</span>
                     {% if post == edit_post %}
                         <form id="post-edit-form"
                               method="POST"
@@ -60,9 +64,14 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
+            </li>
         {% endfor %}
-    </p>
+    </ul>
+    {% if post_list.count > 0 %}
+        <div class="searchbar-fixed-top">
+            {% input_fuzzy_search "Filtrer par nom d'utilisateur" %}
+        </div>
+    {% endif %}
     <p>
     <div class="panel--post new" id="new-post-form">
         <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
@@ -85,4 +94,5 @@
     <script src="{% static 'js/linkify.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/linkify-jquery.min.js' %}" type="text/javascript"></script>
     <script>$('p').linkify();</script>
+    {% init_fuzzy_search "content" "'username'" %}
 {% endblock %}

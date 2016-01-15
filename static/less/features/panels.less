@@ -117,7 +117,9 @@
 }
 
 .post-container > .panel--post {
-  max-width: 400px;
+  @media (min-width: 768px) {
+    max-width: 70%;
+  }
 }
 
 .post-container > .panel--post.self {

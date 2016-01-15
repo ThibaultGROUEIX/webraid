@@ -395,6 +395,18 @@ ul.list {
   padding: 0;
   list-style-type: none;
 }
+.searchbar-fixed-top {
+  padding: 0 25% 5px 25%;
+  height: 35px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  top: 58px;
+  left: 0;
+}
+.searchbar-fixed-top .searchbar {
+  margin: auto;
+}
 /*--------------------------------------------------------------------------*/
 /* Text specials */
 .info-text-sm {
@@ -509,8 +521,10 @@ a.area-link > div:focus {
   padding: 0 25px 0 25px;
   height: 100%;
 }
-.post-container > .panel--post {
-  max-width: 400px;
+@media (min-width: 768px) {
+  .post-container > .panel--post {
+    max-width: 70%;
+  }
 }
 .post-container > .panel--post.self {
   float: right;
@@ -705,7 +719,15 @@ div#path-indicator {
   text-transform: uppercase;
   font-weight: 600;
   padding: 20px 14px 14px 14px;
+  max-width: 50%;
+  max-height: 50px;
+  overflow: hidden;
   margin: 0;
+}
+@media (max-width: 768px) {
+  div#path-indicator {
+    visibility: hidden;
+  }
 }
 .st-navbar ul li a:hover,
 .st-navbar ul li a:focus {

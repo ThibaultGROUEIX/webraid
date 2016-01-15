@@ -61,8 +61,8 @@ def init_fuzzy_search(container_name, attribute_list):
 
 
 @register.simple_tag(name='input_fuzzy_search')
-def input_fuzzy_search():
-    tag = "<input type=\"search\" class=\"fuzzy-search\" autofocus>" \
+def input_fuzzy_search(placeholder=""):
+    tag = "<input type=\"search\" class=\"fuzzy-search\" placeholder=\""+placeholder+"\" autofocus>" \
           "<i class =\"fa fa-fw fa-search\"></i>"
     wrapper = Bs("<div class=\"searchbar\"></div>")
     tag = Bs(tag)
