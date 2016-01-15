@@ -41,13 +41,13 @@
 
 <body>
 <div class="page-wrapper">
-<!--
-    <div id="st-preloader">
-        <div id="pre-status">
-            <div class="preload-placeholder"></div>
+    <!--
+        <div id="st-preloader">
+            <div id="pre-status">
+                <div class="preload-placeholder"></div>
+            </div>
         </div>
-    </div>
-    -->
+        -->
     <header id="header">
         <nav class="navbar st-navbar navbar-fixed-top">
             <div class="container">
@@ -80,7 +80,8 @@
                                 <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a id="homelink" href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i> accueil</a></li>
+                                <li><a id="homelink" href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i>
+                                    accueil</a></li>
                             {% endif %}
                             <li>
                                 <a href="{% url 'profiles-list' %}">
@@ -89,12 +90,12 @@
                             </li>
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                        aria-haspopup="true" aria-expanded="false">
+                                   aria-haspopup="true" aria-expanded="false">
                                     {{ user }}<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{% url 'self_edit_user_profile' %}">
+                                        <a href="{% url 'self_edit_name' %}">
                                             <i class="fa fa-fw fa-user"></i> Modifier mon profil
                                         </a>
                                     </li>
@@ -141,6 +142,8 @@
 <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
 <!-- Bootstrap select -->
 <script type="text/javascript" src="{% static 'js/list.js' %}"></script>
+<!-- Elastic textareas -->
+<script type="text/javascript" src="{% static 'js/elastic.js' %}"></script>
 <!--Lists-->
 <script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script>
 <!-- Parallax -->
@@ -162,6 +165,7 @@
 <!-- magnific-popup -->
 <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
 <!-- Scripts -->
+<script>autosize(document.querySelector('textarea'))</script>
 {% block extrajs %}
 {% endblock %}
 

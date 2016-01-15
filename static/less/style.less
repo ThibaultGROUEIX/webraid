@@ -36,6 +36,11 @@ body {
 
 }
 
+.nopadding {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 a:hover {
   color: rgb(1, 1, 0);
 }
@@ -243,6 +248,52 @@ ul.dropdown-menu li a:focus {
   padding: 0;
   border-radius: 0;
 }
+
+
+/* SUBNAVBAR */
+
+.subnavbar {
+  position: relative;
+  margin: auto;
+  margin-bottom: 30px;
+  background-color: @navbar-bg;
+  color: @navbar-fg;
+}
+
+@media (min-width: 768px) {
+  .subnavbar {
+    margin-top: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.subnavbar a{
+  margin:0;
+  display: inline-block;
+  color:@dark-grey;
+  text-transform: uppercase;
+  padding:10px;
+  width: 100%;
+  border-style: inset;
+  text-align: center;
+}
+
+.subnavbar a.active {
+  border-bottom: solid @middle-grey 3px;
+}
+
+.subnavbar a:hover,
+.subnavbar a:focus {
+  background-color: rgba(2, 2, 2, 0.1);
+  border-bottom: solid @middle-blue 3px;
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
+  -o-transition: 100ms;
+  -ms-transition: 100ms;
+  color: #000;
+}
+
+
 
 /* 5. SLIDER */
 
