@@ -444,6 +444,10 @@ a.area-link > div:focus {
 .panel--post {
   margin-bottom: 10px;
   position: relative;
+  background-color: white;
+  /* style for posts posted by the user */
+  /* Styles for posts posted by different users */
+  /* At the bottom of the thread, form for new post */
 }
 .panel--post.self {
   color: white;
@@ -451,11 +455,54 @@ a.area-link > div:focus {
   border-radius: 4px 0 4px 4px;
   margin-right: -10px;
 }
+.panel--post.self a.linkified {
+  color: #cbddff;
+  text-decoration: underline;
+}
+.panel--post.self a.linkified:hover,
+.panel--post.self a.linkified:focus {
+  color: white;
+}
+.panel--post.self .panel-footer--post {
+  color: #f5f5f5;
+}
+.panel--post.self .form-control {
+  background-color: white;
+  color: #2e2e2e;
+}
+.panel--post.self:before {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 0;
+  position: absolute;
+  border-bottom: 13px solid transparent;
+  border-left: 13px solid #1565C0;
+}
 .panel--post.other {
   background-color: white;
   color: #2e2e2e;
   border-radius: 0 4px 4px 4px;
   margin-left: -10px;
+}
+.panel--post.other:before {
+  content: "";
+  width: 0;
+  height: 0;
+  right: 100%;
+  top: 0;
+  position: absolute;
+  border-right: 26px solid white;
+  border-bottom: 13px solid transparent;
+}
+.panel--post.new {
+  background-color: white;
+  color: #2e2e2e;
+  border-radius: 4px;
+}
+.panel--post.new form {
+  padding: 10px;
 }
 .post-container {
   overflow: hidden;
@@ -469,26 +516,6 @@ a.area-link > div:focus {
   float: right;
   clear: both;
 }
-.panel--post.other:before {
-  content: "";
-  width: 0;
-  height: 0;
-  right: 100%;
-  top: 0;
-  position: absolute;
-  border-right: 26px solid white;
-  border-bottom: 13px solid transparent;
-}
-.panel--post.self:before {
-  content: "";
-  width: 0;
-  height: 0;
-  left: 100%;
-  top: 0;
-  position: absolute;
-  border-bottom: 13px solid transparent;
-  border-left: 13px solid #1565C0;
-}
 .panel-body--post {
   padding: 5px 10px 5px 10px;
 }
@@ -497,26 +524,10 @@ a.area-link > div:focus {
   color: #757575;
   font-size: 0.8em;
 }
-.panel--post.self .panel-footer--post {
-  color: #f5f5f5;
-}
-.panel--post.self .form-control {
-  background-color: white;
-  color: #2e2e2e;
-}
 .panel-title--post {
   padding: 5px 10px 0 10px;
   font-size: 0.8em;
   font-weight: 600;
-}
-/* Form at the bottom of the thread */
-.panel--post.new {
-  background-color: white;
-  color: #2e2e2e;
-  border-radius: 4px;
-}
-.panel--post.new > form {
-  padding: 10px;
 }
 .page-content {
   width: 90%;
