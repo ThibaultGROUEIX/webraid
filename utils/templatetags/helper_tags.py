@@ -62,9 +62,18 @@ def init_fuzzy_search(container_name, attribute_list):
 
 @register.simple_tag(name='input_fuzzy_search')
 def input_fuzzy_search(placeholder=""):
-    tag = "<input type=\"search\" class=\"fuzzy-search\" placeholder=\""+placeholder+"\" autofocus>" \
-          "<i class =\"fa fa-fw fa-search\"></i>"
+    tag = "<input type=\"search\" class=\"fuzzy-search\" placeholder=\"" + placeholder + "\" autofocus>" \
+                                                                                         "<i class =\"fa fa-fw fa-search\"></i>"
     wrapper = Bs("<div class=\"searchbar\"></div>")
     tag = Bs(tag)
     wrapper.div.append(tag)
     return wrapper.__str__()
+
+
+@register.simple_tag(name='pretty_user_tag')
+def pretty_user_tag(user_profile):
+    return Bs(
+        "<a href=\"" +
+        user_profile.get_absolute_url() +
+        "\" class =\"tag tag-orange active\">" + user_profile.user.username + "</span>"
+    ).__str__()

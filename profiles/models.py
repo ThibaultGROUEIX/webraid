@@ -3,7 +3,7 @@ import json
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-
+from django.core.urlresolvers import reverse
 
 # Models related to the user profile
 class CallingCode(models.Model):
@@ -94,6 +94,9 @@ class UserProfile(models.Model):
 
     class Meta:
         app_label = 'profiles'
+
+    def get_absolute_url(self):
+        return reverse('profiles.views.view_profile', args=[self.user.id])
 
     def __str__(self):
         return self.user.__str__()

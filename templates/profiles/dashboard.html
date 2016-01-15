@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load helper_tags %}
 {% block content %}
     <div class="panel">
         <div class="panel-body">
@@ -21,7 +21,7 @@
                     {{ post_w_a.post.text_content }}
                     {% if post_w_a.answers != Null %}
                         {% for answer in post_w_a.answers %}
-                            <p>{{ answer.author }} a répondu : {{ answer.text_content }}</p>
+                            <p>{% pretty_user_tag answer.author %} {{ answer.text_content }}</p>
                         {% endfor %}
                     {% endif %}
                 </div>
@@ -43,7 +43,7 @@
                         {{ twp.thread.title }}
                     </a> :
                     {% for post in twp.first_posts %}
-                        <p>{{ post.author }} : {{ post.text_content }}</p>
+                        <p>{% pretty_user_tag post.author %} {{ post.text_content }}</p>
                     {% endfor %}
                 </div>
             {% endfor %}

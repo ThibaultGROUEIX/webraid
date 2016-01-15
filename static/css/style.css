@@ -349,7 +349,7 @@ option {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
 /* Tags */
-span.tag {
+.tag {
   display: inline-block;
   background-color: #1565C0;
   color: #f5f5f5;
@@ -360,10 +360,15 @@ span.tag {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  /* For users */
 }
 .tag.tag-green {
   background-color: #64DD17;
   color: #2e2e2e;
+}
+.tag.tag-orange {
+  background-color: #E65100;
+  color: white;
 }
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
