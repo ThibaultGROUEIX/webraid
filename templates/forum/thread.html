@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
+{% load staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'js/customformats.js' %}" type="text/javascript"></script>
+{% endblock %}
+
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
     <a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.category.name }}</a> /
     {{ thread.title }}
 {% endblock %}
+
 {% block content %}
     <p>
         {% for post in post_list %}
@@ -33,7 +40,7 @@
                             </div>
                         {% endif %}
                         <div class="panel-body--post">
-                            {{ post.text_content }}
+                            <p>{{ post.text_content }}</p>
                         </div>
                         <div class="panel-footer--post">
                             posté le {{ post.posted_date | date }}
@@ -72,4 +79,10 @@
             <li><a href="#header"><i class="fa fa-angle-up"></i></a></li>
         </ul>
     </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'js/linkify.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/linkify-jquery.min.js' %}" type="text/javascript"></script>
+    <script>$('p').linkify();</script>
 {% endblock %}

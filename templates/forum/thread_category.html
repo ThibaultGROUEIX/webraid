@@ -9,32 +9,36 @@
     <div>
         {% for thread, following in thread_list.items %}
             <div class="panel panel-default">
-                <div class="panel-actions">
-                    {% if request.user.is_superuser %}
-                        <a href="{% url 'delete_thread' thread.slug %}"><i class="fa fa-fw fa-trash"></i></a>
-                    {% endif %}
-                    {% if not following %}
-                        <a href="{% url 'follow_thread' thread.slug %}">
-                            <i class="fa fa-fw fa-eye"></i> Suivre
-                        </a>
-                    {% else %}
-                        <a href="{% url 'unfollow_thread' thread.slug %}">
-                            <i class="fa fa-fw fa-eye-slash"></i> Ne plus suivre
-                        </a>
-                    {% endif %}
-                </div>
                 {% if thread == edit_thread %}
-                    <div class="panel-body">
-                        <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
-                              method="POST"
-                              enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ edit_thread_form.title | bs_form_input_h:"Titre" }}
+                    <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
+                          method="POST"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="panel-heading">
+                            {{ edit_thread_form.title | bs_form_input }}
+                        </div>
+                        <div class="panel-body">
                             {{ edit_thread_form.tags | bs_form_input_h:"Tags" }}
+                        </div>
+                        <div class="panel-footer">
                             <input type="submit" class="btn btn-default" value="Valider" name="edit-thread">
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 {% else %}
+                    <div class="panel-actions">
+                        {% if request.user.is_superuser %}
+                            <a href="{% url 'delete_thread' thread.slug %}"><i class="fa fa-fw fa-trash"></i></a>
+                        {% endif %}
+                        {% if not following %}
+                            <a href="{% url 'follow_thread' thread.slug %}">
+                                <i class="fa fa-fw fa-eye"></i> Suivre
+                            </a>
+                        {% else %}
+                            <a href="{% url 'unfollow_thread' thread.slug %}">
+                                <i class="fa fa-fw fa-eye-slash"></i> Ne plus suivre
+                            </a>
+                        {% endif %}
+                    </div>
                     <a href="{{ thread.get_absolute_url }}">
                         <div class="panel-heading active">
                             {{ thread.title }}

@@ -28,7 +28,7 @@ def prefix_fa_return_arrow(value):
 
 
 @register.filter(name='bs_form_input', is_safe=True)
-def bootstrapify_form_input(value, label):
+def bootstrapify_form_input(value, label=None):
     html_str = str(value)
     body = Bs(html_str)
     if body.input is not None:
@@ -50,11 +50,12 @@ def bootstrapify_form_input(value, label):
         input_tag['class'] = 'form-control'
 
     wrapper = Bs("<div class=\"form-group\"></div>")
-    lab = Bs("<label>" + label + "</label>")
-    lab.label['class'] = 'control-label'
-    lab.label['for'] = conditional_escape(input_tag['id'])
+    if label  is not None:
+        lab = Bs("<label>" + label + "</label>")
+        lab.label['class'] = 'control-label'
+        lab.label['for'] = conditional_escape(input_tag['id'])
+        wrapper.div.append(lab)
 
-    wrapper.div.append(lab)
     wrapper.div.append(input_tag)
     with_errors = bootstrapify_inline_errors_in_fg(mark_safe(wrapper.__str__()), value.errors)
 
