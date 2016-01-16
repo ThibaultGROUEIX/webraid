@@ -14,7 +14,7 @@ def emit_notice(notice_content):
         prefs = NotificationSettings(encoded_preferences=object_notice_preference.preferences)
         user = object_notice_preference.user
         # Don't send the notification if the user is the emitter !
-        if user is not notice_content.emitter:
+        if user != notice_content.emitter:
             notice = {'user': user, 'prefs': prefs, 'content': notice_content}
             if prefs.get_dict()['real_time']:
                 send_now.append(notice)
