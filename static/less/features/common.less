@@ -53,6 +53,21 @@
     color: white;
 
   }
+
+  &.tag-light {
+    background-color: @lightest-grey;
+    border: 1px solid @middle-grey;
+    color: black;
+
+    a {
+      text-transform: uppercase;
+      color: @middle-blue;
+
+      &:hover {
+        color: darken(@middle-blue, 10%);
+      }
+    }
+  }
 }
 
 /*--------------------------------------------------------------------------*/

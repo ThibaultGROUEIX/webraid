@@ -370,6 +370,18 @@ option {
   background-color: #E65100;
   color: white;
 }
+.tag.tag-light {
+  background-color: #f5f5f5;
+  border: 1px solid #757575;
+  color: black;
+}
+.tag.tag-light a {
+  text-transform: uppercase;
+  color: #1565C0;
+}
+.tag.tag-light a:hover {
+  color: #104d92;
+}
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
 .fuzzy-search {

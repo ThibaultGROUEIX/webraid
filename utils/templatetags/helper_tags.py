@@ -77,3 +77,15 @@ def pretty_user_tag(user_profile):
         user_profile.get_absolute_url() +
         "\" class =\"tag tag-orange active\">" + user_profile.user.username + "</span>"
     ).__str__()
+
+
+@register.simple_tag(name='pretty_thread_path')
+def pretty_thread_path(thread):
+    return Bs(
+        "<a href=\"" + thread.category.get_absolute_url() + "\"> "
+        + thread.category.name
+        + "</a> / "
+        + "<a href=\"" + thread.get_absolute_url() + "\">"
+        + thread.title
+        + "</a>"
+    ).__str__()

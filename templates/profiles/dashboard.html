@@ -15,11 +15,9 @@
                 <div class="panel-body">
                     {% for post_w_a in posts %}
                         <div class="well">
-                            <a href="{{ post_w_a.post.thread.category.get_absolute_url }}">
-                                {{ post_w_a.post.thread.category.name }}
-                            </a>
-                            /
-                            <a href="{{ post_w_a.post.thread.get_absolute_url }}"> {{ post_w_a.post.thread.title }} </a>
+                            <span class="tag tag-light">
+                                {% pretty_thread_path post_w_a.post.thread %}
+                            </span>
                             :
                             {{ post_w_a.post.text_content }}
                             {% if post_w_a.answers != Null %}
@@ -40,13 +38,9 @@
                 <div class="panel-body">
                     {% for twp in threads_last %}
                         <div class="well">
-                            <a href="{% url 'detail_thread_category' twp.thread.category.slug %}">
-                                {{ twp.thread.category.name }}
-                            </a>
-                            /
-                            <a href="{% url 'detail_thread' twp.thread.category.slug twp.thread.slug %}">
-                                {{ twp.thread.title }}
-                            </a> :
+                            <span class="tag tag-light">
+                                {% pretty_thread_path twp.thread %}
+                            </span> :
                             {% for post in twp.first_posts %}
                                 <p>{% pretty_user_tag post.author %} {{ post.text_content }}</p>
                             {% endfor %}

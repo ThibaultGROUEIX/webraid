@@ -8,8 +8,7 @@
 
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
-    <a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.category.name }}</a> /
-    {{ thread.title }}
+    {% pretty_thread_path thread %}
 {% endblock %}
 
 {% block content %}
