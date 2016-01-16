@@ -1,14 +1,97 @@
-/* 1 - general panels */
-/* 2 - post panels */
+/* 1 - restyle boostrap panels */
+/* 2 - general panels */
+/* 3 - post panels */
+
+/* 1- Restyle boostrap panels */
+.panel {
+  border-radius: 0;
+
+  .panel-footer {
+    border-radius: 0;
+  }
+
+  &.blue {
+    background-color: @middle-blue;
+    color: white;
+
+    .panel-footer {
+      background-color: darken(@middle-blue, 10%);
+    }
+
+    .panel-body {
+      background-color: white;
+      color: black;
+    }
+
+    .panel-heading.active {
+      background-color: @middle-blue;
+      color: white;
+
+      &:hover {
+        background-color: darken(@middle-blue, 10%);
+        color: white;
+      }
+    }
+
+    .panel-actions > a {
+      background-color: @middle-blue;
+      color: @lightest-blue;
+      padding: 10px 5px 10px 5px;
+
+      &:hover {
+        background-color: darken(@middle-blue, 10%);
+        color: @lightest-blue;
+      }
+    }
+  }
+
+
+  &.green {
+    background-color: @middle-green;
+    color: white;
+
+    .panel-footer {
+      background-color: darken(@middle-green, 10%);
+    }
+
+    .panel-body {
+      background-color: white;
+      color: black;
+    }
+
+    .panel-heading.active {
+      background-color: @middle-green;
+      color: white;
+
+      &:hover {
+        background-color: darken(@middle-green, 10%);
+        color: white;
+      }
+    }
+
+    .panel-actions > a {
+      background-color: @middle-green;
+      color: @light-green;
+      padding: 10px 5px 10px 5px;
+
+      &:hover {
+        background-color: darken(@middle-green, 10%);
+        color: @light-green;
+      }
+    }
+  }
+}
+
+/* 2-General panels */
 
 .panel-heading.active {
   background-color: @lightest-grey;
   color: @dark-grey;
-}
 
-.panel-heading.active:hover {
-  background-color: darken(@lightest-grey, 10%);
-  color: black;
+  &:hover {
+    background-color: darken(@lightest-grey, 10%);
+    color: black;
+  }
 }
 
 /* Actions in a panel */
@@ -29,14 +112,14 @@
   background-color: @lightest-grey;
   color: @light-blue;
   padding: 10px 5px 10px 5px;
+
+  &:hover {
+    background-color: darken(@lightest-grey, 20%);
+    color: @middle-blue;
+  }
 }
 
-.panel > .panel-actions > a:hover {
-  background-color: darken(@lightest-grey, 20%);
-  color: @middle-blue;
-}
-
-/* 2- Posts in a thread - special class of panel */
+/* 3- Posts in a thread - special class of panel */
 .panel--post {
   margin-bottom: 10px;
   position: relative;
