@@ -1,1 +1,0 @@
-[Raid2012][{{context.notice_label}}] {{subject}}

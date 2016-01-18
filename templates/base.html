@@ -12,9 +12,12 @@
 <head>
 
     <title>{% block title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/forms.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/buttons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/panels.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/features/common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
@@ -41,13 +44,12 @@
 
 <body>
 <div class="page-wrapper">
-    <!--
-        <div id="st-preloader">
-            <div id="pre-status">
-                <div class="preload-placeholder"></div>
-            </div>
+
+    <div id="st-preloader">
+        <div id="pre-status">
+            <div class="preload-placeholder"></div>
         </div>
-        -->
+    </div>
     <header id="header">
         <nav class="navbar st-navbar navbar-fixed-top">
             <div class="container">
@@ -59,60 +61,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="{% url 'dashboard' %}"><div id="navbar-logo"></div></a>
+                    <div id="navbar-logo"></div>
                 </div>
 
                 <div class="collapse navbar-collapse" id="st-navbar-collapse">
 
-                    <div id="path-indicator" class="navbar-nav nav navbar-left">
-                        {% block path %}{% endblock %}
-                    </div>
-
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_anonymous %}
-                            <li>
-                                <a id="signin" href="{% url 'django.contrib.auth.views.login' %}">
-                                    <i class="fa fa-fw fa-sign-in"></i> connexion
-                                </a>
-                            </li>
+                            <li><a href="{% url 'django.contrib.auth.views.login' %}">login</a></li>
                         {% else %}
                             {% if request_path != forum_url %}
                                 <li><a href="{% url 'forum' %}">forum</a></li>
                             {% endif %}
                             {% if request.path != home_url %}
-                                <li><a id="homelink" href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i>
-                                    accueil</a></li>
+                                <li><a href="{% url 'dashboard' %}"><i class="fa fa-fw fa-home"></i> accueil</a></li>
                             {% endif %}
                             <li>
-                                <a href="{% url 'profiles-list' %}">
-                                    <i class="fa fa-fw fa-group"></i>
+                                <a href="{% url 'self_edit_user_profile' %}">
+                                    <i class="fa fa-fw fa-cog"></i> {{ user }}
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    {{ user }}<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{% url 'self_edit_name' %}">
-                                            <i class="fa fa-fw fa-user"></i> Modifier mon profil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'password_change' %}">
-                                            <i class="fa fa-fw fa-lock"></i> Changer mon mot de passe
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-fw fa-newspaper-o"></i> Gérer mes notifications
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a id="signout" href="{% url 'django.contrib.auth.views.logout' %}">
+                                <a href="{% url 'django.contrib.auth.views.logout' %}">
                                     <i class="fa fa-fw fa-sign-out"></i>
                                 </a>
                             </li>
@@ -142,8 +112,6 @@
 <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
 <!-- Bootstrap select -->
 <script type="text/javascript" src="{% static 'js/list.js' %}"></script>
-<!-- Elastic textareas -->
-<script type="text/javascript" src="{% static 'js/elastic.js' %}"></script>
 <!--Lists-->
 <script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script>
 <!-- Parallax -->
@@ -162,15 +130,11 @@
 <script type="text/javascript" src="{% static 'js/jquery.isotope.min.js' %}"></script>
 <!-- isotope -->
 <script type="text/javascript" src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-<!-- Web Animations -->
-<script type="text/javascript" src="{% static 'js/web-animations.min.js' %}"></script>
-<!-- Custom scripts -->
+<!-- magnific-popup -->
 <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
-<!-- Custom animations -->
-<script type="text/javascript" src="{% static 'js/animations.js' %}"></script>
 <!-- Scripts -->
-<script>autosize(document.querySelector('textarea'))</script>
 {% block extrajs %}
 {% endblock %}
+
 </body>
 </html>
