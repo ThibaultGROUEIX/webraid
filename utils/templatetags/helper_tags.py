@@ -1,6 +1,10 @@
-from django import template
-from webraid import settings
 from BeautifulSoup import BeautifulSoup as Bs
+
+from django import template
+from django.core.urlresolvers import reverse
+
+from webraid import settings
+
 register = template.Library()
 
 
@@ -38,10 +42,18 @@ def is_active(parser, token):
     # {% if is_home_page %}...{% endif %}
 
 
+@register.simple_tag(name="css_active_url")
+def css_active_url(current_url, urlname):
+    if current_url == reverse(urlname):
+        return "active"
+    else:
+        return ""
+
+
 @register.simple_tag(name='init_fuzzy_search')
 def init_fuzzy_search(container_name, attribute_list):
-    list = "<script type=\"text/javascript\" src=\""+ settings.STATIC_URL + "js/list.js\"></script>"
-    fuzzy_search = "<script type=\"text/javascript\" src=\""+ settings.STATIC_URL + "js/list.fuzzysearch.min.js\"></script>"
+    list = "<script type=\"text/javascript\" src=\"" + settings.STATIC_URL + "js/list.js\"></script>"
+    fuzzy_search = "<script type=\"text/javascript\" src=\"" + settings.STATIC_URL + "js/list.fuzzysearch.min.js\"></script>"
     script = "<script>var objects_list = new List('" + container_name + \
              "', { valueNames:[" + attribute_list + "], plugins: [ListFuzzySearch()]});</script>"
 

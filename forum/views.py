@@ -1,3 +1,5 @@
+import time
+
 from django.views.generic import ListView, FormView
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
@@ -6,11 +8,15 @@ from django.shortcuts import redirect, render
 from profiles.models import UserProfile
 from models import ThreadCategory, Thread, Post
 from forms import ThreadCategoryForm, ThreadForm, PostForm
+import notifications.engine as notice_engine
+from notifications.contents import OperationPostContent
+from notifications.models import ThreadNoticePreference
 
 
 class ThreadCategoryListView(ListView):
     model = ThreadCategory
     template_name = "forum.html"
+    # additional parameters
 
 
 class AddThreadCategoryView(FormView):
@@ -31,7 +37,15 @@ def thread_category_detail(request, slug, pk=None):
 
     try:
         thread_category = ThreadCategory.objects.get(slug=slug)
-        thread_list = Thread.objects.filter(category=thread_category.pk)
+        threads = Thread.objects.filter(category=thread_category.pk)
+        thread_list = {}
+        for thread in threads.iterator():
+            try:
+                ThreadNoticePreference.objects.get(user=request.user, thread=thread)
+                thread_list.update({thread: True})
+            except ThreadNoticePreference.DoesNotExist:
+                thread_list.update({thread: False})
+
     except ThreadCategory.DoesNotExist:
         raise Http404("Thread category does not exist!")
 
@@ -110,9 +124,19 @@ def thread_detail(request, category_slug, slug, pk=None):
             edit_post_form = PostForm(request.POST, instance=edit_post)
 
             if edit_post_form.is_valid():
-                edit_post_form.save()
-                url_format = '{}#post-' + str(edit_post.id)
+
+                post = edit_post_form.save()
+                notice_content = OperationPostContent(OperationPostContent.EDIT_POST,
+                                                      time.localtime(),
+                                                      request.user,
+                                                      post,
+                                                      post.thread
+                                                      )
+                notice_engine.emit_notice(notice_content)
+
+                url_format = '{}#post-' + str(post.id)
                 return redirect(url_format.format(thread.get_absolute_url()))
+
             else:
                 return render(request,
                               'thread.html',
@@ -136,7 +160,16 @@ def thread_detail(request, category_slug, slug, pk=None):
                 post.save()
                 post_anchor_format = "{}#post-" + str(post.id)
 
+                notice_content = OperationPostContent(OperationPostContent.NEW_POST,
+                                                      post.posted_date,
+                                                      request.user,
+                                                      post,
+                                                      thread
+                                                      )
+                notice_engine.emit_notice(notice_content)
+
                 return redirect(post_anchor_format.format(thread.get_absolute_url()))
+
             else:
                 return render(request,
                               'thread.html',
@@ -164,6 +197,20 @@ def thread_detail(request, category_slug, slug, pk=None):
         return render(request, 'thread.html', data)
     else:
         return render(request, 'thread.html', data)
+
+
+def thread_delete(request, slug):
+    if request.user.is_superuser:
+        thread = Thread.objects.get(slug=slug)
+        thread.delete_with_posts()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def category_delete(request, slug):
+    if request.user.is_superuser:
+        category = ThreadCategory.objects.get(slug=slug)
+        category.delete_recursive()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def post_delete(request, post_id):

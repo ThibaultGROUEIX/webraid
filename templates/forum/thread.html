@@ -8,49 +8,51 @@
 {% block content %}
     <p>
         {% for post in post_list %}
-            <div class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
-                 id="post-{{ post.id }}"
-                    >
-                {% if post == edit_post %}
-                    <form id="post-edit-form"
-                          method="POST"
-                          action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}"
-                            >
-                        {% csrf_token %}
+            <div class="post-container">
+                <div class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
+                     id="post-{{ post.id }}"
+                        >
+                    {% if post == edit_post %}
+                        <form id="post-edit-form"
+                              method="POST"
+                              action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}"
+                                >
+                            {% csrf_token %}
+                            <div class="panel-body--post">
+                                {{ edit_post_form.text_content | bs_form_input:"" }}
+                                {{ edit_post_form.file }}
+                            </div>
+                            <div class="panel-footer--post">
+                                <input type="submit" class="btn btn-default" value="Valider" name="edit-post">
+                            </div>
+                        </form>
+                    {% else %}
+                        {% if user != post.author.user %}
+                            <div class="panel-title--post">
+                                {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+                            </div>
+                        {% endif %}
                         <div class="panel-body--post">
-                            {{ edit_post_form.text_content | bs_form_input:"" }}
-                            {{ edit_post_form.file }}
+                            {{ post.text_content }}
                         </div>
                         <div class="panel-footer--post">
-                            <input type="submit" class="btn btn-default" value="Valider" name="edit-post">
-                        </div>
-                    </form>
-                {% else %}
-                    {% if user != post.author.user %}
-                        <div class="panel-title--post">
-                            {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+                            posté le {{ post.posted_date | date }}
+                            {% if post.posted_date.date != post.last_edit_date.date %}
+                                , dernière édition le {{ post.last_edit_date | date }}
+                            {% endif %}
+                            {% if user == post.author.user %}
+                                <a class="btn-sm"
+                                   href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}#post-edit-form">
+                                    edit
+                                </a>
+                                <a class="btn-sm"
+                                   href="{% url 'detail_thread_delete_post' post.id %}">
+                                    delete
+                                </a>
+                            {% endif %}
                         </div>
                     {% endif %}
-                    <div class="panel-body--post">
-                        {{ post.text_content }}
-                    </div>
-                    <div class="panel-footer--post">
-                        posté le {{ post.posted_date | date }}
-                        {% if post.posted_date.date != post.last_edit_date.date %}
-                            , dernière édition le {{ post.last_edit_date | date }}
-                        {% endif %}
-                        {% if user == post.author.user %}
-                            <a class="btn-sm"
-                               href="{% url 'detail_thread_edit_post' category_slug slug post.pk %}#post-edit-form">
-                                edit
-                            </a>
-                            <a class="btn-sm"
-                               href="{% url 'detail_thread_delete_post' post.id %}">
-                                delete
-                            </a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                </div>
             </div>
         {% endfor %}
     </p>

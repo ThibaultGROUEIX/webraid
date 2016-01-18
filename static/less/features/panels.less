@@ -1,3 +1,6 @@
+/* 1 - general panels */
+/* 2 - post panels */
+
 .panel-heading.active {
   background-color: @lightest-grey;
   color: @dark-grey;
@@ -15,14 +18,17 @@
   height: 0;
 }
 
-.panel > .panel-actions > a {
+.panel > .panel-actions > a,
+.panel > .panel-actions > span {
   display: inline-block;
-  background-color: @lightest-grey;
   float: right;
-  padding: 5px;
-  border-radius: 0 0 5px 5px;
-  margin: 0 2px 2px 2px;
+  height: 45px;
+}
+
+.panel > .panel-actions > a {
+  background-color: @lightest-grey;
   color: @light-blue;
+  padding: 10px 5px 10px 5px;
 }
 
 .panel > .panel-actions > a:hover {
@@ -30,8 +36,7 @@
   color: @middle-blue;
 }
 
-/* Posts in a thread - special class of panel */
-
+/* 2- Posts in a thread - special class of panel */
 .panel--post {
   margin-bottom: 10px;
   position: relative;
@@ -49,6 +54,21 @@
   color: @dark-grey;
   border-radius: 0 4px 4px 4px;
   margin-left: -10px;
+}
+
+.post-container {
+  overflow: hidden;
+  padding: 0 25px 0 25px;
+  height: 100%;
+}
+
+.post-container > .panel--post {
+  max-width: 400px;
+}
+
+.post-container > .panel--post.self {
+  float: right;
+  clear: both;
 }
 
 .panel--post.other:before {
@@ -74,7 +94,7 @@
 }
 
 .panel-body--post {
-  padding : 5px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
 }
 
 .panel-footer--post {
@@ -106,6 +126,6 @@
   border-radius: 4px;
 }
 
-.panel--post.new>form {
-  padding:10px;
+.panel--post.new > form {
+  padding: 10px;
 }

@@ -1,3 +1,5 @@
+![Email banner]
+(static/images/banner_mail_600.png)
 #Webraid
 A simple website for a small community. 
 

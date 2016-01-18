@@ -1,3 +1,4 @@
+/* Specific elments */
 /* Sizes */
 /*
     Author : Victor Nicolet
@@ -19,7 +20,6 @@
 }
 @media (min-width: 768px) {
   .form-container {
-    width: 768px;
     margin-top: 20px;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
   }
@@ -127,6 +127,24 @@ option {
 .form-container > form > .buttons > input.btn {
   float: right;
 }
+.form-error-list > ul.errorlist {
+  list-style-type: none;
+  margin: 5px 0 0 0 !important;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+}
+.form-error-list li > span {
+  border-radius: 3px;
+  padding: 3px;
+  background-color: #D50000;
+  color: #fff;
+  font-weight: 600;
+}
+/* Re-styling checkboxes */
+/* Remove default checkbox */
 /*
     Author : Victor Nicolet
 */
@@ -343,6 +361,10 @@ span.tag {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+.tag.tag-green {
+  background-color: #64DD17;
+  color: #2e2e2e;
+}
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
 .fuzzy-search {
@@ -388,6 +410,8 @@ a.area-link > div:hover,
 a.area-link > div:focus {
   background-color: #c8c8c8;
 }
+/* 1 - general panels */
+/* 2 - post panels */
 .panel-heading.active {
   background-color: #f5f5f5;
   color: #2e2e2e;
@@ -401,20 +425,22 @@ a.area-link > div:focus {
   position: relative;
   height: 0;
 }
-.panel > .panel-actions > a {
+.panel > .panel-actions > a,
+.panel > .panel-actions > span {
   display: inline-block;
-  background-color: #f5f5f5;
   float: right;
-  padding: 5px;
-  border-radius: 0 0 5px 5px;
-  margin: 0 2px 2px 2px;
+  height: 45px;
+}
+.panel > .panel-actions > a {
+  background-color: #f5f5f5;
   color: #3399FF;
+  padding: 10px 5px 10px 5px;
 }
 .panel > .panel-actions > a:hover {
   background-color: #c2c2c2;
   color: #1565C0;
 }
-/* Posts in a thread - special class of panel */
+/* 2- Posts in a thread - special class of panel */
 .panel--post {
   margin-bottom: 10px;
   position: relative;
@@ -430,6 +456,18 @@ a.area-link > div:focus {
   color: #2e2e2e;
   border-radius: 0 4px 4px 4px;
   margin-left: -10px;
+}
+.post-container {
+  overflow: hidden;
+  padding: 0 25px 0 25px;
+  height: 100%;
+}
+.post-container > .panel--post {
+  max-width: 400px;
+}
+.post-container > .panel--post.self {
+  float: right;
+  clear: both;
 }
 .panel--post.other:before {
   content: "";
@@ -511,6 +549,10 @@ body {
   /* Standard syntax */
   background-size: cover;
   background-attachment: fixed;
+}
+.nopadding {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 a:hover {
   color: #010100;
@@ -695,6 +737,43 @@ ul.dropdown-menu li a:focus {
   margin-right: 25px;
   padding: 0;
   border-radius: 0;
+}
+/* SUBNAVBAR */
+.subnavbar {
+  position: relative;
+  margin: auto;
+  margin-bottom: 30px;
+  background-color: #fff;
+  color: #2e2e2e;
+}
+@media (min-width: 768px) {
+  .subnavbar {
+    margin-top: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+.subnavbar a {
+  margin: 0;
+  display: inline-block;
+  color: #2e2e2e;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 100%;
+  border-style: inset;
+  text-align: center;
+}
+.subnavbar a.active {
+  border-bottom: solid #757575 3px;
+}
+.subnavbar a:hover,
+.subnavbar a:focus {
+  background-color: rgba(2, 2, 2, 0.1);
+  border-bottom: solid #1565C0 3px;
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
+  -o-transition: 100ms;
+  -ms-transition: 100ms;
+  color: #000;
 }
 /* 5. SLIDER */
 #slider {
