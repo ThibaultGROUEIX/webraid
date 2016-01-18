@@ -46,5 +46,10 @@ urlpatterns = [
         name='self_edit_address'),
     url(r'^edit_profile/coordinates/$',
         views.edit_coordinates,
-        name='self_edit_coordinates')
+        name='self_edit_coordinates'),
+    # Return array of users for tagging
+    url(r'^users_json',
+        views.gen_users_json,
+        name='users_json'
+        )
 ]

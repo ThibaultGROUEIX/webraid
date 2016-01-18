@@ -45,13 +45,15 @@
                         <div class="panel-heading active">
                             {{ thread.title }}
                             {% if following %}
-                                <span class="tag tag-green"><i class="fa fa-fw fa-eye"></i> abonné </span>
+                                <span class="tag tag-green"> abonné
+                                    <span class="info"><i class="fa fa-fw fa-eye"></i></span>
+                                </span>
                             {% endif %}
                         </div>
                     </a>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags : {{ thread.tags.all | displaytags }} </br>
+                            Tags : {{ thread.tags.all | displaytags }} <br/>
                             Utilisateurs :
                             {% for usr, count in thread.get_tagged_users %}
                                 {% pretty_user_tag usr count %}

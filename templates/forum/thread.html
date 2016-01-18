@@ -94,4 +94,17 @@
     <script src="{% static 'js/linkify-jquery.min.js' %}" type="text/javascript"></script>
     <script>$('p').linkify();</script>
     {% init_fuzzy_search "content" "'username'" %}
+    <!-- Enable tagging with @ -->
+    <script>
+        $.getJSON("/users_json", function (data) {
+                    $('textarea').triggeredAutocomplete({
+                                hidden: '#hidden_inputbox',
+                                source: data,
+                                trigger: '@',
+                                maxLength: 30
+                            }
+                    )
+                }
+        );
+    </script>
 {% endblock %}

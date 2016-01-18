@@ -1,9 +1,13 @@
+import json
+
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
+
+from django.http import HttpResponse
 
 from forum.models import Post, Thread
 from forms import DetailedUserProfileForm, CityForm, AddressForm, FullAddressForm, CoordinatesForm, NameForm
@@ -343,6 +347,16 @@ def edit_name(request):
             'notice_saved': saved
         }
     )
+
+
+def gen_users_json(request):
+    r = []
+    for user_profile in UserProfile.objects.all():
+        r.append({
+            'value': user_profile.user.pk,
+            'label': user_profile.user.username
+        })
+    return HttpResponse(json.dumps(r), content_type="application/json")
 
 
 def view_profile(request, user_id):
