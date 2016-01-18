@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load utils_filters %}
+{% load helper_tags %}
 {% block content %}
     <div class="panel">
         <div class="panel-heading">
@@ -39,7 +40,7 @@
                             <div class="well-sm">
                                 {{ pwa.post.text_content }} {{ pwa.date | date | info_text_sm }} <br/>
                                 {% for answer in pwa.answers %}
-                                    <i class="fa fa-fw fa-reply"></i> {{ answer.author }} a répondu :
+                                    <i class="fa fa-fw fa-reply"></i> {% pretty_user_tag answer.author %}
                                     {{ answer.text_content }}
                                     <br/>
                                 {% endfor %}

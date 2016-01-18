@@ -216,7 +216,7 @@ def category_delete(request, slug):
 def post_delete(request, post_id):
     post = Post.objects.get(id=post_id)
     parent = post.thread
-    if request.user is post.author.user:
+    if request.user == post.author.user:
         post.delete()
     else:
         raise PermissionDenied

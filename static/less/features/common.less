@@ -31,7 +31,7 @@
 
 /* Tags */
 
-span.tag {
+.tag {
   display: inline-block;
   background-color: @middle-blue;
   color: @lightest-grey;
@@ -42,11 +42,32 @@ span.tag {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-}
 
-.tag.tag-green {
-  background-color: @vibrant-light-green;
-  color: @dark-grey;
+  &.tag-green {
+    background-color: @vibrant-light-green;
+    color: @dark-grey;
+  }
+  /* For users */
+  &.tag-orange {
+    background-color: @middle-orange;
+    color: white;
+
+  }
+
+  &.tag-light {
+    background-color: @lightest-grey;
+    border: 1px solid @middle-grey;
+    color: black;
+
+    a {
+      text-transform: uppercase;
+      color: @middle-blue;
+
+      &:hover {
+        color: darken(@middle-blue, 10%);
+      }
+    }
+  }
 }
 
 /*--------------------------------------------------------------------------*/
@@ -84,6 +105,20 @@ ul.list {
   list-style-type: none;
 }
 
+.searchbar-fixed-top {
+  padding: 0 25% 5px 25%;
+  height: 35px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  top: @navbar-height;
+  left: 0;
+
+  .searchbar {
+    margin: auto;
+  }
+}
+
 /*--------------------------------------------------------------------------*/
 /* Text specials */
 
@@ -98,7 +133,7 @@ a.area-link {
   color: inherit;
 }
 
-a.area-link>div:hover,
-a.area-link>div:focus {
+a.area-link > div:hover,
+a.area-link > div:focus {
   background-color: @hover-bg-light;
 }

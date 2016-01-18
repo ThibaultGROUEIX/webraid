@@ -196,7 +196,14 @@ div#path-indicator {
   text-transform: uppercase;
   font-weight: 600;
   padding: 20px 14px 14px 14px;
+  max-width: 50%;
+  max-height: 50px;
+  overflow: hidden;
   margin: 0;
+
+  @media (max-width: 768px) {
+    visibility: hidden;
+  }
 }
 
 .st-navbar ul li a:hover,

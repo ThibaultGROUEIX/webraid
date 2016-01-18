@@ -349,7 +349,7 @@ option {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
 /* Tags */
-span.tag {
+.tag {
   display: inline-block;
   background-color: #1565C0;
   color: #f5f5f5;
@@ -360,10 +360,27 @@ span.tag {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  /* For users */
 }
 .tag.tag-green {
   background-color: #64DD17;
   color: #2e2e2e;
+}
+.tag.tag-orange {
+  background-color: #E65100;
+  color: white;
+}
+.tag.tag-light {
+  background-color: #f5f5f5;
+  border: 1px solid #757575;
+  color: black;
+}
+.tag.tag-light a {
+  text-transform: uppercase;
+  color: #1565C0;
+}
+.tag.tag-light a:hover {
+  color: #104d92;
 }
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
@@ -395,6 +412,18 @@ ul.list {
   padding: 0;
   list-style-type: none;
 }
+.searchbar-fixed-top {
+  padding: 0 25% 5px 25%;
+  height: 35px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  top: 58px;
+  left: 0;
+}
+.searchbar-fixed-top .searchbar {
+  margin: auto;
+}
 /*--------------------------------------------------------------------------*/
 /* Text specials */
 .info-text-sm {
@@ -410,8 +439,73 @@ a.area-link > div:hover,
 a.area-link > div:focus {
   background-color: #c8c8c8;
 }
-/* 1 - general panels */
-/* 2 - post panels */
+/* 1 - restyle boostrap panels */
+/* 2 - general panels */
+/* 3 - post panels */
+/* 1- Restyle boostrap panels */
+.panel {
+  border-radius: 0;
+}
+.panel .panel-footer {
+  border-radius: 0;
+}
+.panel.blue {
+  background-color: #1565C0;
+  color: white;
+}
+.panel.blue .panel-footer {
+  background-color: #104d92;
+}
+.panel.blue .panel-body {
+  background-color: white;
+  color: black;
+}
+.panel.blue .panel-heading.active {
+  background-color: #1565C0;
+  color: white;
+}
+.panel.blue .panel-heading.active:hover {
+  background-color: #104d92;
+  color: white;
+}
+.panel.blue .panel-actions > a {
+  background-color: #1565C0;
+  color: #cbddff;
+  padding: 10px 5px 10px 5px;
+}
+.panel.blue .panel-actions > a:hover {
+  background-color: #104d92;
+  color: #cbddff;
+}
+.panel.green {
+  background-color: #388E3C;
+  color: white;
+}
+.panel.green .panel-footer {
+  background-color: #2a692d;
+}
+.panel.green .panel-body {
+  background-color: white;
+  color: black;
+}
+.panel.green .panel-heading.active {
+  background-color: #388E3C;
+  color: white;
+}
+.panel.green .panel-heading.active:hover {
+  background-color: #2a692d;
+  color: white;
+}
+.panel.green .panel-actions > a {
+  background-color: #388E3C;
+  color: #32ad27;
+  padding: 10px 5px 10px 5px;
+}
+.panel.green .panel-actions > a:hover {
+  background-color: #2a692d;
+  color: #32ad27;
+}
+/* 2-General panels */
 .panel-heading.active {
   background-color: #f5f5f5;
   color: #2e2e2e;
@@ -440,10 +534,14 @@ a.area-link > div:focus {
   background-color: #c2c2c2;
   color: #1565C0;
 }
-/* 2- Posts in a thread - special class of panel */
+/* 3- Posts in a thread - special class of panel */
 .panel--post {
   margin-bottom: 10px;
   position: relative;
+  background-color: white;
+  /* style for posts posted by the user */
+  /* Styles for posts posted by different users */
+  /* At the bottom of the thread, form for new post */
 }
 .panel--post.self {
   color: white;
@@ -451,33 +549,20 @@ a.area-link > div:focus {
   border-radius: 4px 0 4px 4px;
   margin-right: -10px;
 }
-.panel--post.other {
+.panel--post.self a.linkified {
+  color: #cbddff;
+  text-decoration: underline;
+}
+.panel--post.self a.linkified:hover,
+.panel--post.self a.linkified:focus {
+  color: white;
+}
+.panel--post.self .panel-footer--post {
+  color: #f5f5f5;
+}
+.panel--post.self .form-control {
   background-color: white;
   color: #2e2e2e;
-  border-radius: 0 4px 4px 4px;
-  margin-left: -10px;
-}
-.post-container {
-  overflow: hidden;
-  padding: 0 25px 0 25px;
-  height: 100%;
-}
-.post-container > .panel--post {
-  max-width: 400px;
-}
-.post-container > .panel--post.self {
-  float: right;
-  clear: both;
-}
-.panel--post.other:before {
-  content: "";
-  width: 0;
-  height: 0;
-  right: 100%;
-  top: 0;
-  position: absolute;
-  border-right: 26px solid white;
-  border-bottom: 13px solid transparent;
 }
 .panel--post.self:before {
   content: "";
@@ -489,6 +574,44 @@ a.area-link > div:focus {
   border-bottom: 13px solid transparent;
   border-left: 13px solid #1565C0;
 }
+.panel--post.other {
+  background-color: white;
+  color: #2e2e2e;
+  border-radius: 0 4px 4px 4px;
+  margin-left: -10px;
+}
+.panel--post.other:before {
+  content: "";
+  width: 0;
+  height: 0;
+  right: 100%;
+  top: 0;
+  position: absolute;
+  border-right: 26px solid white;
+  border-bottom: 13px solid transparent;
+}
+.panel--post.new {
+  background-color: white;
+  color: #2e2e2e;
+  border-radius: 4px;
+}
+.panel--post.new form {
+  padding: 10px;
+}
+.post-container {
+  overflow: hidden;
+  padding: 0 25px 0 25px;
+  height: 100%;
+}
+@media (min-width: 768px) {
+  .post-container > .panel--post {
+    max-width: 70%;
+  }
+}
+.post-container > .panel--post.self {
+  float: right;
+  clear: both;
+}
 .panel-body--post {
   padding: 5px 10px 5px 10px;
 }
@@ -497,26 +620,10 @@ a.area-link > div:focus {
   color: #757575;
   font-size: 0.8em;
 }
-.panel--post.self .panel-footer--post {
-  color: #f5f5f5;
-}
-.panel--post.self .form-control {
-  background-color: white;
-  color: #2e2e2e;
-}
 .panel-title--post {
   padding: 5px 10px 0 10px;
   font-size: 0.8em;
   font-weight: 600;
-}
-/* Form at the bottom of the thread */
-.panel--post.new {
-  background-color: white;
-  color: #2e2e2e;
-  border-radius: 4px;
-}
-.panel--post.new > form {
-  padding: 10px;
 }
 .page-content {
   width: 90%;
@@ -694,7 +801,15 @@ div#path-indicator {
   text-transform: uppercase;
   font-weight: 600;
   padding: 20px 14px 14px 14px;
+  max-width: 50%;
+  max-height: 50px;
+  overflow: hidden;
   margin: 0;
+}
+@media (max-width: 768px) {
+  div#path-indicator {
+    visibility: hidden;
+  }
 }
 .st-navbar ul li a:hover,
 .st-navbar ul li a:focus {
