@@ -74,6 +74,39 @@ class DetailedUserProfileForm(forms.Form):
         super(DetailedUserProfileForm, self).clean()
 
 
+class FullAddressForm(forms.Form):
+    num = forms.IntegerField(initial='address__number')
+    street = forms.CharField(max_length=255)
+    city = forms.CharField(max_length=255)
+    zipcode = forms.CharField(max_length=100)
+    country = LazyTypedChoiceField(choices=countries)
+
+
+class CoordinatesForm(forms.Form):
+    dialcode = forms.ModelChoiceField(queryset=CallingCode.objects.all())
+    phone_number = forms.CharField(max_length=100)
+
+    email = forms.EmailField(label="Adresse mail")
+    confirm_email = forms.EmailField(label="Confirmation adresse mail")
+
+    def clean(self):
+        if not self.cleaned_data.has_key('confirm_email'):
+            raise forms.ValidationError("Renseignez un email valide !")
+        if self.cleaned_data['email'] != self.cleaned_data['confirm_email']:
+            self.add_error(field='confirm_email',
+                           error=u"Les deux emails ne correspondent pas !")
+            raise forms.ValidationError("Les deux champs d'email sont diff&eacute;rents !")
+
+        super(CoordinatesForm, self).clean()
+
+
+class NameForm(forms.Form):
+    user_name = forms.CharField(max_length=100)
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
+    profile_picture = forms.FileField(required=False)
+
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

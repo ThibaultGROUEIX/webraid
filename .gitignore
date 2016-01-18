@@ -1,3 +1,6 @@
+/smtp_settings.json
+/notifications/migrations/*
+/notification_manager/migrations/*
 /utils/templatetags/__init__.py
 /forum/migrations/*
 /utils/migrations/*
@@ -9,3 +12,6 @@ profiles/*.pyc
 *~
 .idea
 media/*
+static/less/*.css
+static/less/features/*.css
+smtp_settings.json

@@ -3,12 +3,15 @@ import json
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-
+from django.core.urlresolvers import reverse
 
 # Models related to the user profile
 class CallingCode(models.Model):
     calling_code = models.IntegerField()
     country = CountryField(default='None')
+
+    class Meta:
+        app_label = 'profiles'
 
     def __str__(self):
         return self.country.name.__str__() + " - (+" + str(self.calling_code) + ")"
@@ -29,6 +32,9 @@ class City(models.Model):
     name = models.CharField(max_length=100)
     country = CountryField(blank_label='(select country)')
 
+    class Meta:
+        app_label = 'profiles'
+
     def __str__(self):
         return self.name + " (" + self.zipcode + ") - " + self.country.name.__str__()
 
@@ -37,6 +43,9 @@ class Address(models.Model):
     num = models.IntegerField()
     street = models.CharField(max_length=255)
     city = models.ForeignKey(City)
+
+    class Meta:
+        app_label = 'profiles'
 
     def __str__(self):
         return ", ".join([
@@ -50,12 +59,18 @@ class School(models.Model):
     address = models.ForeignKey(Address)
     name = models.CharField(max_length=255)
 
+    class Meta:
+        app_label = 'profiles'
+
     def __str__(self):
         return self.name
 
 
 class StudiesDomain(models.Model):
     name = models.CharField(max_length=255)
+
+    class Meta:
+        app_label = 'profiles'
 
     def __str__(self):
         return self.name
@@ -76,6 +91,12 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to='profiles/profile_pics/%Y/%m',
                                         max_length=150,
                                         null=True)
+
+    class Meta:
+        app_label = 'profiles'
+
+    def get_absolute_url(self):
+        return reverse('profiles.views.view_profile', args=[self.user.id])
 
     def __str__(self):
         return self.user.__str__()

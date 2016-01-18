@@ -1,14 +1,26 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
 {% load utils_filters %}
+{% block path %}
+    forum /
+{% endblock %}
 {% block content %}
     {% for threadCategory in threadcategory_list %}
         <div class="panel panel-default">
-            <div class="panel-title">
-                <a class="lpane-title" href="{{ threadCategory.get_absolute_url }}">
-                    {{ threadCategory.name | fa_goto }}
-                </a>
+            <div class="panel-actions">
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'delete_category' threadCategory.slug %}"><i class="fa fa-fw fa-trash"></i></a>
+                {% endif %}
+                <!--<a href="{% url 'follow_category' threadCategory.slug %}">Suivre</a>-->
             </div>
+            <a class="lpane-title" href="{{ threadCategory.get_absolute_url }}">
+                <div class="panel-heading active">
+
+                    {{ threadCategory.name }}
+
+                </div>
+            </a>
+
             <div class="panel-body">
                 {{ threadCategory.description }}
             </div>

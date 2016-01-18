@@ -1,0 +1,15 @@
+{% extends 'basic.html' %}
+{% block emailShort %}
+    Cet email confirme la création de votre compte sur le site du Raid 2012. Si vous pensez qu'il s'agit d'une erreur,
+    n'hésitez pas à le signaler à victor.nicolet.0@gmail.com.
+{% endblock %}
+{% block emailMainContent %}
+<h1>Bienvenue {{ username }}!</h1><br/>
+    Ton compte a bien été crée sur <a href="http://xraid.io">le site du Raid 2012!</a> On t'y attend avec impatience !
+    <br/>
+    Nous avons créé ce site pour avoir un petit réseau social offrant une alternative à Facebook et d'autre, où tout
+    ce que nous postons reste entre nous et sous notre contrôle.
+    <br/>
+    Si tu as envie de contribuer, n'hesite pas à aller jeter un coup d'oeil sur
+    <a href="http://github.com/victornicolet/webraid">GitHub</a> !
+{% endblock %}
