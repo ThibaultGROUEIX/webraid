@@ -70,6 +70,15 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
             'url': self.get_absolute_url()
         }
 
+    # Get the list of tagged users : all the users tagged in posts + authors
+    def get_tagged_users(self):
+        tagged_users = set([])
+        for post in Post.objects.filter(thread=self):
+            tagged_users.add(post.author)
+            for usp in UserTag.objects.filter(post=post):
+                tagged_users.add(usp.user_profile)
+        return tagged_users
+
     @staticmethod
     def get_last_threads_posted_in(limit=1):
         thread_with_last_posted_date = []
@@ -114,6 +123,15 @@ class Post(models.Model, NotificationContentProviderMixin):
     # File uploads
     file = models.FileField()
 
+    def save(self, **kwargs):
+        super(Post, self).save(**kwargs)
+
+        for user in UserProfile.auto_tag(self.text_content):
+            user_profile = UserProfile.objects.get(user=user)
+            UserTag(user_profile=user_profile, post=self).save()
+
+
+
     # What we send as the new object's content for sending notifications
     def get_content(self):
         return unicode(self.text_content)
@@ -136,3 +154,11 @@ class Post(models.Model, NotificationContentProviderMixin):
     @staticmethod
     def get_last_posts(last_posts_no=1):
         return Post.objects.all().order_by('-posted_date')[:last_posts_no]
+
+
+class UserTag(models.Model, NotificationContentProviderMixin):
+    post = models.ForeignKey(Post)
+    user_profile = models.ForeignKey(UserProfile)
+
+    def get_content(self):
+        return unicode(self.user_profile.__str__())

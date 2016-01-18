@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.core.urlresolvers import reverse
 
+
 # Models related to the user profile
 class CallingCode(models.Model):
     calling_code = models.IntegerField()
@@ -100,3 +101,14 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.__str__()
+
+    @staticmethod
+    def auto_tag(text):
+        matches = []
+        for word in text.split(' '):
+            if word.startswith("@"):
+                try:
+                    matches.append(User.objects.get(username=word[1:]))
+                except User.DoesNotExist:
+                    pass
+        return matches

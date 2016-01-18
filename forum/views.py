@@ -49,8 +49,14 @@ def thread_category_detail(request, slug, pk=None):
     except ThreadCategory.DoesNotExist:
         raise Http404("Thread category does not exist!")
 
-    if request.method == 'POST':
+    data = {
+        'thread_category': thread_category,
+        'thread_list': thread_list,
+        'form': ThreadForm(),
+        'slug': slug,
+    }
 
+    if request.method == 'POST':
         if 'new-thread' in request.POST:
             form = ThreadForm(request.POST)
             if form.is_valid():
@@ -61,14 +67,11 @@ def thread_category_detail(request, slug, pk=None):
 
                 return redirect(thread_category.get_absolute_url())
             else:
+                data.update({'form': form})
                 return render(request,
                               'thread_category.html',
-                              {
-                                  'thread_category': thread_category,
-                                  'thread_list': thread_list,
-                                  'form': form,
-                                  'slug': slug,
-                              })
+                              data)
+
         elif 'edit-thread' in request.POST:
             edit_thread_form = ThreadForm(request.POST, instance=edit_thread)
             if edit_thread_form.is_valid():
@@ -76,23 +79,13 @@ def thread_category_detail(request, slug, pk=None):
 
                 return redirect(thread_category.get_absolute_url())
             else:
+                data.update({
+                    'pk': edit_thread.pk,
+                    'edit_thread_form': edit_thread_form,
+                })
                 return render(request,
                               'thread_category.html',
-                              {
-                                  'thread_category': thread_category,
-                                  'thread_list': thread_list,
-                                  'form': ThreadForm(),
-                                  'slug': slug,
-                                  'pk': edit_thread.pk,
-                                  'edit_thread_form': edit_thread_form,
-                              })
-
-    data = {
-        'thread_category': thread_category,
-        'thread_list': thread_list,
-        'form': ThreadForm(),
-        'slug': slug,
-    }
+                              data)
 
     if edit_thread is not None:
         edit_thread_form = ThreadForm(instance=edit_thread)

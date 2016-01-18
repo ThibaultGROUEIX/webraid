@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
 {% load utils_filters %}
+{% load helper_tags %}
+
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
     {{ thread_category.name }}
@@ -49,7 +51,11 @@
                     </a>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags : {{ thread.tags.all | displaytags }}
+                            Tags : {{ thread.tags.all | displaytags }} </br>
+                            Utilisateurs :
+                            {% for usr in thread.get_tagged_users %}
+                                {% pretty_user_tag usr %}
+                            {% endfor %}
                         {% endif %}
                     </div>
                     <div class="panel-footer">
@@ -70,7 +76,7 @@
                 {% csrf_token %}
                 {{ form.title | bs_form_input_h:"Titre du fil de discussion" }}
                 {{ form.tags | bs_form_input_h:"Tags" }}
-                <input type="submit" class="btn btn-default" value="Ajouter" name="new-thread">
+                <input type="submit" class="btn btn-default" value="Nouvelle discussion" name="new-thread">
             </form>
         </div>
     </div>
