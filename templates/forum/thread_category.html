@@ -53,8 +53,8 @@
                         {% if thread.tags != None and thread.tags.count > 0 %}
                             Tags : {{ thread.tags.all | displaytags }} </br>
                             Utilisateurs :
-                            {% for usr in thread.get_tagged_users %}
-                                {% pretty_user_tag usr %}
+                            {% for usr, count in thread.get_tagged_users %}
+                                {% pretty_user_tag usr count %}
                             {% endfor %}
                         {% endif %}
                     </div>

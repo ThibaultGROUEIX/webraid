@@ -382,6 +382,12 @@ option {
 .tag.tag-light a:hover {
   color: #104d92;
 }
+.tag .info {
+  margin: 0 -3px 0 0;
+  padding: 0 3px 0 3px;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.2);
+}
 /*--------------------------------------------------------------------------*/
 /* Fuzzy search */
 .fuzzy-search {

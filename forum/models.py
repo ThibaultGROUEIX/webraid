@@ -72,12 +72,15 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
 
     # Get the list of tagged users : all the users tagged in posts + authors
     def get_tagged_users(self):
-        tagged_users = set([])
+        tagged_users = []
         for post in Post.objects.filter(thread=self):
-            tagged_users.add(post.author)
+            tagged_users.append(post.author)
             for usp in UserTag.objects.filter(post=post):
-                tagged_users.add(usp.user_profile)
-        return tagged_users
+                tagged_users.append(usp.user_profile)
+        res = []
+        for user in list(set(tagged_users)):
+            res.append((user, tagged_users.count(user)))
+        return res
 
     @staticmethod
     def get_last_threads_posted_in(limit=1):

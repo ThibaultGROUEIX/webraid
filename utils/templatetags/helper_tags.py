@@ -72,11 +72,15 @@ def input_fuzzy_search(placeholder=""):
 # Prettifiers
 
 @register.simple_tag(name='pretty_user_tag')
-def pretty_user_tag(user_profile):
+def pretty_user_tag(user_profile, additional_info=None):
+    if additional_info is not None:
+        add = " <b class=\"info\">" + str(additional_info) + "</b>"
+    else:
+        add = ""
     return Bs(
         "<a href=\"" +
         user_profile.get_absolute_url() +
-        "\" class =\"tag tag-orange active\">" + user_profile.user.username + "</span>"
+        "\" class =\"tag tag-orange active\">" + user_profile.user.username + add + "</span>"
     ).__str__()
 
 
