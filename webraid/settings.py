@@ -27,19 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# ----------------------------
-# 1 - Application definition
-# 2 - Database
-# 3 - Internationalization
-# 4 - Static and media storage
-# 5 - Login and authentication
-# 6 - Django-countries settings
-# 7 - Email settings
-# ----------------------------
 
-# 1 - Application definition
+# Application definition
 
 INSTALLED_APPS = (
+    'utils',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +42,6 @@ INSTALLED_APPS = (
     'django_countries',
     'profiles',
     'forum',
-    'notifications',
-    'notification_manager',
-    'utils'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -75,8 +64,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'templates/profiles'),
                  os.path.join(BASE_DIR, 'templates/admin'),
-                 os.path.join(BASE_DIR, 'templates/forum'),
-                 os.path.join(BASE_DIR, "templates/email")]
+                 os.path.join(BASE_DIR, 'templates/forum')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -92,27 +80,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'webraid.wsgi.application'
 
-# 2 - Database
+
+# Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-
-    'notifications': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'notifications')
     }
 }
-NOTIFICATION_DB = 'notifications'
-DATABASES_ROUTERS = ['notifications.routers.NotificationRouter']
 
-# 3 - Internationalization
+
+# Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'fr'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -122,8 +105,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# 4 - Static and media storage
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -137,8 +118,8 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/media/"
 MEDIA_URL = 'media/'
 
-# 5 - Login and authentication
-LOGIN_REDIRECT_URL = '/home'
+# Login and authenticaiton
+LOGIN_REDIRECT_URL = '/users'
 LOGOUT_REDIRECT_URL = '/login'
 LOGIN_URL = '/login'
 
@@ -147,9 +128,11 @@ LOGIN_REQUIRED_URLS = (
     r'/users/(.*)$',
 )
 
-LOGIN_EXEMPT_URLS = ()
+LOGIN_EXEMPT_URLS = (
+    r'^home/$',
+)
 
-# 6 - Django-countries settings
+# Django-countries settings
 COUNTRIES_FIRST = [
     'FR',
     'UK',
@@ -157,15 +140,3 @@ COUNTRIES_FIRST = [
 ]
 
 COUNTRIES_FIRST_REPEAT = True
-
-# 7 - Email settings
-import json
-
-smtp_settings_file = open(os.path.join(BASE_DIR, 'smtp_settings.json'))
-smtp_settings = json.load(smtp_settings_file)
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = smtp_settings['host']
-EMAIL_PORT = smtp_settings['port']
-EMAIL_HOST_USER = smtp_settings['host_user']
-EMAIL_HOST_PASSWORD = smtp_settings['password']
