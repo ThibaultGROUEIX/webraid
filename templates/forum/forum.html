@@ -11,7 +11,7 @@
                 {% if request.user.is_superuser %}
                     <a href="{% url 'delete_category' threadCategory.slug %}"><i class="fa fa-fw fa-trash"></i></a>
                 {% endif %}
-                <a href="{% url 'follow_category' threadCategory.slug %}">Suivre</a>
+                <!--<a href="{% url 'follow_category' threadCategory.slug %}">Suivre</a>-->
             </div>
             <a class="lpane-title" href="{{ threadCategory.get_absolute_url }}">
                 <div class="panel-heading active">

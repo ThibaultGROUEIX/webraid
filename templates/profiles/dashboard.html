@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load helper_tags %}
+{% load utils_filters %}
 {% block content %}
     <div class="panel">
         <div class="panel-body">
@@ -19,10 +20,11 @@
                                 {% pretty_thread_path post_w_a.post.thread %}
                             </span>
                             :
-                            {{ post_w_a.post.text_content }}
+                            {{ post_w_a.post.text_content | truncatemod }}
                             {% if post_w_a.answers != Null %}
                                 {% for answer in post_w_a.answers %}
-                                    <p>{% pretty_user_tag answer.author %} {{ answer.text_content }}</p>
+                                    <p>{% pretty_user_tag answer.author %}
+                                        {{ answer.text_content | truncatemod }}</p>
                                 {% endfor %}
                             {% endif %}
                         </div>
@@ -42,7 +44,7 @@
                                 {% pretty_thread_path twp.thread %}
                             </span> :
                             {% for post in twp.first_posts %}
-                                <p>{% pretty_user_tag post.author %} {{ post.text_content }}</p>
+                                <p>{% pretty_user_tag post.author %} {{ post.text_content | truncatemod }}</p>
                             {% endfor %}
                         </div>
                     {% endfor %}

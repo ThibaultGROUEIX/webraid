@@ -25,6 +25,16 @@ def form_control(value):
     return value.as_widget(attrs={'class': 'form-control'})
 
 
+@register.filter(name='truncatemod')
+def truncatemod(value, max_length=200):
+    if len(value) > max_length:
+        truncd_val = value[:max_length]
+        if not len(value) == max_length + 1 and value[max_length + 1] != " ":
+            truncd_val = truncd_val[:truncd_val.rfind(" ")]
+        return truncd_val + "..."
+    return value
+
+
 @register.filter(name='wrap_col')
 def wrap_col(value, css_size):
     return "<div class=\"" + css_size + "\">" + value + "</div>"
