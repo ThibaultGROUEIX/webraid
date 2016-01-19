@@ -21,10 +21,12 @@ import settings
 import profiles.urls
 import forum.urls
 import notifications.urls
+import utils.urls
 
 urlpatterns = [
                   url(r'^admin/', include(admin.site.urls)),
                   url(r'^forum/', include(forum.urls)),
                   url(r'^notifications/', include(notifications.urls)),
+                  url(r'^u/', include(utils.urls)),
                   url(r'^', include(profiles.urls)),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)

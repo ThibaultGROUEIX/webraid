@@ -128,12 +128,13 @@ class Post(models.Model, NotificationContentProviderMixin):
 
     def save(self, **kwargs):
         super(Post, self).save(**kwargs)
-
+        # Add UserTags
         for user in UserProfile.auto_tag(self.text_content):
             user_profile = UserProfile.objects.get(user=user)
             UserTag(user_profile=user_profile, post=self).save()
-
-
+        # Save tags
+        for tag in Tag.extract(self.text_content):
+            PostTag(post=self, tag=tag).save()
 
     # What we send as the new object's content for sending notifications
     def get_content(self):
@@ -165,3 +166,8 @@ class UserTag(models.Model, NotificationContentProviderMixin):
 
     def get_content(self):
         return unicode(self.user_profile.__str__())
+
+
+class PostTag(models.Model):
+    post = models.ForeignKey(Post)
+    tag = models.ForeignKey(Tag)
