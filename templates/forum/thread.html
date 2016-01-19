@@ -96,14 +96,11 @@
     {% init_fuzzy_search "content" "'username'" %}
     <!-- Enable tagging with @ -->
     <script>
-        $.getJSON("/users_json", function (data) {
-                    $('textarea').triggeredAutocomplete({
-                                hidden: '#hidden_inputbox',
-                                source: '/users_json',
-                                trigger: '@',
-                                maxLength: 30
-                            }
-                    )
+        $('textarea').triggeredAutocomplete({
+                    hidden: '#hidden_inputbox',
+                    source: '/users_json',
+                    trigger: '@',
+                    maxLength: 30
                 }
         );
     </script>

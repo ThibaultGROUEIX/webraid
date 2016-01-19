@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.http import HttpResponse
 
 from forum.models import Post, Thread
@@ -349,9 +348,16 @@ def edit_name(request):
     )
 
 
+# /users_json?term=[name of the users is like this]
 def gen_users_json(request):
+    if request.GET:
+        term = request.GET['term']
+    else:
+        # if there is no get we simply return the list of all users
+        term = ""
+
     r = []
-    for user_profile in UserProfile.objects.all():
+    for user_profile in UserProfile.objects.filter(user__username__contains=term):
         r.append({
             'value': user_profile.user.pk,
             'label': user_profile.user.username
