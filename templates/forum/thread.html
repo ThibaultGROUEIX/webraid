@@ -99,7 +99,7 @@
         $.getJSON("/users_json", function (data) {
                     $('textarea').triggeredAutocomplete({
                                 hidden: '#hidden_inputbox',
-                                source: data,
+                                source: '/users_json',
                                 trigger: '@',
                                 maxLength: 30
                             }
