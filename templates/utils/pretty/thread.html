@@ -1,0 +1,29 @@
+{% load prettify %}
+{% load helper_tags %}
+
+<a href="{{ thread.get_absolute_url }}">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                {% pretty_thread_path thread %}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                {% if thread.tags %}
+                    <div class="col col-lg-5 col-sm-12">
+                        Tags :
+                        {% for tag in thread.tags.all %}
+                            {% pretty_tag tag %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="col col-lg-7 col-sm-12">
+                    {% for post in last_posts %}
+                        {% pretty_short_post post %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</a>

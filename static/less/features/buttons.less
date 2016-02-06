@@ -141,31 +141,34 @@
 
 .btn {
   border: none;
-  border-radius: 0;
+  border-radius: 3px;
   border-bottom: 2px solid @middle-blue;
   box-shadow: none;
-  background-color: @lightest-grey;
-  color: @dark-grey;
+  background-color: @light-blue;
+  color: white;
   font-weight: 700;
 }
 
 .btn:hover {
-  background-color: darken(@lightest-grey, 20%);
+  transition: transform 500ms ease-in;
+  color: white;
+  background-color: darken(@light-blue, 20%);
+  border-color: @middle-blue;
 }
 
 .btn-danger {
-  border: none;
+  border-bottom: 2px solid @middle-red;
   color: #fff;
   background-color: @light-red;
 }
 
 .btn-danger:hover {
-  border: none;
   background-color: @middle-red;
+  border-bottom: 2px solid @middle-red;
 }
 
 .btn-success {
-  border: none;
+  border-bottom: 2px solid @middle-green;
   background-color: @light-green;
 }
 
@@ -174,7 +177,7 @@
 }
 
 .btn-discrete {
-  border: none;
+  border-bottom: 2px solid rgba(100, 100, 100, 0.25);
   color: rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.25);
 }
@@ -198,5 +201,5 @@
 
 .btn-sm:hover {
   color: darken(@middle-blue, 20%);
-  background-color: darken(@lightest-grey, 20 %);
+  background-color: darken(@lightest-grey, 20%);
 }

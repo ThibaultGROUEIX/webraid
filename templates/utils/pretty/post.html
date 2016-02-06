@@ -1,0 +1,11 @@
+{% load helper_tags %}
+<a href="{{ post.get_absolute_url }}">
+    <div class="panel">
+        <div class="panel-body">
+            {% pretty_user_tag post.author %} {{ post.text_content }}
+        </div>
+        <div class="panel-footer">
+            {{ post.posted_date | date }}
+        </div>
+    </div>
+</a>

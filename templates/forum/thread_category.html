@@ -2,7 +2,7 @@
 {% load bootstrapify %}
 {% load utils_filters %}
 {% load helper_tags %}
-
+{% load prettify %}
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
     {{ thread_category.name }}
@@ -53,7 +53,7 @@
                     </a>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags : {{ thread.tags.all | displaytags }} <br/>
+                            Tags : {% for tag in thread.tags.all %}{% pretty_tag tag %}{% endfor %} <br/>
                             Utilisateurs :
                             {% for usr, count in thread.get_tagged_users %}
                                 {% pretty_user_tag usr count %}

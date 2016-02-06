@@ -2,6 +2,7 @@ import json
 import re
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 DEFAULT_TAG_LIST_FILE = "tags.json"
 
@@ -11,6 +12,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag
+
+    def get_absolute_url(self):
+        return reverse('show_tag', args=[self.tag])
 
     def normalized_save(self):
         self.tag = self.tag.strip().replace(" ", "_")

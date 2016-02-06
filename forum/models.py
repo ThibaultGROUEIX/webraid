@@ -1,10 +1,10 @@
-from django.db import models
 from django.core.urlresolvers import reverse
+from django.db import models
 
-from utils.snippets.slugifiers import unique_slugify
+from notifications.utils import NotificationContentProviderMixin, NotificationParentMixin
 from profiles.models import UserProfile
 from utils.models import Tag
-from notifications.utils import NotificationContentProviderMixin, NotificationParentMixin
+from utils.snippets.slugifiers import unique_slugify
 
 
 # Create your models here.
@@ -82,6 +82,9 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
             res.append((user, tagged_users.count(user)))
         return res
 
+    def get_last_posts(self, limit=10):
+        return Post.objects.filter(thread=self).order_by('-posted_date')[:limit]
+
     @staticmethod
     def get_last_threads_posted_in(limit=1):
         thread_with_last_posted_date = []
@@ -89,10 +92,10 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
             last_post = Post.objects.filter(thread=thread).order_by('-posted_date')[:1]
             if last_post is not None:
                 thread_with_last_posted_date.append(
-                    {
-                        'thread': thread,
-                        'last_posted_date': last_post[0].posted_date
-                    }
+                        {
+                            'thread': thread,
+                            'last_posted_date': last_post[0].posted_date
+                        }
                 )
         thread_with_last_posted_date.sort(key=lambda x: x['last_posted_date'], reverse=True)
         return thread_with_last_posted_date[:limit]
@@ -106,11 +109,11 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
             lim = min(lp_len, posts_limit)
             if (last_posts is not None) and (lp_len > 0):
                 thread_with_last_posted_date.append(
-                    {
-                        'thread': thread,
-                        'last_posted_date': last_posts[0].posted_date,
-                        'first_posts': last_posts[0:lim]
-                    }
+                        {
+                            'thread': thread,
+                            'last_posted_date': last_posts[0].posted_date,
+                            'first_posts': last_posts[0:lim]
+                        }
                 )
         thread_with_last_posted_date.sort(key=lambda x: x['last_posted_date'], reverse=True)
         return thread_with_last_posted_date[:threads_limit]
@@ -125,6 +128,9 @@ class Post(models.Model, NotificationContentProviderMixin):
     last_edit_date = models.DateTimeField(auto_now=True)
     # File uploads
     file = models.FileField()
+
+    def get_absolute_url(self):
+        return self.thread.get_absolute_url() + "#post-" + str(self.id)
 
     def save(self, **kwargs):
         super(Post, self).save(**kwargs)

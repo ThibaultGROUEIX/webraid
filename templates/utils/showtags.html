@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load prettify %}
+{% block content %}
+    {% for tag_summary in tag_summaries %}
+        <div class="panel">
+            <div class="panel-heading">
+                {% pretty_tag tag_summary.tag %}
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for post_tag in tag_summary.related_posts %}
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            {% pretty_post post_tag.post %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {% for thread in tag_summary.related_threads %}
+                        {% pretty_thread thread %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
