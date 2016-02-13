@@ -2,6 +2,7 @@
 {% load bootstrapify %}
 {% load staticfiles %}
 {% load helper_tags %}
+{% load prettify %}
 {% block extrahead %}
     <script src="{% static 'js/customformats.js' %}" type="text/javascript"></script>
 {% endblock %}
@@ -18,15 +19,16 @@
     <ul class="list">
         {% for post in post_list %}
             <li class="post-container">
-                <div class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
+                <div itemscope itemtype="http://schema.org/DiscussionForumPosting"
+                     class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
                      id="post-{{ post.id }}"
-                        >
-                    <span hidden class="username">{{ post.author.user.username }}</span>
+                >
+                    <span hidden class="username" itemprop="author">{{ post.author.user.username }}</span>
                     {% if post == edit_post %}
                         <form id="post-edit-form"
                               method="POST"
                               action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}"
-                                >
+                        >
                             {% csrf_token %}
                             <div class="panel-body--post">
                                 {{ edit_post_form.text_content | bs_form_input:"" }}

@@ -16,7 +16,7 @@
                           method="POST"
                           enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="panel-heading">
+                        <div class="panel-heading bookface">
                             {{ edit_thread_form.title | bs_form_input }}
                         </div>
                         <div class="panel-body">
@@ -43,7 +43,7 @@
                     </div>
                     <a href="{{ thread.get_absolute_url }}">
                         <div class="panel-heading active">
-                            {{ thread.title }}
+                            <span class="bookface">{{ thread.title }}</span>
                             {% if following %}
                                 <span class="tag tag-green"> abonné
                                     <span class="info"><i class="fa fa-fw fa-eye"></i></span>

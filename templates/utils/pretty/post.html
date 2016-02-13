@@ -1,6 +1,8 @@
 {% load helper_tags %}
+{% load prettify %}
 <a href="{{ post.get_absolute_url }}">
-    <div class="panel">
+    {% block post %}
+    <div class="panel-info panel active">
         <div class="panel-body">
             {% pretty_user_tag post.author %} {{ post.text_content }}
         </div>
@@ -8,4 +10,5 @@
             {{ post.posted_date | date }}
         </div>
     </div>
+    {% endblock %}
 </a>

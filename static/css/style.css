@@ -351,6 +351,19 @@ option {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
+/* Other font for title */
+.bookface {
+  font-family: "Century Schoolbook L", sans-serif;
+}
+.bookface.black {
+  color: black;
+}
+.bookface.black a {
+  color: black;
+}
+.bookface a:hover {
+  text-decoration: underline;
+}
 /* Tags */
 .tag {
   display: inline-block;
@@ -372,6 +385,14 @@ option {
 .tag.tag-orange {
   background-color: #E65100;
   color: white;
+}
+.tag.tag-red {
+  background-color: #B71C1C;
+  color: white;
+}
+.tag.tag-info {
+  background-color: #3399FF;
+  color: whitesmoke;
 }
 .tag.tag-light {
   background-color: #f5f5f5;
@@ -454,6 +475,9 @@ a.area-link > div:focus {
 /* 1- Restyle boostrap panels */
 .panel {
   border-radius: 5px;
+}
+.panel.active:hover {
+  background-color: #e6e6e6;
 }
 .panel .panel-footer {
   border-radius: 0;

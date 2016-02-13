@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load helper_tags %}
+{% load prettify %}
 {% load utils_filters %}
 {% block content %}
     <div class="panel">
@@ -16,7 +17,7 @@
                 <div class="panel-body">
                     {% for post_w_a in posts %}
                         <div class="well">
-                            <span class="tag tag-light">
+                            <span class="bookface black">
                                 {% pretty_thread_path post_w_a.post.thread %}
                             </span>
                             :
@@ -40,7 +41,7 @@
                 <div class="panel-body">
                     {% for twp in threads_last %}
                         <div class="well">
-                            <span class="tag tag-light">
+                            <span class="bookface black">
                                 {% pretty_thread_path twp.thread %}
                             </span> :
                             {% for post in twp.first_posts %}

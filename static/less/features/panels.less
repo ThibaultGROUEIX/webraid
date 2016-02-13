@@ -6,6 +6,10 @@
 .panel {
   border-radius: 5px;
 
+  &.active:hover {
+    background-color: darken(white, 10%);
+  }
+
   .panel-footer {
     border-radius: 0;
   }
@@ -44,7 +48,6 @@
       }
     }
   }
-
 
   &.green {
     background-color: @middle-green;
