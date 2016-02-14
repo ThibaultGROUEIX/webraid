@@ -666,6 +666,9 @@ a.area-link > div:focus {
   border-top: 1px solid #757575;
   padding: 5px 10px 5px 10px;
 }
+.well-custom .well-custom {
+  border-top-color: #c2c2c2;
+}
 /*! jQuery UI - v1.11.4 - 2016-01-18
 * http://jqueryui.com
 * Includes: core.css, draggable.css, resizable.css, selectable.css, sortable.css, accordion.css, autocomplete.css, button.css, datepicker.css, dialog.css, menu.css, progressbar.css, selectmenu.css, slider.css, spinner.css, tabs.css, tooltip.css

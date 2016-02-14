@@ -1,7 +1,6 @@
 /* Panels, wells and company :
    put here all your generic containers */
 
-
 /* 1 - restyle boostrap panels */
 /* 2 - general panels */
 /* 3 - post panels */
@@ -235,8 +234,12 @@
 }
 
 /* 4 - Custom well */
-.well-custom{
+.well-custom {
   border-top: 1px solid @middle-grey;
   padding: 5px 10px 5px 10px;
+
+  & .well-custom {
+    border-top-color: lighten(@middle-grey, 30%);
+  }
 
 }
