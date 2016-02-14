@@ -5,17 +5,22 @@
     {% for tag_summary in tag_summaries %}
         <div class="panel">
             <div class="panel-heading">
-                {% pretty_tag tag_summary.tag %}
-                {% if tag_summary.related_posts.count > 0 %}
-                    <span class="tag tag-info">
+                <div class="row">
+                    {% pretty_tag tag_summary.tag %}
+                    {% if tag_summary.related_posts.count > 0 %}
+                        <span class="tag tag-info">
                         posts <b class="info">{{ tag_summary.related_posts.count }}</b>
                     </span>
-                {% endif %}
-                {% if tag_summary.related_threads.count > 0 %}
-                    <span class="tag tag-info">
+                    {% endif %}
+                    {% if tag_summary.related_threads.count > 0 %}
+                        <span class="tag tag-info">
                         fils de discussion <b class="info">{{ tag_summary.related_threads.count }}</b>
                     </span>
-                {% endif %}
+                    {% endif %}
+                    {% for k, v in tag_summary.monthly_use.iteritems %}
+                        {{ k }} : {{ v }}
+                    {% endfor %}
+                </div>
             </div>
             <div class="panel-body">
                 <div class="row">

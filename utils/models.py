@@ -38,3 +38,4 @@ class Tag(models.Model):
 
         for tag_name in data:
             Tag(tag=tag_name).save()
+

@@ -44,6 +44,10 @@ class Thread(models.Model, NotificationContentProviderMixin, NotificationParentM
     tags = models.ManyToManyField(Tag)
     slug = models.SlugField(max_length=50,
                             unique=True)
+    creation_date = models.DateField(
+        verbose_name="Thread creation date",
+        auto_created=True,
+    )
 
     def __str__(self):
         return self.title

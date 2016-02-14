@@ -16,19 +16,7 @@
                 </div>
                 <div class="panel-body">
                     {% for post_w_a in posts %}
-                        <div class="well">
-                            <span class="bookface black">
-                                {% pretty_thread_path post_w_a.post.thread %}
-                            </span>
-                            :
-                            {{ post_w_a.post.text_content | truncatemod }}
-                            {% if post_w_a.answers != Null %}
-                                {% for answer in post_w_a.answers %}
-                                    <p>{% pretty_user_tag answer.author %}
-                                        {{ answer.text_content | truncatemod }}</p>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+                        {% pretty_post_w_a post_w_a %}
                     {% endfor %}
                 </div>
             </div>
@@ -40,7 +28,7 @@
                 </div>
                 <div class="panel-body">
                     {% for twp in threads_last %}
-                        <div class="well">
+                        <div class="well-custom">
                             <span class="bookface black">
                                 {% pretty_thread_path twp.thread %}
                             </span> :

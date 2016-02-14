@@ -68,3 +68,4 @@ def input_fuzzy_search(placeholder=""):
     tag = Bs(tag)
     wrapper.div.append(tag)
     return wrapper.__str__()
+

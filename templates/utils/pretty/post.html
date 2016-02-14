@@ -2,7 +2,7 @@
 {% load prettify %}
 <a href="{{ post.get_absolute_url }}">
     {% block post %}
-    <div class="panel-info panel active">
+    <div class="panel-info panel active" itemscope itemtype="http://schema.org/DiscussionForumPosting">
         <div class="panel-body">
             {% pretty_user_tag post.author %} {{ post.text_content }}
         </div>

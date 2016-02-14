@@ -17,6 +17,12 @@ def pretty_post(post):
                             {"post": post})
 
 
+@register.simple_tag(name="pretty_post_w_a")
+def pretty_post_with_answers(post_w_a):
+    return render_to_string('utils/pretty/post_w_a.html',
+                            {"post_w_a": post_w_a})
+
+
 @register.simple_tag(name="pretty_short_post")
 def pretty_short_post(post):
     return render_to_string('utils/pretty/short_post.html',
@@ -41,7 +47,10 @@ def pretty_user_tag(user_profile, additional_info=None):
     return Bs(
             "<a href=\"" +
             user_profile.get_absolute_url() +
-            "\" class =\"tag tag-orange active\">" + user_profile.user.username + add + "</span>"
+            "\" class =\"tag tag-orange active\" itemprop=\"author\">" +
+            user_profile.user.username +
+            add +
+            "</span>"
     ).__str__()
 
 

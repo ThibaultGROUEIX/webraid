@@ -3,8 +3,8 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from models import Tag
 from forum.models import PostTag, Thread
+from models import Tag
 
 
 def get_tags(request):
@@ -24,12 +24,25 @@ def show_tag(request, tags):
     for tag_word in tags.split('+'):
         try:
             tag = Tag.objects.get(tag=tag_word)
-            related_posts = PostTag.objects.filter(tag=tag)[:10]
-            related_threads = Thread.objects.filter(tags__tag__startswith=tag.tag)[:10]
+            related_posts = PostTag.objects.filter(tag=tag)
+            related_threads = Thread.objects.filter(tags__tag__startswith=tag.tag)
+            # Get some nice stats out of the posts / thread, such as the dates
+            use_dates = [post.posted_date for post in related_posts]
+            use_dates.extend([thread.creation_date for thread in related_threads])
+            # Aggregate the dates by month-year
+            monthly_use = {}
+            for date in use_dates:
+                key = (date.year, date.month)
+                if key in monthly_use:
+                    monthly_use[key] += 1
+                else:
+                    monthly_use[key] = 1
+
             tag_list.append({
                 "tag": tag,
                 "related_posts": related_posts,
-                "related_threads": related_threads
+                "related_threads": related_threads,
+                "monthly_use": monthly_use
             })
         except Tag.DoesNotExist:
             pass
