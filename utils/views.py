@@ -27,7 +27,7 @@ def show_tag(request, tags):
             related_posts = PostTag.objects.filter(tag=tag)
             related_threads = Thread.objects.filter(tags__tag__startswith=tag.tag)
             # Get some nice stats out of the posts / thread, such as the dates
-            use_dates = [post.posted_date for post in related_posts]
+            use_dates = [post_tag.post.posted_date for post_tag in related_posts]
             use_dates.extend([thread.creation_date for thread in related_threads])
             # Aggregate the dates by month-year
             monthly_use = {}
