@@ -1,6 +1,7 @@
 from forum.models import Thread, Post, ThreadCategory
+from utils import NotificationContextProviderMixin, BadNotificationContextInit
 from .models import NoticeUserPreferences
-from utils import NotificationContentProviderMixin, NotificationContextProviderMixin
+
 # Define notice types, notice content types and structures
 _NOTICE_TYPES_MODELS = {
     'post_new': 'forum.models.Thread',
@@ -27,24 +28,18 @@ class NoticeContent(NotificationContextProviderMixin):
     def __init__(self, notice_type, emission_date, emitter_user, new_object, parent):
         if not is_regular_type(notice_type):
             print "Wrong notice type when creating content"
-            raise Exception
+            raise BadNotificationContextInit
         else:
-            self.notice_type = notice_type
-        self.emission_date = emission_date
-        self.emitter = emitter_user
-        self.new_object = new_object
-        self.parent = parent
-
-        # Check that the new object is a notification content provider
-        if not isinstance(self.new_object, NotificationContentProviderMixin):
-            print "The object passed to NoticeContent is not a notification source"
-            self.new_object = None
+            super(NoticeContent, self).__init__(emission_date,
+                                                emitter_user,
+                                                new_object,
+                                                notice_type,
+                                                parent)
 
     def get_preference_query(self):
         if isinstance(self.new_object, Post):
-            category = self.parent.category
             return NoticeUserPreferences.objects.filter(
-                threads__thread=self.parent)
+                    threads__thread=self.parent)
         if isinstance(self.new_object, Thread):
             return NoticeUserPreferences.objects.filter(categories=self.parent)
 
@@ -53,22 +48,6 @@ class NoticeContent(NotificationContextProviderMixin):
             return notice_user_preferences.threads.get(thread=self.parent)
         if isinstance(self.new_object, Thread):
             return notice_user_preferences.categories.get(category=self.parent)
-
-    def get_context(self):
-
-        if self.notice_type is self.NEW_POST:
-            return {
-                'emitter': {
-                    'email': self.emitter.email,
-                    'first_name': self.emitter.first_name,
-                    'last_name': self.emitter.last_name,
-                    'username': self.emitter.username
-                },
-                'notice_type': self.notice_type,
-                'content': self.new_object.get_content(),
-                'date': self.emission_date,
-                'parent': self.parent.get_parent_context()
-            }
 
 
 class OperationPostContent(NoticeContent):
