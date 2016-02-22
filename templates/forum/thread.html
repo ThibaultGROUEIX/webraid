@@ -77,8 +77,10 @@
     <div class="panel--post new" id="new-post-form">
         <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
             {% csrf_token %}
-            {{ form.text_content | bs_form_input:"" }}
-            {{ form.file | bs_file_input }}
+            <div class="well-sm">
+                {{ form.text_content | bs_form_input:"" }}
+                {{ form.file | bs_file_input }}
+            </div>
             <input type="submit" class="btn btn-default" value="Poster" name="new-post">
         </form>
     </div>
