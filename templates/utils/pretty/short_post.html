@@ -1,11 +1,11 @@
 {% load helper_tags %}
 {% load prettify %}
-<div class="row well-sm" itemscope itemtype="http://schema.org/DiscussionForumPosting">
-    <div class="col-lg-2 col-md-3 col-sm-3">
+<div class="well-sm" itemscope itemtype="http://schema.org/DiscussionForumPosting">
+    <div class="well-sm-title">
         {% pretty_user_tag post.author %}
     </div>
     <a href="{{ post.get_absolute_url }}">
-        <div class="col-lg-10 col-md-9 col-sm-9" itemprop="textContent">
+        <div class="well-sm-content" itemprop="textContent">
             {{ post.text_content }}
             <span class="text-muted" itemprop="date">{{ post.posted_date | date }}</span>
         </div>

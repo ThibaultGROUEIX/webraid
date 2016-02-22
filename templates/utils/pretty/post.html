@@ -1,14 +1,16 @@
 {% load helper_tags %}
 {% load prettify %}
-<a class="area-link" href="{{ post.get_absolute_url }}">
-    {% block post %}
-    <div class="panel-info panel active" itemscope itemtype="http://schema.org/DiscussionForumPosting">
-        <div class="panel-body">
-            {% pretty_user_tag post.author %} {{ post.text_content }}
-        </div>
-        <div class="panel-footer">
-            {{ post.posted_date | date }}
-        </div>
+
+<div class="panel" itemscope itemtype="http://schema.org/DiscussionForumPosting">
+    <div class="panel-header">
+        {% pretty_user_tag post.author %}
     </div>
-    {% endblock %}
-</a>
+    <a href="{{ post.get_absolute_url }}" id="{{ post.id }}">
+        <div class="panel-body active-content">
+            {{ post.text_content }}
+        </div>
+    </a>
+    <div class="panel-footer small">
+        In {% pretty_thread_path post.thread %} on {{ post.posted_date | date }}
+    </div>
+</div>

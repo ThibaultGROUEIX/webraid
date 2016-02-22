@@ -32,7 +32,9 @@
                 </div>
                 <div class="row">
                     {% for thread in tag_summary.related_threads %}
-                        {% pretty_thread thread %}
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            {% pretty_thread thread %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>

@@ -1,5 +1,7 @@
 /* Specific elments */
 /* Sizes */
+/* Shadows */
+/* Borders */
 /*
     Author : Victor Nicolet
 */
@@ -477,13 +479,44 @@ a.area-link > div:focus {
 /* 4 - custom wells */
 /* 1- Restyle boostrap panels */
 .panel {
-  border-radius: 5px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border: none;
+  background-color: white;
+  margin-bottom: 20px;
+  transition: all 0.2s ease-in-out;
+}
+.panel.important1 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.panel.important2 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .panel.active:hover {
-  background-color: #e6e6e6;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.2s ease-in-out;
+}
+.panel a .panel-body {
+  color: black;
+}
+.panel .panel-body {
+  padding: 15px;
+}
+.panel .panel-body.active-content {
+  padding: 10px;
+  margin: 5px;
+}
+.panel .panel-body.active-content:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.2s ease-in-out;
 }
 .panel .panel-footer {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
   border-radius: 0;
+  background-color: transparent;
+}
+.panel .panel-footer .small {
+  font-size: 0.8rem;
 }
 .panel.blue {
   background-color: #1565C0;
@@ -512,6 +545,9 @@ a.area-link > div:focus {
 .panel.blue .panel-actions > a:hover {
   background-color: #104d92;
   color: #cbddff;
+}
+.panel.blue:after {
+  box-sizing: border-box;
 }
 .panel.green {
   background-color: #388E3C;
@@ -668,6 +704,18 @@ a.area-link > div:focus {
 }
 .well-custom .well-custom {
   border-top-color: #c2c2c2;
+}
+.well-sm .well-sm-title {
+  display: inline-block;
+  float: left;
+  width: 30%;
+}
+.well-sm a .well-sm-content {
+  color: rgba(0, 0, 0, 0.71);
+}
+.well-sm .well-sm-content {
+  display: inline-block;
+  width: 70%;
 }
 /*! jQuery UI - v1.11.4 - 2016-01-18
 * http://jqueryui.com

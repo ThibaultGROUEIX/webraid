@@ -8,14 +8,50 @@
 
 /* 1- Restyle boostrap panels */
 .panel {
-  border-radius: 5px;
+  border-radius: 2px;
+  box-shadow: @shadow1;
+  border: none;
+  background-color: white;
+  margin-bottom: 20px;
+  transition: @shadow-transition;
+
+  &.important1 {
+    box-shadow: @shadow2;
+  }
+  &.important2 {
+    box-shadow: @shadow3;
+  }
 
   &.active:hover {
-    background-color: darken(white, 10%);
+    box-shadow: @shadow-hover;
+    transition: @shadow-transition;
+  }
+
+  a .panel-body {
+    color: black;
+  }
+
+  .panel-body {
+    padding: 15px;
+
+    &.active-content {
+      padding: 10px;
+      margin: 5px;
+    }
+
+    &.active-content:hover {
+      box-shadow: @shadow1;
+      transition: @shadow-transition;
+    }
   }
 
   .panel-footer {
+    border-top: @border-light;
     border-radius: 0;
+    background-color: transparent;
+    .small {
+      font-size: 0.8rem;
+    }
   }
 
   &.blue {
@@ -50,6 +86,10 @@
         background-color: darken(@middle-blue, 10%);
         color: @lightest-blue;
       }
+    }
+
+    &:after {
+      box-sizing: border-box;
     }
   }
 
@@ -242,4 +282,21 @@
     border-top-color: lighten(@middle-grey, 30%);
   }
 
+}
+
+.well-sm {
+  .well-sm-title {
+    display: inline-block;
+    float: left;
+    width: 30%;
+  }
+
+  a .well-sm-content {
+    color: @text;
+  }
+
+  .well-sm-content {
+    display: inline-block;
+    width : 70%;
+  }
 }
