@@ -151,129 +151,9 @@ option {
     Author : Victor Nicolet
 */
 /*--------------------------------------------------------------------------*/
-/* Round buttons */
-.round-button,
-.round-button-small {
-  display: table;
-  font-size: 30px;
-}
-.round-button > i,
-.round-button-small > i {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-}
-@media (max-width: 768px) {
-  .round-button {
-    display: block;
-    width: 30px;
-    height: 30px;
-    padding: 7px;
-    font-size: 15px;
-    margin: 1.2%;
-  }
-  .round-button:hover {
-    -webkit-filter: brightness(1.2);
-    -moz-filter: brightness(1.2);
-    -o-filter: brightness(1.2);
-    -ms-filter: brightness(1.2);
-  }
-  .round-button > .olabel {
-    visibility: hidden;
-    display: inline-block;
-    width: 0px;
-    height: 0px;
-    font-size: 20px;
-  }
-  .round-button-small {
-    margin-bottom: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 13px;
-  }
-  .round-button-small > .olabel {
-    position: absolute;
-    visibility: hidden;
-  }
-}
-@media (min-width: 768px) {
-  .round-button {
-    margin-bottom: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    text-align: center;
-  }
-  .round-button-small {
-    margin-bottom: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 13px;
-  }
-  .round-button > .anim,
-  .round-button-small > .anim {
-    transition-timing-function: linear;
-    transition-duration: 0.5s;
-    transition-property: transform;
-    transform: rotate(0deg);
-  }
-  .round-button > .olabel,
-  .round-button-small > .olabel {
-    display: block;
-    max-width: 150px;
-    color: #2e2e2e;
-    position: absolute;
-    visibility: hidden;
-    transition-timing-function: linear;
-    transition-duration: 0.25s;
-    transition-property: visibility;
-  }
-  .round-button > .olabel {
-    font-size: 20px;
-  }
-  .round-button > .right {
-    margin-left: 30px;
-  }
-  .round-button > .left {
-    margin-left: -200px;
-  }
-  .round-button-small > .olabel {
-    font-size: 12px;
-    background-color: rgba(255, 255, 255, 0.7);
-  }
-  .round-button-small > .right {
-    margin-left: 20px;
-  }
-  .round-button-small > .left {
-    margin-left: -170px;
-  }
-  .round-button:hover > .anim,
-  .round-button-small:hover > .anim {
-    transform: rotate(30deg);
-    -webkit-filter: brightness(1.3);
-    -moz-filter: brightness(1.3);
-    -o-filter: brightness(1.3);
-    -ms-filter: brightness(1.3);
-    cursor: pointer;
-  }
-  .round-button:hover > .olabel {
-    visibility: visible;
-  }
-  .round-button-small:hover > .olabel {
-    visibility: visible;
-  }
-}
 /* Bootstrap buttons modifications */
 .btn {
-  border: none;
   border-radius: 3px;
-  border-bottom: 2px solid #1565C0;
   box-shadow: none;
   background-color: #3399FF;
   color: white;
@@ -282,8 +162,8 @@ option {
 .btn:hover {
   transition: transform 500ms ease-in;
   color: white;
-  background-color: #0066cc;
-  border-color: #1565C0;
+  background-color: #007fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 .btn-danger {
   border-bottom: 2px solid #B71C1C;
@@ -699,11 +579,11 @@ a.area-link > div:focus {
 }
 /* 4 - Custom well */
 .well-custom {
-  border-top: 1px solid #757575;
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
   padding: 5px 10px 5px 10px;
 }
 .well-custom .well-custom {
-  border-top-color: #c2c2c2;
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 .well-sm .well-sm-title {
   display: inline-block;

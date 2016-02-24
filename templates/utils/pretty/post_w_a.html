@@ -1,12 +1,15 @@
 {% load prettify %}
+{% load utils_filters %}
 {% load helper_tags %}
 <div class="well-custom">
     <div class="well-sm" itemscope itemtype="http://schema.org/DiscussionForumPosting">
         <span class="bookface black">
                 {% pretty_thread_path post_w_a.post.thread %} :
         </span>
-        {{ post_w_a.post.text_content }}
-        <i>{{ post_w_a.post.posted_date | date }}</i>
+        <a href="{{ post_w_a.post.get_absolute_url }}">
+            {{ post_w_a.post.text_content | truncatemod }}
+        </a>
+        <i class="text-muted">{{ post_w_a.post.posted_date | date }}</i>
     </div>
     {% if post_w_a.answers.count > 0 %}
         <div class="well-custom">

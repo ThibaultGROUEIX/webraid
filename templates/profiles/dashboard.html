@@ -33,7 +33,7 @@
                                 {% pretty_thread_path twp.thread %}
                             </span> :
                             {% for post in twp.first_posts %}
-                                <p>{% pretty_user_tag post.author %} {{ post.text_content | truncatemod }}</p>
+                                {% pretty_short_post post %}
                             {% endfor %}
                         </div>
                     {% endfor %}
