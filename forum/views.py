@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render
 
 from profiles.models import UserProfile
-from models import ThreadCategory, Thread, Post
+from models import ThreadCategory, Thread, Post, UserTag, PostTag
 from forms import ThreadCategoryForm, ThreadForm, PostForm
 import notifications.engine as notice_engine
 from notifications.contents import OperationPostContent
@@ -211,6 +211,9 @@ def post_delete(request, post_id):
     parent = post.thread
     if request.user == post.author.user:
         post.delete()
+        UserTag.objects.filter(post=post).delete()
+        PostTag.objects.filter(post=post).delete()
+
     else:
         raise PermissionDenied
 
