@@ -56,3 +56,7 @@ def input_fuzzy_search():
     tag = Bs(tag)
     wrapper.div.append(tag)
     return wrapper.__str__()
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba

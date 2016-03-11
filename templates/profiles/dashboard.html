@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
+<<<<<<< HEAD
 
+=======
+{% load helper_tags %}
+{% load prettify %}
+{% load utils_filters %}
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
 {% block content %}
     <div class="panel">
         <div class="panel-body">
             Bienvenue {{ user.first_name }} {{ user.last_name }} !
         </div>
     </div>
+<<<<<<< HEAD
     <div class="panel">
         <div class="panel-heading">
             Tes derniers posts
@@ -44,6 +51,21 @@
                     </a> :
                     {% for post in twp.first_posts %}
                         <p>{{ post.author }} : {{ post.text_content }}</p>
+=======
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="panel green">
+                <div class="panel-body">
+                    {% for twp in threads_last %}
+                        <div class="well-custom">
+                            <span class="bookface black">
+                                {% pretty_thread_path twp.thread %}
+                            </span> :
+                            {% for post in twp.first_posts %}
+                                {% pretty_short_post post %}
+                            {% endfor %}
+                        </div>
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
                     {% endfor %}
                 </div>
             {% endfor %}

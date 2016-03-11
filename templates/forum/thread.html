@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
 {% load bootstrapify %}
+<<<<<<< HEAD
+=======
+{% load staticfiles %}
+{% load helper_tags %}
+{% load prettify %}
+{% block extrahead %}
+    <script src="{% static 'js/customformats.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block path %}
+    <a href="{% url 'forum' %}">forum</a> /
+    {% pretty_thread_path thread %}
+{% endblock %}
+
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
 {% block content %}
     <h2><a href="{% url 'detail_thread_category' thread.category.slug %}">{{ thread.title | fa_return }}</a></h2>
     <p>
         {% for post in post_list %}
+<<<<<<< HEAD
             <div class="panel">
                 {% if post == edit_post %}
                     <form method="POST" action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}">
@@ -11,6 +27,36 @@
                         <div class="body">
                             {{ edit_post_form.text_content | bs_form_input:"" }}
                             {{ edit_post_form.file }}
+=======
+            <li class="post-container">
+                <div itemscope itemtype="http://schema.org/DiscussionForumPosting"
+                     class="panel--post {% if user == post.author.user %}self{% else %}other{% endif %}"
+                     id="post-{{ post.id }}"
+                >
+                    <span hidden class="username" itemprop="author">{{ post.author.user.username }}</span>
+                    {% if post == edit_post %}
+                        <form id="post-edit-form"
+                              method="POST"
+                              action="{% url 'detail_thread_edit_post' category_slug slug edit_post.pk %}"
+                        >
+                            {% csrf_token %}
+                            <div class="panel-body--post">
+                                {{ edit_post_form.text_content | bs_form_input:"" }}
+                                {{ edit_post_form.file }}
+                            </div>
+                            <div class="panel-footer--post">
+                                <input type="submit" class="btn btn-default" value="Valider" name="edit-post">
+                            </div>
+                        </form>
+                    {% else %}
+                        {% if user != post.author.user %}
+                            <div class="panel-title--post">
+                                {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+                            </div>
+                        {% endif %}
+                        <div class="panel-body--post">
+                            <p>{{ post.text_content }}</p>
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
                         </div>
                         <div class="panel-footer">
                             <input type="submit" class="btn btn-default" value="Valider" name="edit-post">
@@ -34,12 +80,25 @@
         {% endfor %}
     </p>
     <p>
+<<<<<<< HEAD
     <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
         {% csrf_token %}
         {{ form.text_content | bs_form_input:"" }}
         {{ form.file }}
         <input type="submit" class="btn btn-default" value="Poster" name="new-post">
     </form>
+=======
+    <div class="panel--post new" id="new-post-form">
+        <form method="POST" action="{% url 'detail_thread' category_slug slug %}">
+            {% csrf_token %}
+            <div class="well-sm">
+                {{ form.text_content | bs_form_input:"" }}
+                {{ form.file | bs_file_input }}
+            </div>
+            <input type="submit" class="btn btn-default" value="Poster" name="new-post">
+        </form>
+    </div>
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
     </p>
     <!-- Scroll-up -->
     <div class="scroll-up">
@@ -47,4 +106,24 @@
             <li><a href="#header"><i class="fa fa-angle-up"></i></a></li>
         </ul>
     </div>
+<<<<<<< HEAD
+=======
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'js/linkify.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/linkify-jquery.min.js' %}" type="text/javascript"></script>
+    <script>$('p').linkify();</script>
+    {% init_fuzzy_search "content" "'username'" %}
+    <!-- Enable tagging users with @ -->
+    <script>
+        $('textarea').triggeredAutocomplete({
+                    hidden: '#hidden_inputbox',
+                    source: '/users_json',
+                    trigger: '@',
+                    maxLength: 30
+                }
+        );
+    </script>
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba
 {% endblock %}

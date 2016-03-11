@@ -76,6 +76,22 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to='profiles/profile_pics/%Y/%m',
                                         max_length=150,
                                         null=True)
+    thumbnail_picture = models.ImageField(upload_to='profiles/thumbnails/%Y/%m',
+                                          null=True)
 
     def __str__(self):
         return self.user.__str__()
+
+
+
+
+    @staticmethod
+    def auto_tag(text):
+        matches = []
+        for word in text.split(' '):
+            if word.startswith("@"):
+                try:
+                    matches.append(User.objects.get(username=word[1:]))
+                except User.DoesNotExist:
+                    pass
+        return matches

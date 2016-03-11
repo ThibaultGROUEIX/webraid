@@ -1,0 +1,12 @@
+.lpane-title {
+  padding-left: 5px;
+}
+.panel > .panel-actions {
+  position: relative;
+  height: 0;
+}
+.panel > .panel-actions > a {
+  display: inline-block;
+  float: right;
+  padding: 3px;
+}

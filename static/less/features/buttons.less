@@ -1,0 +1,70 @@
+/*
+    Author : Victor Nicolet
+*/
+
+/*--------------------------------------------------------------------------*/
+
+/* Bootstrap buttons modifications */
+
+.btn {
+  border-radius: 3px;
+  box-shadow: none;
+  background-color: @light-blue;
+  color: white;
+  font-weight: 700;
+}
+
+.btn:hover {
+  transition: transform 500ms ease-in;
+  color: white;
+  background-color: darken(@light-blue, 10%);
+  box-shadow: @shadow1;
+}
+
+.btn-danger {
+  border-bottom: 2px solid @middle-red;
+  color: #fff;
+  background-color: @light-red;
+}
+
+.btn-danger:hover {
+  background-color: @middle-red;
+  border-bottom: 2px solid @middle-red;
+}
+
+.btn-success {
+  border-bottom: 2px solid @middle-green;
+  background-color: @light-green;
+}
+
+.btn-success:hover {
+  background-color: @middle-green;
+}
+
+.btn-discrete {
+  border-bottom: 2px solid rgba(100, 100, 100, 0.25);
+  color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.btn-discrete:hover {
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Small buttons */
+.btn-sm {
+  margin-left: 5px;
+  border: none;
+  border-radius: 2px;
+  padding: 2px 4px 2px 4px;
+  box-shadow: none;
+  font-weight: 600;
+  background-color: @lightest-grey;
+  color: @middle-blue;
+}
+
+.btn-sm:hover {
+  color: darken(@middle-blue, 20%);
+  background-color: darken(@lightest-grey, 20%);
+}

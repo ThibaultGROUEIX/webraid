@@ -20,9 +20,22 @@ from django.conf.urls.static import static
 import settings
 import profiles.urls
 import forum.urls
+<<<<<<< HEAD
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forum/', include(forum.urls)),
     url(r'^', include(profiles.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+=======
+import notifications.urls
+import utils.urls
+
+urlpatterns = [
+                  url(r'^admin/', include(admin.site.urls)),
+                  url(r'^forum/', include(forum.urls)),
+                  url(r'^notifications/', include(notifications.urls)),
+                  url(r'^u/', include(utils.urls)),
+                  url(r'^', include(profiles.urls)),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+>>>>>>> 9350566dfec21f0cd1aad032f264d82b996d8fba

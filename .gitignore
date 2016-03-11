@@ -1,3 +1,13 @@
+/smtp_settings.json
+/notification_manager/migrations/__init__.py
+/notifications/migrations/0001_initial.py
+/notifications/migrations/0002_auto_20160118_1457.py
+/notifications/migrations/__init__.py
+/notification_manager/migrations/0001_initial.py
+/notification_manager/migrations/0002_enqueuedappnotice.py
+/notification_manager/migrations/0003_enqueuedappnotice_context.py
+/notification_manager/migrations/0004_remove_enqueuedemailnotice_extra_context.py
+/notification_manager/migrations/0005_auto_20160222_1527.py
 /utils/templatetags/__init__.py
 /forum/migrations/*
 /utils/migrations/*

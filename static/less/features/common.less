@@ -1,0 +1,180 @@
+/*
+ - Small modifciations to bootstrap menus
+ - Tags
+ - Fuzzy search
+ - Text specials
+*/
+
+/* Small modifcations to bootstrap menus */
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border-radius: 0;
+  border: none;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+/* Other font for title */
+.bookface {
+  font-family: "Century Schoolbook L", sans-serif;
+
+  &.black {
+    color: black;
+
+    a {
+      color: black;
+    }
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+a.tag {
+  &:hover {
+    box-shadow: @shadow2;
+    transition: @shadow-transition;
+    color: white;
+  }
+}
+
+/* Tags */
+.tag {
+  display: inline-block;
+  background-color: @middle-blue;
+  color: @lightest-grey;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 0 3px 0 3px;
+  margin: 0 5px 0 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  &.tag-green {
+    background-color: @vibrant-light-green;
+    color: @dark-grey;
+  }
+  /* For users */
+  &.tag-orange {
+    background-color: @middle-orange;
+    color: white;
+
+  }
+
+  &.tag-red {
+    background-color: @middle-red;
+    color: white;
+  }
+
+  &.tag-info {
+    background-color: @light-blue;
+    color: whitesmoke;
+  }
+
+  &.tag-light {
+    background-color: @lightest-grey;
+    border: 1px solid @middle-grey;
+    color: black;
+
+    a {
+      text-transform: uppercase;
+      color: @middle-blue;
+
+      &:hover {
+        color: darken(@middle-blue, 10%);
+      }
+    }
+  }
+
+  .info {
+    margin: 0 -3px 0 0;
+    padding: 0 3px 0 3px;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+/*--------------------------------------------------------------------------*/
+/* Fuzzy search */
+.fuzzy-search {
+  background-color: @form-input-search-bg;
+  width: 90%;
+  border: none;
+  border-bottom: 2px solid @form-input-underline;
+}
+
+.search {
+  background-color: @form-input-search-bg;
+  width: 90%;
+  border: none;
+  border-bottom: 2px solid @form-input-underline;
+}
+
+.searchbar {
+  width: 100%;
+  padding: 0 0 20px 0;
+  margin: auto;
+}
+
+.searchbar > i {
+  padding-top: 5px;
+  float: right;
+  color: @form-input-underline;
+  width: 10%;
+}
+
+ul.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.searchbar-fixed-top {
+  padding: 0 25% 5px 25%;
+  height: 35px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  top: @navbar-height;
+  left: 0;
+
+  .searchbar {
+    margin: auto;
+  }
+}
+
+/*--------------------------------------------------------------------------*/
+/* Text specials */
+
+.info-text-sm {
+  font-size: 0.8em;
+  color: @dark-grey;
+  background-color: @lightest-grey;
+}
+
+a.area-link {
+  font: inherit;
+  color: inherit;
+}
+
+a.area-link > div:hover,
+a.area-link > div:focus {
+  background-color: @hover-bg-light;
+}
