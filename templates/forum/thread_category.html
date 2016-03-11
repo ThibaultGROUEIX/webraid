@@ -2,7 +2,7 @@
 {% load bootstrapify %}
 {% load utils_filters %}
 {% load helper_tags %}
-
+{% load prettify %}
 {% block path %}
     <a href="{% url 'forum' %}">forum</a> /
     {{ thread_category.name }}
@@ -16,7 +16,7 @@
                           method="POST"
                           enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="panel-heading">
+                        <div class="panel-heading bookface">
                             {{ edit_thread_form.title | bs_form_input }}
                         </div>
                         <div class="panel-body">
@@ -43,7 +43,7 @@
                     </div>
                     <a href="{{ thread.get_absolute_url }}">
                         <div class="panel-heading active">
-                            {{ thread.title }}
+                            <span class="bookface">{{ thread.title }}</span>
                             {% if following %}
                                 <span class="tag tag-green"> abonné
                                     <span class="info"><i class="fa fa-fw fa-eye"></i></span>
@@ -53,7 +53,7 @@
                     </a>
                     <div class="panel-body">
                         {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags : {{ thread.tags.all | displaytags }} <br/>
+                            Tags : {% for tag in thread.tags.all %}{% pretty_tag tag %}{% endfor %} <br/>
                             Utilisateurs :
                             {% for usr, count in thread.get_tagged_users %}
                                 {% pretty_user_tag usr count %}

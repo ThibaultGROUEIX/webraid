@@ -29,8 +29,32 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
-/* Tags */
+/* Other font for title */
+.bookface {
+  font-family: "Century Schoolbook L", sans-serif;
 
+  &.black {
+    color: black;
+
+    a {
+      color: black;
+    }
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+a.tag {
+  &:hover {
+    box-shadow: @shadow2;
+    transition: @shadow-transition;
+    color: white;
+  }
+}
+
+/* Tags */
 .tag {
   display: inline-block;
   background-color: @middle-blue;
@@ -52,6 +76,16 @@
     background-color: @middle-orange;
     color: white;
 
+  }
+
+  &.tag-red {
+    background-color: @middle-red;
+    color: white;
+  }
+
+  &.tag-info {
+    background-color: @light-blue;
+    color: whitesmoke;
   }
 
   &.tag-light {

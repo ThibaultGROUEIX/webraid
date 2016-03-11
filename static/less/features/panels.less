@@ -1,13 +1,57 @@
+/* Panels, wells and company :
+   put here all your generic containers */
+
 /* 1 - restyle boostrap panels */
 /* 2 - general panels */
 /* 3 - post panels */
+/* 4 - custom wells */
 
 /* 1- Restyle boostrap panels */
 .panel {
-  border-radius: 0;
+  border-radius: 2px;
+  box-shadow: @shadow1;
+  border: none;
+  background-color: white;
+  margin-bottom: 20px;
+  transition: @shadow-transition;
+
+  &.important1 {
+    box-shadow: @shadow2;
+  }
+  &.important2 {
+    box-shadow: @shadow3;
+  }
+
+  &.active:hover {
+    box-shadow: @shadow-hover;
+    transition: @shadow-transition;
+  }
+
+  a .panel-body {
+    color: black;
+  }
+
+  .panel-body {
+    padding: 15px;
+
+    &.active-content {
+      padding: 10px;
+      margin: 5px;
+    }
+
+    &.active-content:hover {
+      box-shadow: @shadow1;
+      transition: @shadow-transition;
+    }
+  }
 
   .panel-footer {
+    border-top: @border-light;
     border-radius: 0;
+    background-color: transparent;
+    .small {
+      font-size: 0.8rem;
+    }
   }
 
   &.blue {
@@ -43,8 +87,11 @@
         color: @lightest-blue;
       }
     }
-  }
 
+    &:after {
+      box-sizing: border-box;
+    }
+  }
 
   &.green {
     background-color: @middle-green;
@@ -224,4 +271,32 @@
   padding: 5px 10px 0 10px;
   font-size: 0.8em;
   font-weight: 600;
+}
+
+/* 4 - Custom well */
+.well-custom {
+  border-top: @border-light;
+  padding: 5px 10px 5px 10px;
+
+  & .well-custom {
+    border-top: @border-light;
+  }
+
+}
+
+.well-sm {
+  .well-sm-title {
+    display: inline-block;
+    float: left;
+    width: 30%;
+  }
+
+  a .well-sm-content {
+    color: @text;
+  }
+
+  .well-sm-content {
+    display: inline-block;
+    width : 70%;
+  }
 }

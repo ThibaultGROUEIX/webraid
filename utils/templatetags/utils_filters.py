@@ -26,7 +26,7 @@ def form_control(value):
 
 
 @register.filter(name='truncatemod')
-def truncatemod(value, max_length=200):
+def truncatemod(value, max_length=140):
     if len(value) > max_length:
         truncd_val = value[:max_length]
         if not len(value) == max_length + 1 and value[max_length + 1] != " ":

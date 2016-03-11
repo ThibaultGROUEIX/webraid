@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load helper_tags %}
+{% load prettify %}
 {% load utils_filters %}
 {% block content %}
     <div class="panel">
@@ -8,43 +9,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-12 col-sm-12">
-            <div class="panel blue">
-                <div class="panel-heading">
-                    Tes derniers posts
-                </div>
-                <div class="panel-body">
-                    {% for post_w_a in posts %}
-                        <div class="well">
-                            <span class="tag tag-light">
-                                {% pretty_thread_path post_w_a.post.thread %}
-                            </span>
-                            :
-                            {{ post_w_a.post.text_content | truncatemod }}
-                            {% if post_w_a.answers != Null %}
-                                {% for answer in post_w_a.answers %}
-                                    <p>{% pretty_user_tag answer.author %}
-                                        {{ answer.text_content | truncatemod }}</p>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel green">
-                <div class="panel-heading">
-                    Dernière activité sur le forum
-                </div>
                 <div class="panel-body">
                     {% for twp in threads_last %}
-                        <div class="well">
-                            <span class="tag tag-light">
+                        <div class="well-custom">
+                            <span class="bookface black">
                                 {% pretty_thread_path twp.thread %}
                             </span> :
                             {% for post in twp.first_posts %}
-                                <p>{% pretty_user_tag post.author %} {{ post.text_content | truncatemod }}</p>
+                                {% pretty_short_post post %}
                             {% endfor %}
                         </div>
                     {% endfor %}

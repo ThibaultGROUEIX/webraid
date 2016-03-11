@@ -3,6 +3,10 @@ from notification_manager import models as nm_models
 
 
 def emit_notice(notice_content):
+    """
+    Dispatch a notice content to all backends queues and receivers.
+    :param notice_content: an instance of a class extending a NotificationContextProviderMixin
+    """
     # Get all the followers for this notice
     users_preferences = notice_content.get_preference_query()
     send_now = []
@@ -16,15 +20,11 @@ def emit_notice(notice_content):
         # Don't send the notification if the user is the emitter !
         if user != notice_content.emitter:
             notice = {'user': user, 'prefs': prefs, 'content': notice_content}
-            if prefs.get_dict()['real_time']:
-                send_now.append(notice)
-            elif prefs.get_dict()['daily']:
-                send_today.append(notice)
-            elif prefs.get_dict()['weekly']:
-                send_week.append(notice)
-
-    for notice in send_now:
-        if notice['prefs'].get_dict()['email']:
-            nm_models.EnqueuedEmailNotice.queue(notice['user'],
-                                                notice['content'].new_object,
-                                                notice['content'])
+            in_rt = prefs.get_dict()['real_time']
+            in_daily_digest = prefs.get_dict()['daily']
+            in_weekly_digest = prefs.get_dict()['weekly']
+            nm_models.EnqueuedEmailNotice.enqueue(notice['user'],
+                                                notice['content'],
+                                                in_rt,
+                                                in_daily_digest,
+                                                in_weekly_digest)
