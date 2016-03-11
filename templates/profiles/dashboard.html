@@ -9,23 +9,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-12 col-sm-12">
-            <div class="panel blue">
-                <div class="panel-heading">
-                    Tes derniers posts
-                </div>
-                <div class="panel-body">
-                    {% for post_w_a in posts %}
-                        {% pretty_post_w_a post_w_a %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="panel green">
-                <div class="panel-heading">
-                    Dernière activité sur le forum
-                </div>
                 <div class="panel-body">
                     {% for twp in threads_last %}
                         <div class="well-custom">

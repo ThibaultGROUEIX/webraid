@@ -91,6 +91,8 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to='profiles/profile_pics/%Y/%m',
                                         max_length=150,
                                         null=True)
+    thumbnail_picture = models.ImageField(upload_to='profiles/thumbnails/%Y/%m',
+                                          null=True)
 
     class Meta:
         app_label = 'profiles'
@@ -98,9 +100,10 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('profiles.views.view_profile', args=[self.user.id])
 
-
     def __str__(self):
         return self.user.__str__()
+
+
 
 
     @staticmethod

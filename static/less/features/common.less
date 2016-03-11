@@ -46,8 +46,15 @@
   }
 }
 
-/* Tags */
+a.tag {
+  &:hover {
+    box-shadow: @shadow2;
+    transition: @shadow-transition;
+    color: white;
+  }
+}
 
+/* Tags */
 .tag {
   display: inline-block;
   background-color: @middle-blue;
