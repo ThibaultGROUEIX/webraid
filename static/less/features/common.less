@@ -59,53 +59,28 @@ a.tag {
   display: inline-block;
   background-color: @middle-blue;
   color: @lightest-grey;
-  font-weight: 700;
-  font-size: 11px;
-  padding: 0 3px 0 3px;
-  margin: 0 5px 0 5px;
+  font-weight: @font-weight-bold-light;
+  font-size: @font-size-byline;
+  padding: 1px 4px 1px 4px;
+  margin: 5px 5px 5px 5px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
 
-  &.tag-green {
-    background-color: @vibrant-light-green;
-    color: @dark-grey;
-  }
-  /* For users */
-  &.tag-orange {
-    background-color: @middle-orange;
-    color: white;
-
-  }
-
-  &.tag-red {
-    background-color: @middle-red;
-    color: white;
-  }
-
-  &.tag-info {
-    background-color: @light-blue;
-    color: whitesmoke;
-  }
-
-  &.tag-light {
-    background-color: @lightest-grey;
-    border: 1px solid @middle-grey;
-    color: black;
-
-    a {
-      text-transform: uppercase;
-      color: @middle-blue;
-
-      &:hover {
-        color: darken(@middle-blue, 10%);
-      }
+  &.clickable {
+    cursor: pointer;
+    &:hover {
+      transition: @shadow-transition;
+      box-shadow: @shadow3;
     }
   }
 
-  .info {
-    margin: 0 -3px 0 0;
-    padding: 0 3px 0 3px;
+  &.user{ background-color: @middle-lime; color: #000;}
+  &.other{ background-color: @middle-grey; }
+
+  &>.info {
+    margin: 0 -3px 0 3px;
+    padding: 0 3px 0 4px;
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.2);
   }

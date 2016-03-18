@@ -27,8 +27,9 @@
     transition: @shadow-transition;
   }
 
-  a .panel-body {
-    color: black;
+  &>.panel-heading {
+    border-bottom: @border-light;
+    border-radius: 0;
   }
 
   .panel-body {
@@ -49,120 +50,79 @@
     border-top: @border-light;
     border-radius: 0;
     background-color: transparent;
-    .small {
-      font-size: 0.8rem;
-    }
   }
 
-  &.blue {
-    background-color: @middle-blue;
-    color: white;
-
-    .panel-footer {
-      background-color: darken(@middle-blue, 10%);
-    }
-
-    .panel-body {
-      background-color: white;
-      color: black;
-    }
-
-    .panel-heading.active {
-      background-color: @middle-blue;
-      color: white;
-
-      &:hover {
-        background-color: darken(@middle-blue, 10%);
-        color: white;
-      }
-    }
-
-    .panel-actions > a {
-      background-color: @middle-blue;
-      color: @lightest-blue;
-      padding: 10px 5px 10px 5px;
-
-      &:hover {
-        background-color: darken(@middle-blue, 10%);
-        color: @lightest-blue;
-      }
-    }
-
-    &:after {
-      box-sizing: border-box;
+  &>.active {
+    cursor: pointer;
+    &:hover {
+      transition: @shadow-transition;
+      box-shadow: @shadow-hover;
+      filter: brightness(70%);
     }
   }
-
-  &.green {
-    background-color: @middle-green;
-    color: white;
-
-    .panel-footer {
-      background-color: darken(@middle-green, 10%);
-    }
-
-    .panel-body {
-      background-color: white;
-      color: black;
-    }
-
-    .panel-heading.active {
-      background-color: @middle-green;
-      color: white;
-
-      &:hover {
-        background-color: darken(@middle-green, 10%);
-        color: white;
-      }
-    }
-
-    .panel-actions > a {
-      background-color: @middle-green;
-      color: @light-green;
-      padding: 10px 5px 10px 5px;
-
-      &:hover {
-        background-color: darken(@middle-green, 10%);
-        color: @light-green;
-      }
-    }
-  }
-}
-
-/* 2-General panels */
-
-.panel-heading.active {
-  background-color: @lightest-grey;
-  color: @dark-grey;
-
-  &:hover {
-    background-color: darken(@lightest-grey, 10%);
-    color: black;
-  }
-}
 
 /* Actions in a panel */
+  .panel-actions {
+     position: relative;
+     height: 0;
+     & > .action {
+       float: right;
+       margin: 10px;
+     }
 
-.panel > .panel-actions {
-  position: relative;
-  height: 0;
+     & > .close {
+       float: right;
+       margin: 10px;
+       padding: 6px;
+       font-weight: normal;
+     }
+   }
 }
 
-.panel > .panel-actions > a,
-.panel > .panel-actions > span {
-  display: inline-block;
-  float: right;
-  height: 45px;
-}
+/* Card */
+.card {
+  display: block;
+  box-shadow: @shadow1;
+  box-sizing: content-box;
+  line-height: normal;
+  padding: 10px;
+  margin: 5px;
 
-.panel > .panel-actions > a {
-  background-color: @lightest-grey;
-  color: @light-blue;
-  padding: 10px 5px 10px 5px;
+  &>.card-title {
+    border-bottom: @border-light;
+    font-size: @font-size-title;
+  }
 
-  &:hover {
-    background-color: darken(@lightest-grey, 20%);
-    color: @middle-blue;
+  &>.card-summary {
+    padding: 5px 5px 5px 10px;
+    border-left: 3px inset transparent;
+    cursor: pointer;
+
+    &.content-visible {
+      border-left: 3px inset @middle-blue;
+    }
+
+    &>.card-expand {
+      float: right;
+    }
+
+    &:hover {
+      transition: all 200ms ease-in-out;
+      border-left: 3px inset @middle-blue;
+      &>.card-expand {
+        display: inline-block;
+      }
+    }
+  }
+
+  &>.card-content {
+    display: none;
+    border-left: 3px inset @middle-blue;
+    padding: 10px;
+  }
+
+  &>.card-footer {
+    border-top: @border-light;
   }
 }
 

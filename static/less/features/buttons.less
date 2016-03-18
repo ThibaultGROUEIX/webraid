@@ -8,63 +8,90 @@
 
 .btn {
   border-radius: 3px;
+  border: 0;
   box-shadow: none;
   background-color: @light-blue;
   color: white;
   font-weight: 700;
-}
+  outline: 0;
 
-.btn:hover {
-  transition: transform 500ms ease-in;
-  color: white;
-  background-color: darken(@light-blue, 10%);
-  box-shadow: @shadow1;
-}
+  &:hover {
+    transition: transform 500ms ease-in;
+    color: white;
+    background-color: darken(@light-blue, 10%);
+    box-shadow: @shadow1;
+  }
 
-.btn-danger {
-  border-bottom: 2px solid @middle-red;
-  color: #fff;
-  background-color: @light-red;
-}
+  &:active &:focus {
+    color:white;
+  }
 
-.btn-danger:hover {
-  background-color: @middle-red;
-  border-bottom: 2px solid @middle-red;
-}
+  &.inactive {
+    background-color: @light-grey;
+    color: @middle-grey;
+    cursor: default;
+    &:hover{
+      transition: none;
+      box-shadow: none;
+    }
+  }
 
-.btn-success {
-  border-bottom: 2px solid @middle-green;
-  background-color: @light-green;
-}
+  /* Different sizes for buttons */
+  &.small{
+    padding: 2px 5px 2px 5px;
+    border-radius: 2px;
+    margin: 1px;
+    font-size: @font-size-byline;
+  }
+  &.big {
+    padding: 9px 18px 9px 18px;
+    border-radius: 3px;
+    margin: 3px;
+    font-size: @font-size-subtitle;
+  }
+  &.huge {
+    padding: 18px 36px 18px 36px;
+    border-radius: 3px;
+    margin: 5px;
+    font-size: @font-size-title;
+  }
 
-.btn-success:hover {
-  background-color: @middle-green;
-}
+  &.fullwidth {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin: auto;
+  }
 
-.btn-discrete {
-  border-bottom: 2px solid rgba(100, 100, 100, 0.25);
-  color: rgba(255, 255, 255, 0.25);
-  background-color: rgba(0, 0, 0, 0.25);
-}
+  /* Colored buttons */
+  &.danger {  background-color: @middle-red;    &:hover{  background-color: darken(@middle-red, 10%);}}
+  &.discreet {background-color: @middle-grey;   &:hover { background-color: darken(@middle-grey, 10%);}}
+  &.success { background-color: @middle-green;  &:hover { background-color: darken(@middle-green, 10%);}}
+  &.warning { background-color: @middle-orange; &:hover{  background-color: darken(@middle-orange, 10%);}}
 
-.btn-discrete:hover {
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(0, 0, 0, 0.5);
-}
+  /* Wire buttons */
+  &.wire{
+    border: 2px solid @middle-blue;
+    background-color: transparent;
+    color: @middle-blue;
+    &.danger   {  border-color: @middle-red;    color: @middle-red;   }
+    &.discreet {  border-color: @middle-grey;   color: @middle-grey;  }
+    &.success  {  border-color: @middle-green;  color: @middle-green; }
+    &.warning  {  border-color: @middle-orange; color: @middle-orange;}
+    &:hover { background-color: rgba(0, 0, 0, 0.1);   }
+  }
 
-/* Small buttons */
-.btn-sm {
-  margin-left: 5px;
-  border: none;
-  border-radius: 2px;
-  padding: 2px 4px 2px 4px;
-  box-shadow: none;
-  font-weight: 600;
-  background-color: @lightest-grey;
-  color: @middle-blue;
-}
-
-.btn-sm:hover {
-  color: darken(@middle-blue, 20%);
-  background-color: darken(@lightest-grey, 20%);
+  /* Round buttons */
+  &.round {
+    border-radius: 25px;
+    font-size: @font-size-body;
+    height: 50px;
+    margin: 5px;
+    padding: 16px 0 16px 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+    &.i { margin: auto;}
+  }
 }

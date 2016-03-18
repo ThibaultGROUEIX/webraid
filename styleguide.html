@@ -1,0 +1,344 @@
+<html lang="en-us">
+<head>
+  <title>Raid2012 style guide</title>
+  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="static/font-awesome/font-awesome.css">
+</head>
+<body>
+  <div id="page-wrapper">
+    <header>
+      <nav class="navbar st-navbar navbar-fixed-top">
+          <div class="container">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                          data-target="#st-navbar-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a href="#"><div id="navbar-logo"></div></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="st-navbar-collapse">
+
+                  <div id="path-indicator" class="navbar-nav nav navbar-left">
+                      Where you are.
+                  </div>
+
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#">forum</a></li>
+                      <li><a id="homelink" href="#"><i class="fa fa-fw fa-home"></i>Accueil</a></li>
+                      <li><a href="#"><i class="fa fa-fw fa-group"></i></a></li>
+                      <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                          aria-haspopup="true" aria-expanded="false">
+                          USER.NAME<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#"><i class="fa fa-fw fa-user"></i> Modifier mon profil</a></li>
+                          <li><a href="#"><i class="fa fa-fw fa-lock"></i> Changer mon mot de passe</a></li>
+                          <li><a href="#"><i class="fa fa-fw fa-newspaper-o"></i> Gérer mes notifications</a></li>
+                        </ul>
+                      </li>
+                      <li><a id="signout" href="#"><i class="fa fa-fw fa-sign-out"></i></a></li>
+                  </ul>
+              </div>
+              <!-- /.navbar-collapse -->
+          </div>
+          <!-- /.container -->
+        </nav>
+      </header>
+      <section id="content">
+        <div class="panel" id="fonts">
+          <div class="panel-heading">
+            <h1>Fonts & Text</h1>
+          </div>
+          <div class="row panel-body">
+            <div class="col-lg-6">
+              <h1>This is a headline</h1>
+              <h2>There, a subheadline</h2>
+              <h3>Nav 1</h3>
+            </div>
+            <div class="col-lg-6">
+              <h2>Lorem ipsum.</h2>
+              <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                quae ab illo inventore veritatis et quasi architecto beatae vitae
+                 dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                 sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                 dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
+                 quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                  adipisci velit, sed quia non numquam eius modi tempora incidunt
+                  ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim
+                  ad minima veniam, quis nostrum exercitationem ullam corporis s
+                  uscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+              </p>
+              <p class="byline">
+                Addtional information, but not so important.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="panel" id="colors">
+          <div class="panel-heading">
+            <h1>Colors</h1>
+          </div>
+          <div class="panel-body row">
+            <div class="col-lg-4">
+                <h2>Main colors</h2>
+                <p>
+                  <div class="swatch">White backgrounds.</div>
+                  <div class="swatch lime">Users.</div>
+                  <div class="swatch blue">Tags.</div>
+                  <div class="swatch blue0">Accents, infos..</div>
+                </p>
+            </div>
+            <div class="col-lg-4">
+              <h2>Accent colors</h2>
+              <p>
+                <div class="swatch blue">  Blue - info & link</div>
+                <div class="swatch red">Red - danger</div>
+                <div class="swatch orange">Orange - warning</div>
+                <div class="swatch green">Green - success</div>
+                <p class="swatch">Accent colors are dark, use a white text with it !</p>
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <h2>Shades</h2>
+              <p>
+                <div class="swatch grey1">Lightest grey</div>
+                <div class="swatch grey2">Light grey</div>
+                <div class="swatch grey3">Grey</div>
+                <div class="swatch grey4">Dark grey</div>
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel" id="components">
+        <div class="panel-heading grey1">
+          <h1>Components</h1>
+        </div>
+        <div class="panel-body grey1">
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Buttons</h2>
+            </div>
+            <div class="panel-body row" id="buttons">
+              <div class="col-lg-6">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td colspan="5"><h3>Colors</h3></td>
+                    </tr>
+                    <tr>
+                      <td><input class="btn" value="Default" type="submit"/></td>
+                      <td><input class="btn success" value="Success" type="submit"></td>
+                      <td><input class="btn warning" value="Warning" type="submit"></td>
+                      <td><input class="btn danger" value="Danger" type="submit"></td>
+                      <td><input class="btn discreet" value="Discrete" type="submit"></td>
+                    </tr>
+                    <tr><td colspan="5"><h3>Active / inactive</h3></td></tr>
+                    <tr>
+                      <td><input class="btn" type="submit" value="Active"/></td>
+                      <td><input class="btn inactive" type="submit" value="Inactive"/></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-lg-6">
+                <table>
+                  <tbody>
+                    <tr><td colspan="5"><h3>Sizes</h3></td></tr>
+                    <tr>
+                      <td><input class="btn small" type="submit" value="Small"/></td>
+                      <td><input class="btn" type="submit" value="Default"/></td>
+                      <td><input class="btn big" type="submit" value="Big"/></td>
+                      <td><input class="btn huge" type="submit" value="Huge"/></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-lg-12">
+                <h3>Full width button</h3>
+                <input class="btn fullwidth" type="submit" value="Fullwidth"/>
+              </div>
+              <div class="col-lg-12">
+                <h3>Other shapes</h3>
+                <div class="row">
+                  <div class="col-lg-6">
+                    Framed buttons:
+                    <input class="btn wire" type="submit" value="Frame"/>
+                    <a class="btn wire small success" href="#buttons"><i class="fa fa-fw fa-shield"></i>Frame</a>
+                  </div>
+                    <div class="col-lg-6>">
+                      Round buttons:
+                      <a class="btn round" href="#buttons"><i class="fa fa-fw fa-bolt"></i></a>
+                      <a class="btn round wire" href="#buttons"><i class="fa fa-fw fa-plus"></i></a>
+                      (can only contain an icon)
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading"><h2>Tags</h2></div>
+            <div class="panel-body">
+              <p> <h3>Clickable tags</h3>
+                <span class="tag clickable">Basic tag</span>
+                <span class="tag clickable user">User Tag</span>
+                <span class="tag clickable discreet">Other tag</span>
+                <span class="tag clickable red">Any colour tag</span>
+              </p>
+              <p><h3>Inactive tags</h3>
+                <span class="tag">Basic tag</span>
+                <span class="tag user">User Tag</span>
+                <span class="tag discreet">Other tag</span>
+                <span class="tag pink">Any colour tag</span>
+              </p>
+              <p><h3>Some extras</h3>
+                <span class="tag clickable">Price or count<span class="info">3$</span></span>
+              </p>
+            </div>
+          </div>
+          <div class="panel" id="panels">
+            <div class="panel-heading"><h2>Panels & Cards</h2>(You're actually in a panel !)</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="panel blue">
+                    <div class="panel-heading active">Active panel heading</div>
+                    <div class="panel-body active">
+                      <a href="http://generator.lorem-ipsum.info/">Lorem ipsum</a><br/>
+                      Lorem ipsum dolor sit amet, eu virtute alterum senserit ius,
+                      te vix tritani praesent maluisset, percipitur inciderint
+                      accommodare nec ei. Cu sed mundi feugiat. Alia accusata
+                      pericula vim et, no sit melius alienum repudiare. Id vel
+                      legere maluisset iracundia, id eripuit nonumes qualisque
+                      nec, vis movet clita ne. Ei vis audire incorrupte, at duo
+                      falli aperiri, nec perfecto constituto eloquentiam id.
+                      Gloriatur reformidans ad eum, te eam mollis feugiat quaestio.
+                      Cum mollis aliquip ut, est an ridens possit intellegat,
+                      facer saperet cu pri.
+                    </div>
+                    <div class="panel-footer active">Active panel footer</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="panel">
+                    <div class="panel-actions">
+                      <a class="action btn discreet" href="#panels"><i class="fa fa-fw fa-save"></i> Fake save</a>
+                    </div>
+                    <div class="panel-heading">Panel with actions</div>
+                    <div class="panel-body">
+                      <img width="100%"src="static/images/banner_mail_600.png" alt="Mail Banner"/>
+                    </div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel-actions"><span class="close"><i class="fa fa-fw fa-times"></i></span></div>
+                    <div class="panel-heading">Panel with close action</div>
+                    <div class="panel-body">
+                      Qui lorem corrumpit ei, pri hinc legimus oportere at, in
+                      idque ullum mei. Eius melius praesent in sit, at pro exerci
+                      disputando, ad vide repudiandae est.
+                      Mandamus cotidieque disputando te ius, mel ei modo minim nonumy.
+                      Quo ad mazim euripidis, option copiosae menandri ne his.
+                    </div>
+                    <div class="panel-footer">
+                      A simple footer.
+                      <a href="#panels" class="btn wire small"><i class="fa fa-fw fa-info"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3>Cards</h3>
+              Cards specific panels with much less customization possible, but more advanced animations.
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-title">
+                      This content matters.
+                    </div>
+                    <div class="card-summary">
+                      A little summary always helps.
+                      <span class="card-expand"><i class="fa fa-fw fa-chevron-down"></i></span>
+                    </div>
+                    <div class="card-content">
+                      <h3>Lorem ipsum</h3>
+                      <p>Lorem ipsum dolor sit amet, soluta lucilius consetetur per an.
+                        Eam velit doming splendide ne, probo rebum sapientem ei eam.
+                        Virtute facilisi explicari eam eu, cu case assentior deterruisset mel.
+                        Cu vide sapientem intellegebat eam, qui amet aliquid ea.
+                        Eu quando docendi est, splendide neglegentur no vis, mea
+                        soleat docendi et. Usu nibh quando noluisse ea, ei has
+                        augue verear urbanitas. Molestie mediocrem iracundia has no,
+                         per eu velit labore quodsi.
+                        </p>
+                        <h6>Posted on January 1st by John Doe.</h6>
+                        <span class="tag">boring lorem</span>
+                        <span class="tag other">ipsum</span>
+                    </div>
+                    <div class="card-footer">
+                      <span class="tag"><i class="fa fa-fw fa-thumbs-up"></i><span class="info">6</span></span>
+                      <span class="tag red"><i class="fa fa-fw fa-heart"></i><span class="info">10</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-title">
+                      Cards hide large contents.
+                    </div>
+                    <div class="card-summary">
+                      Displaying a small summary.
+                      <span class="card-expand"><i class="fa fa-fw fa-chevron-down"></i></span>
+                    </div>
+                    <div class="card-content">
+                      <h3>Lorem ipsum</h3>
+                      <p>Lorem ipsum dolor sit amet, soluta lucilius consetetur per an.
+                        Eam velit doming splendide ne, probo rebum sapientem ei eam.
+                        Virtute facilisi explicari eam eu, cu case assentior deterruisset mel.
+                        Cu vide sapientem intellegebat eam, qui amet aliquid ea.
+                        <img width="100%" src="static/images/banner_mail_600.png" alt="Mail banner"/>
+                        </p>
+                        <h6>Posted on January 1st by John Doe.</h6>
+                        <span class="tag">boring lorem</span>
+                        <span class="tag other">ipsum</span>
+                        <p>
+                          <h2>You cant put anything here !</h2>
+                          <form action="#" class="form">
+                            <input type="text" value="Name"/>
+                            <input type="submit" value="Submit"/>
+                          </form>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                      <span class="tag"><i class="fa fa-fw fa-thumbs-up"></i><span class="info">6</span></span>
+                      <span class="tag red"><i class="fa fa-fw fa-heart"></i><span class="info">10</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel" id="icons">
+        <div class="panel-heading"><h1><i class="fa fa-fw fa-plus-circle"></i> Icons</h1></div>
+        <div class="panel-body">
+          <h2>Font awesome <i class="fa fa-fw fa-flag"></i></h2>
+          Check all the icons <a href="https://fortawesome.github.io/Font-Awesome/">here</a>.
+          <h2>Custom icons</h2>
+          None yet ...
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/scripts.js"></script>
+<script type="text/javascript" src="static/js/animations.js"></script>
+</html>
