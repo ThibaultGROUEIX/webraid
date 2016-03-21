@@ -102,7 +102,7 @@ label {
 
 /* 2 - Navbar */
 nav.navbar.navbar-fixed-top {
-  background-color: @middle-green;
+  background-color: @middle-blue;
   box-shadow: @shadow2;
   color: #fff;
 
@@ -113,14 +113,31 @@ nav.navbar.navbar-fixed-top {
     color: #fff;
   }
 
-  & ul.nav>li, & ul.nav>li>a {
+  & ul.nav>li>a, & ul.nav>li>span {
     color: #fff;
     font-weight: @font-weight-bold-light;
     line-height: 20px;
+    padding: 15px;
     height: 50px;
 
     &:hover, &:focus, &:active {
-      background-color: darken(@middle-green, 10%);
+      background-color: darken(@middle-blue, 10%);
+    }
+  }
+
+  & .open>a {
+    background-color: darken(@middle-blue, 10%);
+  }
+
+  & .dropdown-menu {
+    background-color: @middle-blue;
+    color: #fff;
+
+    &>li>a {
+      color: #fff;
+      &:hover {
+        background-color: darken(@middle-blue, 10%);
+      }
     }
   }
 }

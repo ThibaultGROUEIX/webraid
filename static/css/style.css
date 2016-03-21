@@ -1534,7 +1534,7 @@ label {
 }
 /* 2 - Navbar */
 nav.navbar.navbar-fixed-top {
-  background-color: #339900;
+  background-color: #0062C0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   color: #fff;
 }
@@ -1544,20 +1544,34 @@ nav.navbar.navbar-fixed-top #path-indicator {
   padding: 15px;
   color: #fff;
 }
-nav.navbar.navbar-fixed-top ul.nav > li,
-nav.navbar.navbar-fixed-top ul.nav > li > a {
+nav.navbar.navbar-fixed-top ul.nav > li > a,
+nav.navbar.navbar-fixed-top ul.nav > li > span {
   color: #fff;
   font-weight: 600;
   line-height: 20px;
+  padding: 15px;
   height: 50px;
 }
-nav.navbar.navbar-fixed-top ul.nav > li:hover,
 nav.navbar.navbar-fixed-top ul.nav > li > a:hover,
-nav.navbar.navbar-fixed-top ul.nav > li:focus,
+nav.navbar.navbar-fixed-top ul.nav > li > span:hover,
 nav.navbar.navbar-fixed-top ul.nav > li > a:focus,
-nav.navbar.navbar-fixed-top ul.nav > li:active,
-nav.navbar.navbar-fixed-top ul.nav > li > a:active {
-  background-color: #226600;
+nav.navbar.navbar-fixed-top ul.nav > li > span:focus,
+nav.navbar.navbar-fixed-top ul.nav > li > a:active,
+nav.navbar.navbar-fixed-top ul.nav > li > span:active {
+  background-color: #00488d;
+}
+nav.navbar.navbar-fixed-top .open > a {
+  background-color: #00488d;
+}
+nav.navbar.navbar-fixed-top .dropdown-menu {
+  background-color: #0062C0;
+  color: #fff;
+}
+nav.navbar.navbar-fixed-top .dropdown-menu > li > a {
+  color: #fff;
+}
+nav.navbar.navbar-fixed-top .dropdown-menu > li > a:hover {
+  background-color: #00488d;
 }
 /* 3 - Color classes */
 .swatch {
