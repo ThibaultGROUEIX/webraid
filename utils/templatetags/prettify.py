@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.simple_tag(name="pretty_tag")
 def pretty_tag(tag):
-    return "<a class=\"tag\" href=\"" + tag.get_absolute_url() + "\">" + tag.tag + "</a>"
+    return "<a class=\"tag clickable\" href=\"" + tag.get_absolute_url() + "\">" + tag.tag + "</a>"
 
 
 @register.simple_tag(name="pretty_post")
@@ -47,7 +47,7 @@ def pretty_user_tag(user_profile, additional_info=None):
     return Bs(
             "<a href=\"" +
             user_profile.get_absolute_url() +
-            "\" class =\"tag tag-orange active\" itemprop=\"author\">" +
+            "\" class =\"tag user clickable\" itemprop=\"author\">" +
             user_profile.user.username +
             add +
             "</span>"

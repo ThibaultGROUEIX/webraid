@@ -8,70 +8,71 @@
     {{ thread_category.name }}
 {% endblock %}
 {% block content %}
-    <div>
+    <div class="row">
         {% for thread, following in thread_list.items %}
-            <div class="panel panel-default">
-                {% if thread == edit_thread %}
-                    <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
-                          method="POST"
-                          enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="panel-heading bookface">
-                            {{ edit_thread_form.title | bs_form_input }}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="panel">
+                    {% if thread == edit_thread %}
+                        <form action="{% url 'detail_thread_category_edit_thread' slug edit_thread.pk %}"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="panel-heading bookface">
+                                {{ edit_thread_form.title | bs_form_input }}
+                            </div>
+                            <div class="panel-body">
+                                {{ edit_thread_form.tags | bs_form_input_h:"Tags" }}
+                            </div>
+                            <div class="panel-footer">
+                                <input type="submit" class="btn btn-default" value="Valider" name="edit-thread">
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="panel-actions">
+                            {% if request.user.is_superuser %}
+                                <a class="action" href="{% url 'delete_thread' thread.slug %}"><i
+                                        class="fa fa-fw fa-trash"></i></a>
+                            {% endif %}
+                            {% if not following %}
+                                <a class="action" href="{% url 'follow_thread' thread.slug %}">
+                                    <i class="fa fa-fw fa-eye"></i> Suivre
+                                </a>
+                            {% else %}
+                                <a class="action" href="{% url 'unfollow_thread' thread.slug %}">
+                                    <i class="fa fa-fw fa-eye-slash"></i> Ne plus suivre
+                                </a>
+                            {% endif %}
                         </div>
-                        <div class="panel-body">
-                            {{ edit_thread_form.tags | bs_form_input_h:"Tags" }}
-                        </div>
-                        <div class="panel-footer">
-                            <input type="submit" class="btn btn-default" value="Valider" name="edit-thread">
-                        </div>
-                    </form>
-                {% else %}
-                    <div class="panel-actions">
-                        {% if request.user.is_superuser %}
-                            <a href="{% url 'delete_thread' thread.slug %}"><i class="fa fa-fw fa-trash"></i></a>
-                        {% endif %}
-                        {% if not following %}
-                            <a href="{% url 'follow_thread' thread.slug %}">
-                                <i class="fa fa-fw fa-eye"></i> Suivre
-                            </a>
-                        {% else %}
-                            <a href="{% url 'unfollow_thread' thread.slug %}">
-                                <i class="fa fa-fw fa-eye-slash"></i> Ne plus suivre
-                            </a>
-                        {% endif %}
-                    </div>
-                    <a href="{{ thread.get_absolute_url }}">
-                        <div class="panel-heading active">
+                        <a class="panel-heading active" href="{{ thread.get_absolute_url }}">
                             <span class="bookface">{{ thread.title }}</span>
                             {% if following %}
                                 <span class="tag tag-green"> abonné
                                     <span class="info"><i class="fa fa-fw fa-eye"></i></span>
                                 </span>
                             {% endif %}
-                        </div>
-                    </a>
-                    <div class="panel-body">
-                        {% if thread.tags != None and thread.tags.count > 0 %}
-                            Tags : {% for tag in thread.tags.all %}{% pretty_tag tag %}{% endfor %} <br/>
-                            Utilisateurs :
-                            {% for usr, count in thread.get_tagged_users %}
-                                {% pretty_user_tag usr count %}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                    <div class="panel-footer">
-                        <a class="btn-sm" href="{% url 'detail_thread_category_edit_thread' slug thread.pk %}">
-                            <i class="fa fa-edit"></i> modifier
                         </a>
-                    </div>
-                {% endif %}
+                        <div class="panel-body">
+                            {% if thread.tags != None and thread.tags.count > 0 %}
+                                Tags : {% for tag in thread.tags.all %}{% pretty_tag tag %}{% endfor %} <br/>
+                                Utilisateurs :
+                                {% for usr, count in thread.get_tagged_users %}
+                                    {% pretty_user_tag usr count %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="panel-footer">
+                            <a class="btn-sm" href="{% url 'detail_thread_category_edit_thread' slug thread.pk %}">
+                                <i class="fa fa-edit"></i> modifier
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>
     <div class="panel">
         <div class="panel-heading">
-            <span class="panel-title"><i class="fa fa-fw fa-plus-circle"></i> Ajouter un fil de discussion</span>
+            <span class="title"><i class="fa fa-fw fa-plus-circle"></i> Ajouter un fil de discussion</span>
         </div>
         <div class="panel-body">
             <form action="{% url 'detail_thread_category' slug %}" method="POST" enctype="multipart/form-data">

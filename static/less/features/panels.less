@@ -27,9 +27,10 @@
     transition: @shadow-transition;
   }
 
-  &>.panel-heading {
+  & > .panel-heading {
     border-bottom: @border-light;
     border-radius: 0;
+    display: block;
   }
 
   .panel-body {
@@ -52,7 +53,7 @@
     background-color: transparent;
   }
 
-  &>.active {
+  & > .active {
     cursor: pointer;
     &:hover {
       transition: @shadow-transition;
@@ -61,22 +62,27 @@
     }
   }
 
-/* Actions in a panel */
+  /* Actions in a panel */
   .panel-actions {
-     position: relative;
-     height: 0;
-     & > .action {
-       float: right;
-       margin: 10px;
-     }
+    position: relative;
+    height: 0;
+    & > .action {
+      float: right;
+      margin: 10px;
+    }
 
-     & > .close {
-       float: right;
-       margin: 10px;
-       padding: 6px;
-       font-weight: normal;
-     }
-   }
+    & > .close {
+      float: right;
+      margin: 10px;
+      padding: 6px;
+      display: block;
+      opacity: 1;
+      color: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      text-shadow: none;
+    }
+  }
 }
 
 /* Card */
@@ -87,42 +93,48 @@
   line-height: normal;
   padding: 10px;
   margin: 5px;
+  min-height: 300px;
 
-  &>.card-title {
+  & .card-title {
+    margin: -10px -10px 0 -10px;
+    padding: 10px;
     border-bottom: @border-light;
     font-size: @font-size-title;
   }
 
-  &>.card-summary {
+  & > .card-summary {
     padding: 5px 5px 5px 10px;
     border-left: 3px inset transparent;
-    cursor: pointer;
-
+    &.active {
+      cursor: pointer;
+    }
     &.content-visible {
       border-left: 3px inset @middle-blue;
     }
 
-    &>.card-expand {
+    & > .card-expand {
       float: right;
     }
 
-    &:hover {
+    &.active:hover {
       transition: all 200ms ease-in-out;
       border-left: 3px inset @middle-blue;
-      &>.card-expand {
+      & > .card-expand {
         display: inline-block;
       }
     }
   }
 
-  &>.card-content {
+  & > .card-content {
     display: none;
     border-left: 3px inset @middle-blue;
     padding: 10px;
   }
 
-  &>.card-footer {
+  & > .card-footer {
     border-top: @border-light;
+    bottom: 10px;
+    padding: 0 0 0 5px;
   }
 }
 
@@ -131,6 +143,7 @@
   margin-bottom: 10px;
   position: relative;
   background-color: white;
+  box-shadow: @shadow1;
 
   /* style for posts posted by the user */
   &.self {
@@ -257,6 +270,6 @@
 
   .well-sm-content {
     display: inline-block;
-    width : 70%;
+    width: 70%;
   }
 }

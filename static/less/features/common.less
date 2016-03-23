@@ -46,14 +46,6 @@
   }
 }
 
-a.tag {
-  &:hover {
-    box-shadow: @shadow2;
-    transition: @shadow-transition;
-    color: white;
-  }
-}
-
 /* Tags */
 .tag {
   display: inline-block;
@@ -72,6 +64,10 @@ a.tag {
     &:hover {
       transition: @shadow-transition;
       box-shadow: @shadow3;
+      text-decoration: none;
+      &>.info{
+        padding:0 3px -1px 4px;
+      }
     }
   }
 
@@ -79,8 +75,9 @@ a.tag {
   &.other{ background-color: @middle-grey; }
 
   &>.info {
-    margin: 0 -3px 0 3px;
-    padding: 0 3px 0 4px;
+    margin: -1px -4px -1px 4px;
+    padding: 1px 3px 1px 4px;
+    border-radius: 0 3px 3px 0;
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.2);
   }

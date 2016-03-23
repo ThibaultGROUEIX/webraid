@@ -4,7 +4,7 @@
 @import "features/common.less";
 @import "features/panels.less";
 @import "features/jquery-ui.less";
-
+@import "features/notes.less";
 /*
 1 - General settings : body, headlines, etc..
 2 - Navbars
@@ -14,9 +14,11 @@
 #navbar-logo {
   background-image: url("../images/logo_raid_2012.png");
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
 }
+
 #content {
   margin: 80px;
   padding-top: 30px;
@@ -90,7 +92,9 @@ a, a:hover, a:active, a:focus, button:focus {
   z-index: 9999;
 }
 
-
+#path-indicator a{
+  color: white;
+}
 
 input, textarea {
   outline: none;
@@ -113,7 +117,7 @@ nav.navbar.navbar-fixed-top {
     color: #fff;
   }
 
-  & ul.nav>li>a, & ul.nav>li>span {
+  & ul.nav > li > a, & ul.nav > li > span {
     color: #fff;
     font-weight: @font-weight-bold-light;
     line-height: 20px;
@@ -125,7 +129,7 @@ nav.navbar.navbar-fixed-top {
     }
   }
 
-  & .open>a {
+  & .open > a {
     background-color: darken(@middle-blue, 10%);
   }
 
@@ -133,7 +137,7 @@ nav.navbar.navbar-fixed-top {
     background-color: @middle-blue;
     color: #fff;
 
-    &>li>a {
+    & > li > a {
       color: #fff;
       &:hover {
         background-color: darken(@middle-blue, 10%);
@@ -149,21 +153,59 @@ nav.navbar.navbar-fixed-top {
   height: 50px;
   width: 100%;
 }
-.blue {  background-color: @middle-blue;  }
-.blue0 { background-color: @light-blue;   }
-.green { background-color: @middle-green; }
-.grey1 { background-color: @lightest-grey;}
-.grey2 { background-color: @light-grey;   }
-.grey4 { background-color: @dark-grey;    }
-.grey3 { background-color: @middle-grey;  }
-.lime {  background-color: @middle-lime;  }
-.orange {background-color: @middle-orange;}
-.pink {  background-color: @middle-pink;  }
-.red {  background-color: @middle-red;    }
-.white{ background-color: #fff;           }
+
+.blue {
+  background-color: @middle-blue;
+}
+
+.blue0 {
+  background-color: @light-blue;
+}
+
+.green {
+  background-color: @middle-green;
+}
+
+.grey1 {
+  background-color: @lightest-grey;
+}
+
+.grey2 {
+  background-color: @light-grey;
+}
+
+.grey4 {
+  background-color: @dark-grey;
+}
+
+.grey3 {
+  background-color: @middle-grey;
+}
+
+.lime {
+  background-color: @middle-lime;
+}
+
+.orange {
+  background-color: @middle-orange;
+}
+
+.pink {
+  background-color: @middle-pink;
+}
+
+.red {
+  background-color: @middle-red;
+}
+
+.white {
+  background-color: #fff;
+}
 
 .blue, .blue0, .green, .grey3, .grey4, .orange, .pink, .red {
-  & a {color: @lightest-blue;}
+  & a {
+    color: @lightest-blue;
+  }
   color: #fff;
 }
 
